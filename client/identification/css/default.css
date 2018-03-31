@@ -1,3 +1,63 @@
 body {
     margin: 0;
 }
+
+#centre {
+    text-align: center;
+    position: relative;
+}
+
+#fenetre {
+    border: solid 1px black;
+    position: absolute;
+    left: 50%;
+    margin-top: 10vh;
+    transform: translate(-50%);
+    border: outset 5px;
+    border-radius: 18px;
+    height: 280px;
+}
+
+/* BOUTONS */
+#btn_connexion {
+    font-size: 30px;
+    border-radius: 10px 0px 0px 0px;
+    margin: 0px;
+    padding: 15px;
+    border-style: inset;
+}
+
+#btn_inscription {
+    font-size: 30px;
+    border-radius:0px 10px 0px 0px;
+    margin: 0;
+    padding: 15px;     
+}
+
+.btn_validation {
+    margin-top: 10px;
+}
+
+/* FORMULAIRES */
+#inscription {
+    display: none;
+}
+
+.formulaire {
+    padding-top: 30px;
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+.champ {
+    font-size: 20px;
+    border:solid 1px;
+    width: 200px;
+    margin-bottom: 15px;
+}
+
+.labelForm {
+    padding-bottom: 0px;
+    font-size: 20px;
+}
