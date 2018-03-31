@@ -7,7 +7,7 @@ let server = http.createServer(function(req, res) {
             routes.identification.index(req, res);
             break;
         case '/client/identification/css/default.css':
-            routes.identification.defaultcss(req, res);
+            routes.identification.css.default(req, res);
             break;
         default:
             routes.identification.index(req, res);

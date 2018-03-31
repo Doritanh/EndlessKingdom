@@ -10,13 +10,15 @@ module.exports = {
                res.end();
            });
        },
-       defaultcss : function(req, res) {
-           fs.readFile('client/identification/css/default.css', (err, data) => {
-               if (err) throw err;
-               res.writeHead(200, {"Content-Type": "text/css"});
-               res.write(data);
-               res.end();
-           });
+       css : {
+           default : function(req, res) {
+               fs.readFile('client/identification/css/default.css', (err, data) => {
+                   if (err) throw err;
+                   res.writeHead(200, {"Content-Type": "text/css"});
+                   res.write(data);
+                   res.end();
+               });
+           }
        }
     }
 }
