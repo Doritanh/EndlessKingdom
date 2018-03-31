@@ -10,12 +10,37 @@
         <h1>Endless Kingdom</h1>
         <div id="fenetre">
             <input type="button" value="Connexion" id="btn_connexion"><input type="button" value="Inscription" id="btn_inscription">
-            <div id="connexion">
-                <p>test</p>
-            </div>
-            <div id="inscription">
 
+            <div id="connexion">
+                <form id="frm_connexion" method="POST" onsubmit="return false;" class="formulaire">
+                    <label class="labelForm">Pseudo</label>
+                    <input type="text" id="Cpseudo" name="pseudo" class="champ"/>
+
+                    <label class="labelForm">Mot De Passe</label>
+                    <input type="text" id="Cmdp" name="mdp" class="champ"/>
+
+                    <input type="submit" value="Connexion" class="btn_validation" id="btn_valideConnexion"/>
+                </form>
             </div>
+
+            <div id="inscription">
+                <form id="frm_inscription" method="POST" onsubmit="return false;" class="formulaire">
+                    <label class="labelForm">Pseudo</label>
+                    <input type="text" id="pseudo" name="pseudo" class = "champ"/>
+
+                    <label class="labelForm">Adresse Mail</label>
+                    <input type="text" id="adresse" name="adresse" class="champ"/>
+
+                    <label class="labelForm">Mot De Passe</label>
+                    <input type ="text" id="mdp" name="mdp" class="champ"/>
+
+                    <label class="labelForm">Confirmation</label>
+                    <input type ="text" id="confMdp" name="confMdp" class="champ"/>
+
+                    <input type="submit" value="S'inscrire" class="btn_validation" id="btn_valideInscription"/>
+                </form>
+            </div>
+
         </div>
     </div>
 </body>
