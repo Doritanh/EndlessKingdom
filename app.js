@@ -1,4 +1,3 @@
-<<<<<<< app.js
 const http = require('http');
 const routes = require('./server/routes');
 
