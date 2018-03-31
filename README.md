@@ -1,3 +1,4 @@
+<<<<<<< README.md
 # Endless Kingdom
 
 Voici le git du jeu. Il est utilisé que par nous -normalement -, et personne ne sera autorisé à le modifier.
