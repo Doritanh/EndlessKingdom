@@ -11,28 +11,29 @@ body {
     border: solid 1px black;
     position: absolute;
     left: 50%;
-    margin-top: 10vh;
+    margin-top: 150px;
     transform: translate(-50%);
     border: outset 5px;
     border-radius: 18px;
     height: 280px;
     transition: 0.4s;
+    min-width: 349px;
 }
 
 /* BOUTONS */
-#btn_connexion {
+.chMenu {
     font-size: 30px;
-    border-radius: 10px 0px 0px 0px;
     margin: 0px;
-    padding: 15px;
+    padding: 15px;  
+}
+
+#btn_connexion {
+    border-radius: 10px 0px 0px 0px;
     border-style: inset;
 }
 
 #btn_inscription {
-    font-size: 30px;
     border-radius:0px 10px 0px 0px;
-    margin: 0;
-    padding: 15px;    
 }
 
 .btn_validation {
