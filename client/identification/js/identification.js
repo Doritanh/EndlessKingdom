@@ -1,8 +1,8 @@
-let clicked = "connexion";
+window.Identification = {};
+window.Identification.clicked = "connexion";
 
-//Trigger du bouton Connexion
-document.querySelector("#btn_connexion").onclick = function() {
-    if(clicked == "inscription") {
+window.Identification.btnConnexion = function() {
+    if(Identification.clicked == "inscription") {
         document.querySelector("#btn_connexion").style.borderStyle = "inset";
         document.querySelector("#btn_inscription").style.borderStyle = "outset";
         document.querySelector("#fade").style.opacity = 0;
@@ -12,13 +12,12 @@ document.querySelector("#btn_connexion").onclick = function() {
             document.querySelector("#connexion").style.display = "inline";
             document.querySelector("#fade").style.opacity = 1;
         }, 400);
-        clicked = "connexion";
+        Identification.clicked = "connexion";
     }
-}
+};
 
-//Triger du bouton Inscription
-document.querySelector("#btn_inscription").onclick = function() {
-    if(clicked == "connexion") {
+window.Identification.btnInscription = function() {
+    if(Identification.clicked == "connexion") {
         document.querySelector("#btn_inscription").style.borderStyle = "inset";
         document.querySelector("#btn_connexion").style.borderStyle = "outset";
         document.querySelector("#fade").style.opacity = 0;
@@ -28,7 +27,16 @@ document.querySelector("#btn_inscription").onclick = function() {
             document.querySelector("#inscription").style.display = "inline";
             document.querySelector("#fade").style.opacity = 1;
         }, 400);
-        clicked = "inscription";
+        Identification.clicked = "inscription";
     }
-}
+};
 
+window.addEventListener('load', function() {
+    let btnConnexion = document.querySelector("#btn_connexion");
+    let btnInscription = document.querySelector("#btn_inscription");
+
+    //Trigger du bouton Connexion
+    btnConnexion.addEventListener('click', Identification.btnConnexion);
+    //Triger du bouton Inscription
+    btnInscription.addEventListener('click', Identification.btnInscription);
+});
