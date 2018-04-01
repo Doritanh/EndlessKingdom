@@ -11,7 +11,7 @@ document.querySelector("#btn_connexion").onclick = function() {
             document.querySelector("#inscription").style.display = "none";
             document.querySelector("#connexion").style.display = "inline";
             document.querySelector("#fade").style.opacity = 1;
-        }, 300);
+        }, 400);
         clicked = "connexion";
     }
 }
@@ -27,7 +27,7 @@ document.querySelector("#btn_inscription").onclick = function() {
             document.querySelector("#connexion").style.display = "none";
             document.querySelector("#inscription").style.display = "inline";
             document.querySelector("#fade").style.opacity = 1;
-        }, 300);
+        }, 400);
         clicked = "inscription";
     }
 }

@@ -16,7 +16,7 @@ body {
     border: outset 5px;
     border-radius: 18px;
     height: 280px;
-    transition: 0.7s;
+    transition: 0.4s;
 }
 
 /* BOUTONS */
@@ -42,7 +42,7 @@ body {
 /* FORMULAIRES */
 #inscription {
     display: none;
-    opacity: 0; 
+    opacity: 0;
 }
 
 .formulaire {
