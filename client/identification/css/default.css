@@ -16,6 +16,7 @@ body {
     border: outset 5px;
     border-radius: 18px;
     height: 280px;
+    transition: 0.7s;
 }
 
 /* BOUTONS */
@@ -31,7 +32,7 @@ body {
     font-size: 30px;
     border-radius:0px 10px 0px 0px;
     margin: 0;
-    padding: 15px;     
+    padding: 15px;    
 }
 
 .btn_validation {
@@ -41,6 +42,7 @@ body {
 /* FORMULAIRES */
 #inscription {
     display: none;
+    opacity: 0; 
 }
 
 .formulaire {
@@ -60,4 +62,8 @@ body {
 .labelForm {
     padding-bottom: 0px;
     font-size: 20px;
+}
+
+#fade {
+    transition: 0.3s;
 }
