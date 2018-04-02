@@ -10,13 +10,6 @@ window.Identification.verification = {};
             document.querySelector("#adresse").style.backgroundColor = "white";
     };
 
-    var verifConfMdp = function() {
-        if(document.querySelector("#confMdp").value != document.querySelector("#mdp").value)
-            document.querySelector("#confMdp").style.backgroundColor = "#FE5353";
-        else
-            document.querySelector("#confMdp").style.backgroundColor = "white";
-    };
-
     var verifMdp = function() {
         let reg = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])^.{6,15}$'); //Verifie si il y a au moins une majuscule, une minuscule, un chiffre et entre 6 et 15 caractères
 
@@ -25,17 +18,29 @@ window.Identification.verification = {};
         } else {
             document.querySelector("#mdp").style.backgroundColor = "white";
         }
+        verifConfMdp();
+    };
+
+    var verifConfMdp = function() {
+        if(document.querySelector("#confMdp").value != document.querySelector("#mdp").value)
+            document.querySelector("#confMdp").style.backgroundColor = "#FE5353";
+        else
+            document.querySelector("#confMdp").style.backgroundColor = "white";
     };
 
     Identification.verification.events = function() {
         //Verification email
+        document.querySelector("#adresse").addEventListener('keydown', verifEmail);
         document.querySelector("#adresse").addEventListener('keyup', verifEmail);
 
         //Verification fiabilité mot de passe
         document.querySelector("#mdp").addEventListener('keyup', verifMdp);
+        document.querySelector("#mdp").addEventListener('keydown', verifMdp);
 
         //Verification concordance des mots de passe
         document.querySelector("#confMdp").addEventListener('blur', verifConfMdp);
+        document.querySelector("#confMdp").addEventListener('keydown', verifConfMdp);
+        document.querySelector("#confMdp").addEventListener('keyup', verifConfMdp);
         document.querySelector("#confMdp").addEventListener('focus', verifConfMdp);
     };
 })();
