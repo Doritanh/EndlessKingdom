@@ -15,5 +15,9 @@
     "dungeon"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.0.5",
+    "ws": "^5.1.0"
+  }
 }

@@ -1,42 +1,45 @@
-window.Identification = {};
-window.Identification.clicked = "connexion";
+Identification.socket = new WebSocket('ws://' + window.location.hostname + ':8080');
 
-window.Identification.btnConnexion = function() {
-    if(Identification.clicked == "inscription") {
-        document.querySelector("#btn_connexion").style.borderStyle = "inset";
-        document.querySelector("#btn_inscription").style.borderStyle = "outset";
-        document.querySelector("#fade").style.opacity = 0;
-        document.querySelector("#fenetre").style.height = "280px";
-        setTimeout(function() {
-            document.querySelector("#inscription").style.display = "none";
-            document.querySelector("#connexion").style.display = "inline";
-            document.querySelector("#fade").style.opacity = 1;
-        }, 400);
-        Identification.clicked = "connexion";
-    }
-};
+(function() {
+    let socket = Identification.socket;
+    let objet = {'nom' : 'bwah', 'contenu' : 'rien'};
 
-window.Identification.btnInscription = function() {
-    if(Identification.clicked == "connexion") {
-        document.querySelector("#btn_inscription").style.borderStyle = "inset";
-        document.querySelector("#btn_connexion").style.borderStyle = "outset";
-        document.querySelector("#fade").style.opacity = 0;
-        document.querySelector("#fenetre").style.height = "410px";
-        setTimeout(function() {
-            document.querySelector("#connexion").style.display = "none";
-            document.querySelector("#inscription").style.display = "inline";
-            document.querySelector("#fade").style.opacity = 1;
-        }, 400);
-        Identification.clicked = "inscription";
-    }
-};
+    var submitEvents = function(s) {
+        document.querySelector('#frm_connexion').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let objet = {
+                'id' : 'connexionDemande',
+                'values' : {
+                    'pseudo' : document.querySelector('#Cpseudo').value,
+                    'mdp' : document.querySelector('#Cmdp').value
+                }
+            };
+            socket.send(JSON.stringify(objet));
+        });
 
-window.addEventListener('load', function() {
-    let btnConnexion = document.querySelector("#btn_connexion");
-    let btnInscription = document.querySelector("#btn_inscription");
+        document.querySelector('#frm_inscription').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let objet = {
+                'id' : 'inscriptionDemande',
+                'values' : {
+                    'pseudo' : document.querySelector('#pseudo').value,
+                    'adresse' : document.querySelector("#adresse").value,
+                    'mdp' : document.querySelector("#mdp").value,
+                    'mdpConfirm' : document.querySelector("#confMdp").value
+                }
+            };
+            socket.send(JSON.stringify(objet));
+        });
+    };
 
-    //Trigger du bouton Connexion
-    btnConnexion.addEventListener('click', Identification.btnConnexion);
-    //Triger du bouton Inscription
-    btnInscription.addEventListener('click', Identification.btnInscription);
-});
+    Identification.events = function() {
+        // Quand une connexion est effectué
+        socket.addEventListener('open', function (e) {
+            submitEvents(socket);
+        });
+        // Quand un message est reçu du serveur
+        socket.addEventListener('message', function (event) {
+            console.log('Message from server ', event.data);
+        });
+    };
+})();
