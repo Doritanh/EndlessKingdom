@@ -17,7 +17,7 @@ html, body {
     border-radius: 18px;
     height: 280px;
     transition: 0.4s;
-    min-width: 349px;
+    min-width: 340px;
 }
 /* BOUTONS */
 .chMenu {
@@ -28,9 +28,11 @@ html, body {
 #btn_connexion {
     border-radius: 10px 0px 0px 0px;
     border-style: inset;
+    margin-right: -5px;
 }
 #btn_inscription {
     border-radius:0px 10px 0px 0px;
+    margin-left: -5px;
 }
 .btn_validation {
     margin-top: 10px;
