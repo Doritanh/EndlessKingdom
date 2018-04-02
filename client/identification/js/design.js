@@ -1,5 +1,7 @@
 window.Identification.design = {};
 window.Identification.design.clicked = "connexion";
+window.Identification.design.tailleFenetreConnexion = "280px";
+window.Identification.design.tailleFenetreInscription = "410px";
 
 (function() {
     var btnConnexion = function() {
@@ -7,7 +9,7 @@ window.Identification.design.clicked = "connexion";
             document.querySelector("#btn_connexion").style.borderStyle = "inset";
             document.querySelector("#btn_inscription").style.borderStyle = "outset";
             document.querySelector("#fade").style.opacity = 0;
-            document.querySelector("#fenetre").style.height = "280px";
+            document.querySelector("#fenetre").style.height = Identification.design.tailleFenetreConnexion;
             setTimeout(function() {
                 document.querySelector("#inscription").style.display = "none";
                 document.querySelector("#connexion").style.display = "inline";
@@ -21,7 +23,7 @@ window.Identification.design.clicked = "connexion";
             document.querySelector("#btn_inscription").style.borderStyle = "inset";
             document.querySelector("#btn_connexion").style.borderStyle = "outset";
             document.querySelector("#fade").style.opacity = 0;
-            document.querySelector("#fenetre").style.height = "410px";
+            document.querySelector("#fenetre").style.height = Identification.design.tailleFenetreInscription;
             setTimeout(function() {
                 document.querySelector("#connexion").style.display = "none";
                 document.querySelector("#inscription").style.display = "inline";
