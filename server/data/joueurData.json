@@ -1,0 +1,19 @@
+{
+    "_id" : "oinoernoenvoenrv",
+    "pseudo" : "test",
+    "mail" : "test@test",
+    "mdp" : "iozrnvuenrveq",
+    "donjons" : {
+        "1" : "001001001",
+        "2" : "024013005"
+    },
+    "inventaire" : {
+        "armes" : {
+            "1" : "000100010001"
+        },
+        "boucliers" : {
+            "1" : "000200050012"
+        }
+    },
+    "score" : "0"
+}
