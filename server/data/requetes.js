@@ -26,5 +26,35 @@ module.exports = {
             });
         });
         return promise;
+    },
+    getMdp : async function(id) {
+        const db = await database.mongo();
+        const collection = db.collection(database.dbName());
+        let promise = new Promise(function(resolve, reject) {
+            collection.find({'id' : id}).toArray(function(err, data) {
+                if (err) return reject();
+                if (data.length > 0) return resolve(data[0].mdp);
+                return resolve(false);
+            })
+        })
+    },
+    nouvelUtilisateur : async function(pseudo, mail, mdp) {
+        const db = await database.mongo();
+        const collection = db.collection(database.dbName());
+        let promise = new Promise(function(resolve, reject) {
+            collection.insertMany([
+                'pseudo' : pseudo,
+                'mail' : mail,
+                'mdp' : mdp,
+                'personnages' : {},
+                'donjons' : {},
+                'inventaire' : {},
+                'score' : 0,
+            ], function(err, result) {
+                if (err) reject();
+                resolve(true);
+            });
+        });
+        return promise;
     }
 }

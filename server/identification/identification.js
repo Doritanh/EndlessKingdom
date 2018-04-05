@@ -1,11 +1,13 @@
-const utilisateurs = require('../data/utilisateurs');
+const requetes = require('../data/requetes');
+const password = require('./password');
 
 module.exports = {
-    connexion : async function(data) {
-        /*let dataD = await utilisateurs.getDataFromPseudo(data.pseudo);
-        if (typeof(dataD) == 'undefined' || dataD == null) return 2;
-        let checkPsw = await checkPassword(data.mdp, dataD.mdp);
-        if (!checkPsw) return 3;*/
+    connexion : async function(pseudo, mdp) {
+        let id = await requetes.getIDFromPseudo(pseudo);
+        if (typeof(id) === 'undefined' || id === null) return 2;
+        let mdpID = await requetes.getMdp(id);
+        let checkMdp = await password.checkPass(mdp, mdpID);
+        if (!checkMdp) return 3;
         return 1;
     },
     inscription : async function(data) {

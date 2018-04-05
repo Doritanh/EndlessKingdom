@@ -3,6 +3,12 @@
     "pseudo" : "test",
     "mail" : "test@test",
     "mdp" : "iozrnvuenrveq",
+    "personnages" : {
+        "1" : {
+            "nom" : "Jacque",
+            "difficulte" : "3"
+        }
+    },
     "donjons" : {
         "1" : "001001001",
         "2" : "024013005"
