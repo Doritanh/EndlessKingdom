@@ -6,20 +6,21 @@
     "personnages" : {
         "1" : {
             "nom" : "Jacque",
-            "difficulte" : "3"
+            "difficulte" : "3",
+            "inventaire" : {
+                "armes" : {
+                    "1" : "000100010001"
+                },
+                "boucliers" : {
+                    "1" : "000200050012"
+                }
+            },
+            "dureeVie" : "300"
         }
     },
     "donjons" : {
         "1" : "001001001",
         "2" : "024013005"
-    },
-    "inventaire" : {
-        "armes" : {
-            "1" : "000100010001"
-        },
-        "boucliers" : {
-            "1" : "000200050012"
-        }
     },
     "score" : "0"
 }
