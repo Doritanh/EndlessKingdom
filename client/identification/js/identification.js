@@ -23,7 +23,7 @@ Identification.socket = new WebSocket('ws://' + window.location.hostname + ':808
                 'id' : 'inscriptionDemande',
                 'values' : {
                     'pseudo' : document.querySelector('#pseudo').value,
-                    'adresse' : document.querySelector("#adresse").value,
+                    'mail' : document.querySelector("#adresse").value,
                     'mdp' : document.querySelector("#mdp").value,
                     'mdpConfirm' : document.querySelector("#confMdp").value
                 }
