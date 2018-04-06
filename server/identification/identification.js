@@ -12,7 +12,7 @@ module.exports = {
         let id = await requetes.getIDFromPseudo(pseudo);
         if (!id) return 2;
         let mdpID = await requetes.getMdp(id);
-        let checkMdp = await password.checkPass(mdp, mdpID);
+        let checkMdp = await password.check(mdp, mdpID);
         if (!checkMdp) return 3;
         return 1;
     },
@@ -26,13 +26,11 @@ module.exports = {
      */
     inscription : async function(pseudo, mail, mdp, mdpConfirm) {
         if (mdp !== mdpConfirm) return 2;
-        /*if (checkBugInscription(data)) return 2;
-        if (await utilisateurs.checkPseudoAlreadyExist(data.pseudo)) return 3;
-        if (await utilisateurs.checkMailAlreadyExist(data.adresse)) return 4;
-
-        data.mdp = await hashPassword(data.mdp);
-        let insertion = await utilisateurs.insererUtilisateur(data);
-        if (!insertion) return 5;*/
+        if (await requetes.getIDFromPseudo(pseudo)) return 3;
+        if (await requetes.getIDFromMail(mail)) return 4;
+        let mdpHash = await password.hash(mdp);
+        let insertion = await requetes.nouvelUtilisateur(pseudo, mail, mdpHash);
+        if (!insertion) return 5;
         return 1;
     }
 }
