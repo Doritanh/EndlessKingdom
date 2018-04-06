@@ -1,24 +1,24 @@
 const MongoClient = require('mongodb').MongoClient;
-const dbUrl = 'mongodb://localhost:27017';
-const dbName = 'EndlessKingdom';
 
 module.exports = {
-    mongo : function() {
-        return connectMongo(MongoClient, dbUrl, dbName);
+    connect : function() {
+        return mongo(MongoClient);
     },
-    dbName : function() {
-        return dbName;
+    nom : function() {
+        return  'EndlessKingdom';
     }
 }
 
-var connectMongo = function(mongo, url, db) {
-    let promise = new Promise(function(reject, resolve) {
-        mongo.connect(dbUrl, function(err, client) {
-            if (err) return reject()
-            const db = client.db(dbName);
-            if (db) return resolve(db);
-            console.log("Connect mongo");
-            client.close();
+var mongo = function(mongo) {
+    const url = 'mongodb://127.0.0.1:27017';
+    let promise = new Promise(function(resolve, reject) {
+        mongo.connect(url, function(err, client) {
+            if (err) return reject();
+            if (client) {
+                return resolve(client);
+            } else {
+                return resolve(false);
+            }
         })
     });
     return promise;
