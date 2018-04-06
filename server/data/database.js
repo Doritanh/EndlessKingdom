@@ -13,10 +13,11 @@ module.exports = {
 
 var connectMongo = function(mongo, url, db) {
     let promise = new Promise(function(reject, resolve) {
-        mongo.connect(url, function(err, client) {
+        mongo.connect(dbUrl, function(err, client) {
+            if (err) return reject()
+            const db = client.db(dbName);
+            if (db) return resolve(db);
             console.log("Connect mongo");
-            if (err) return resolve()
-            return reject();
             client.close();
         })
     });

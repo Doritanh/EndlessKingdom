@@ -42,7 +42,7 @@ module.exports = {
         const db = await database.mongo();
         const collection = db.collection(database.dbName());
         let promise = new Promise(function(resolve, reject) {
-            collection.insertMany([
+            collection.insertOne([
                 'pseudo' : pseudo,
                 'mail' : mail,
                 'mdp' : mdp,
