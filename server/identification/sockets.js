@@ -17,10 +17,11 @@ module.exports = function(wss) {
             } else if (id === 'inscriptionDemande') {
                 identification.inscription(data.pseudo, data.mail, data.mdp, data.mdpConfirm)
                 .then(number => {
-                    ws.send(n);
+                    ws.send(number);
                 }).catch(function(error) {
                     console.log("ERREUR : ")
                     console.log(error)
+                    ws.send(0);
                 });
             }
         });

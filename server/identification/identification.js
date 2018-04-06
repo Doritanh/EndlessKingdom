@@ -4,6 +4,7 @@ const password = require('./password');
 module.exports = {
     /**
      *  Connexion d'un utilisateurs
+     *  @async
      *  @param {string} pseudo - Pseudo de l'utilisateur
      *  @param {string} mdp - Le mot de passe non crypté de l'utilisateur
      *  @return {number} - Codes de reussite ou d'erreurs
@@ -18,6 +19,7 @@ module.exports = {
     },
     /**
      *  Inscription d'un utilisateur
+     *  @async
      *  @param {string} pseudo - Pseudo de l'utilisateur
      *  @param {string} mail - Mail de l'utilisateur
      *  @param {string} mdp - Mot de passe de l'utilisateur

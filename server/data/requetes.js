@@ -31,13 +31,14 @@ module.exports = {
         const client = await database.connect();
         const collection =  client.db(database.nom()).collection('utilisateurs');
         let promise = new Promise(function(resolve, reject) {
-            collection.find({'id' : id}).toArray(function(err, data) {
+            collection.find({'_id' : id}).toArray(function(err, data) {
                 client.close();
                 if (err) return reject();
                 if (data.length > 0) return resolve(data[0].mdp);
                 return resolve(false);
             })
-        })
+        });
+        return promise;
     },
     nouvelUtilisateur : async function(pseudo, mail, mdp) {
         const client = await database.connect();
@@ -55,7 +56,7 @@ module.exports = {
                 client.close();
                 if (err) return reject();
                 if (result) {
-                    return resolve();
+                    return resolve(true);
                 } else {
                     return resolve(false);
                 }
