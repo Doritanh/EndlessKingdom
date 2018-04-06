@@ -54,7 +54,11 @@ module.exports = {
             }, function(err, result) {
                 client.close();
                 if (err) return reject();
-                return resolve(true);
+                if (result) {
+                    return resolve();
+                } else {
+                    return resolve(false);
+                }
             });
         });
         return promise;
