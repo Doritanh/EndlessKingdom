@@ -123,6 +123,52 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
             s.send(JSON.stringify(objet));
         });
     };
+    var receiveSocket = function(data) {
+        let id = JSON.parse(data).id;
+        let content = JSON.parse(data).values;
+        let message = document.querySelector('#message');
+        if (id === 'connexionReponse') {
+            switch(content.number) {
+                case 0:
+                    message.textContent = 'Problème serveur.';
+                    break;
+                case 1:
+                    message.textContent = 'Connexion effectué !'
+                    break;
+                case 2:
+                    message.textContent = 'Votre compte n\' as pas été trouvé';
+                    break;
+                case 3:
+                    message.textContent = 'Ce mot de passe ne correspond pas à ce compte.';
+                    break;
+                default:
+                    message.textContent = 'Message non géré.';
+            }
+        } else if (id === 'inscriptionReponse') {
+            switch(content.number) {
+                case 0:
+                    message.textContent = 'Problème serveur';
+                    break;
+                case 1:
+                    message.textContent = 'Inscription réussis !';
+                    break;
+                case 2:
+                    message.textContent = 'Les mots de passes ne correspondent pas.';
+                    break;
+                case 3:
+                    message.textContent = 'Ce pseudo existe déjà.';
+                    break;
+                case 4:
+                    message.textContent = 'Ce mail existe déjà.';
+                    break;
+                case 5:
+                    message.textContent = 'Problème à l\'inscription';
+                    break;
+                default:
+                    message.textContent = 'Message non géré.';
+            }
+        }
+    };
 
     let socket = EndlessKingdom.identification.socket;
     EndlessKingdom.identification.websocket = function() {
@@ -131,8 +177,8 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
             submitEvents(socket);
         });
         // Quand un message est reçu du serveur
-        socket.addEventListener('message', function (event) {
-            console.log('Message from server ', event.data);
+        socket.addEventListener('message', function (e) {
+            receiveSocket(e.data);
         });
     };
 })();

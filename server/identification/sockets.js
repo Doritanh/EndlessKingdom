@@ -8,20 +8,44 @@ module.exports = function(wss) {
             if (id === 'connexionDemande') {
                 identification.connexion(data.pseudo, data.mdp)
                 .then(number => {
-                    ws.send(number);
+                    let objet = {
+                        'id' : 'connexionReponse',
+                        'values' : {
+                            'number' : number
+                        }
+                    };
+                    ws.send(JSON.stringify(objet));
                 }).catch(function(error) {
                     console.log("ERREUR : ")
                     console.log(error)
-                    ws.send(0);
+                    let objet = {
+                        'id' : 'connexionReponse',
+                        'values' : {
+                            'number' : 0
+                        }
+                    };
+                    ws.send(JSON.stringify(objet));
                 });
             } else if (id === 'inscriptionDemande') {
                 identification.inscription(data.pseudo, data.mail, data.mdp, data.mdpConfirm)
                 .then(number => {
-                    ws.send(number);
+                    let objet = {
+                        'id' : 'inscriptionReponse',
+                        'values' : {
+                            'number' : number
+                        }
+                    };
+                    ws.send(JSON.stringify(objet));
                 }).catch(function(error) {
                     console.log("ERREUR : ")
                     console.log(error)
-                    ws.send(0);
+                    let objet = {
+                        'id' : 'inscriptionReponse',
+                        'values' : {
+                            'number' : 0
+                        }
+                    };
+                    ws.send(JSON.stringify(objet));
                 });
             }
         });
