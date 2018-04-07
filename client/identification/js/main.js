@@ -64,29 +64,35 @@ window.EndlessKingdom.identification.verification = {};
         else
             document.querySelector("#adresse").style.backgroundColor = "white";
     };
-    var verifConfMdp = function() {
-        if(document.querySelector("#confMdp").value != document.querySelector("#mdp").value)
-            document.querySelector("#confMdp").style.backgroundColor = "#FE5353";
-        else
-            document.querySelector("#confMdp").style.backgroundColor = "white";
-    };
     var verifMdp = function() {
-        //Verifie si il y a au moins une majuscule, une minuscule, un chiffre et entre 6 et 15 caractères
-        let reg = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])^.{6,15}$');
+        let reg = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])^.{6,15}$'); //Verifie si il y a au moins une majuscule, une minuscule, un chiffre et entre 6 et 15 caractères
 
         if (!reg.test(document.querySelector("#mdp").value)) {
             document.querySelector("#mdp").style.backgroundColor = "#FE5353";
         } else {
             document.querySelector("#mdp").style.backgroundColor = "white";
         }
+        verifConfMdp();
+    };
+    var verifConfMdp = function() {
+        if(document.querySelector("#confMdp").value != document.querySelector("#mdp").value)
+            document.querySelector("#confMdp").style.backgroundColor = "#FE5353";
+        else
+            document.querySelector("#confMdp").style.backgroundColor = "white";
     };
     EndlessKingdom.identification.verification = function() {
         //Verification email
+        document.querySelector("#adresse").addEventListener('keydown', verifEmail);
         document.querySelector("#adresse").addEventListener('keyup', verifEmail);
+
         //Verification fiabilité mot de passe
         document.querySelector("#mdp").addEventListener('keyup', verifMdp);
+        document.querySelector("#mdp").addEventListener('keydown', verifMdp);
+
         //Verification concordance des mots de passe
         document.querySelector("#confMdp").addEventListener('blur', verifConfMdp);
+        document.querySelector("#confMdp").addEventListener('keydown', verifConfMdp);
+        document.querySelector("#confMdp").addEventListener('keyup', verifConfMdp);
         document.querySelector("#confMdp").addEventListener('focus', verifConfMdp);
     };
 })();
@@ -134,6 +140,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
                     break;
                 case 1:
                     message.textContent = 'Connexion effectué !'
+                    window.location.replace("/jeu/");
                     break;
                 case 2:
                     message.textContent = 'Votre compte n\' as pas été trouvé';
@@ -150,7 +157,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
                     message.textContent = 'Problème serveur';
                     break;
                 case 1:
-                    message.textContent = 'Inscription réussis !';
+                    message.textContent = 'Inscription effectué !'
                     break;
                 case 2:
                     message.textContent = 'Les mots de passes ne correspondent pas.';
