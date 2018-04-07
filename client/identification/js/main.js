@@ -94,6 +94,7 @@ window.EndlessKingdom.identification.verification = {};
         document.querySelector("#confMdp").addEventListener('keydown', verifConfMdp);
         document.querySelector("#confMdp").addEventListener('keyup', verifConfMdp);
         document.querySelector("#confMdp").addEventListener('focus', verifConfMdp);
+    };
 })();
 
 /*
@@ -139,6 +140,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
                     break;
                 case 1:
                     message.textContent = 'Connexion effectué !'
+                    window.location.replace("/jeu/");
                     break;
                 case 2:
                     message.textContent = 'Votre compte n\' as pas été trouvé';
@@ -155,7 +157,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
                     message.textContent = 'Problème serveur';
                     break;
                 case 1:
-                    message.textContent = 'Inscription réussis !';
+                    message.textContent = 'Inscription effectué !'
                     break;
                 case 2:
                     message.textContent = 'Les mots de passes ne correspondent pas.';
