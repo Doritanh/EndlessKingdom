@@ -1,6 +1,6 @@
 const http = require('http');
 const WebSocket = require('ws');
-const routes = require('./server/routes');
+const routes = require('./server/controllers/routes');
 
 http.createServer(function(request, response) {
     routes(request, response);
