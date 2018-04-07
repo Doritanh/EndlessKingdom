@@ -1,53 +1,51 @@
+'use strict';
+
 const identification = require('./identification.js');
 
 module.exports = function(wss) {
+    // Quand il y une nouvelle connexion au serveur de socket
     wss.on('connection', function(ws) {
-        ws.on('message', function(o) {
-            let id = JSON.parse(o).id;
-            let data = JSON.parse(o).values;
+        // Quand un socket arrive, on recupere data
+        ws.on('message', function(data) {
+            // On sépare le data
+            let id = JSON.parse(data).id;
+            let content = JSON.parse(data).values;
+            // Instructions en fonction de l'entete du socket
             if (id === 'connexionDemande') {
-                identification.connexion(data.pseudo, data.mdp)
-                .then(number => {
-                    let objet = {
-                        'id' : 'connexionReponse',
-                        'values' : {
-                            'number' : number
-                        }
-                    };
-                    ws.send(JSON.stringify(objet));
-                }).catch(function(error) {
-                    console.log("ERREUR : ")
-                    console.log(error)
-                    let objet = {
-                        'id' : 'connexionReponse',
-                        'values' : {
-                            'number' : 0
-                        }
-                    };
-                    ws.send(JSON.stringify(objet));
-                });
+                connexionDemande(ws, content.pseudo, content.mdp);
             } else if (id === 'inscriptionDemande') {
-                identification.inscription(data.pseudo, data.mail, data.mdp, data.mdpConfirm)
-                .then(number => {
-                    let objet = {
-                        'id' : 'inscriptionReponse',
-                        'values' : {
-                            'number' : number
-                        }
-                    };
-                    ws.send(JSON.stringify(objet));
-                }).catch(function(error) {
-                    console.log("ERREUR : ")
-                    console.log(error)
-                    let objet = {
-                        'id' : 'inscriptionReponse',
-                        'values' : {
-                            'number' : 0
-                        }
-                    };
-                    ws.send(JSON.stringify(objet));
-                });
+                inscriptionDemande(ws, content.pseudo, content.mail, content.mdp, content.mdpConfirm);
             }
         });
     });
+}
+
+let connexionDemande = async function(ws, pseudo, mdp) {
+    let number = 0;
+    try {
+        number = await identification.connexion(pseudo, mdp);
+    } catch (e) {
+        console.log(error);
+    }
+    ws.send(JSON.stringify({
+        'id' : 'connexionReponse',
+        'values' : {
+            'number' : number
+        }
+    }));
+}
+
+let inscriptionDemande = async function(ws, pseudo, mail, mdp, mdpConfirm) {
+    let number = 0;
+    try {
+        number = await identification.inscription(pseudo, mail, mdp, mdpConfirm);
+    } catch(error) {
+        console.log(error);
+    }
+    ws.send(JSON.stringify({
+        'id' : 'inscriptionReponse',
+        'values' : {
+            'number' : number
+        }
+    }));
 }
