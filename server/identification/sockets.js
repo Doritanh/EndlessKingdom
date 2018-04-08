@@ -19,9 +19,9 @@ module.exports = function(wss) {
         });
 
         // Le client ferme sa connexion
-        ws.on('close', function() {
+        /*ws.on('close', function() {
             console.log("disconnected");
-        });
+        });*/
     });
 }
 

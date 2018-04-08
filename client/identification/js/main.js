@@ -139,8 +139,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
                     message.textContent = 'Problème serveur.';
                     break;
                 case 1:
-                    message.textContent = 'Connexion effectué !'
-                    window.location.replace("/jeu/");
+                    document.querySelector('#frm_connexion').submit();
                     break;
                 case 2:
                     message.textContent = 'Votre compte n\' as pas été trouvé';

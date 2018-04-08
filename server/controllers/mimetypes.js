@@ -1,4 +1,7 @@
-module.exports = {
+'use strict';
+
+const path = require('path');
+const mimeTypes = {
     '.html': 'text/html',
     '.js': 'text/javascript',
     '.css': 'text/css',
@@ -13,4 +16,14 @@ module.exports = {
     '.eot': 'application/vnd.ms-fontobject',
     '.otf': 'application/font-otf',
     '.svg': 'application/image/svg+xml'
+};
+
+module.exports = {
+    /**
+     *  Obtient le type de contenu d'un fichier
+     */
+    get : function(fichier) {
+       let extname = String(path.extname(fichier)).toLowerCase();
+       return mimeTypes[extname] || 'application/octet-stream';
+   }
 }
