@@ -2,11 +2,25 @@
 
 const fs = require('fs');
 const path = require('path');
-const  mimeTypes = require('./mimetypes');
+const qs = require('querystring');
+const mimeTypes = require('./mimetypes');
+const identification = require('../identification/identification');
 
 module.exports = async function(req, res) {
     let chemin = getChemin(req.url);
     let typeContenu = getTypeContenu(chemin);
+
+    if (req.method == 'POST') {
+        console.log(chemin)
+        if (chemin === './client/jeu/index.html') {
+            let data = await getPostData(req);
+            let connexion = await identification.connexion(data.pseudo, data.mdp);
+            console.log(connexion)
+            if (connexion != 1) {
+                chemin = './client/identification/index.html';
+            }
+        }
+    }
 
     let content;
     try {
@@ -30,17 +44,33 @@ module.exports = async function(req, res) {
  */
 let getChemin = function(url) {
     let path = '.' + url;
-    let chemin = '';
     if (path == './') {
-        chemin = './client/identification/index.html';
+        return './client/identification/index.html';
     } else if (path == './jeu/' || path == './client/jeu/index.html') {
-        chemin = './client/jeu/index.html';
+        return './client/jeu/index.html';
     } else if (!path.startsWith("./client/")) {
-        chemin = './client/identification/index.html';
-    } else {
-        chemin = path;
+        return './client/identification/index.html';
     }
-    return chemin;
+    return path;
+}
+
+/**
+ *  Parse le contenu post
+ */
+let getPostData = function(request) {
+    let body = '';
+    request.on('data', function (data) {
+        body += data;
+        // Si le corps est trop long, on tue la connexion
+        if (body.length > 1e6)
+            request.connection.destroy();
+    });
+    let promise = new Promise(function(resolve, reject) {
+        request.on('end', function () {
+            return resolve(qs.parse(body));
+        });
+    });
+    return promise;
 }
 
 /**
