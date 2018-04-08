@@ -8,7 +8,7 @@ const identification = require('../identification/identification');
 module.exports = async function(req, res) {
     let chemin = '.' + req.url;
 
-    if (chemin === './' || chemin === './client/identification/index.html') {
+    if (chemin === './') {
         chemin = './client/identification/index.html';
     } else if (chemin === './jeu/' || chemin === './client/jeu/index.html') {
         chemin = './client/jeu/index.html';
@@ -16,13 +16,15 @@ module.exports = async function(req, res) {
         if (data.pseudo != 'undefined' && data.mdp != 'undefined') {
             let connexion = await identification.connexion(data.pseudo, data.mdp);
             if (connexion !== 1) {
-                chemin = './client/identification/index.html';
+                res.writeHead(302, {'Location': '/'});
+                res.end();
+                return;
             }
         }
     } else if (!chemin.startsWith("./client/")) {
         chemin = './client/identification/index.html';
     }
-    
+
     let typeContenu = mimetypes.get(chemin);
 
     let content;
