@@ -4,23 +4,29 @@
 **  Antho Charly Lucas Marion
 */
 
-"use strict"
-window.Jeu = {};
+"use strict";
+window.EndlessKingdom = {};
 
 // Main du jeu
 (function() {
+    var ecran;
+    var camera;
+
     let init = function() {
-        window.Jeu.ecran = new Ecran(document.querySelector("#canvas"));
+        ecran = new Ecran(document.querySelector("#ecran"));
+        ecran.dimension(800, 600);
+        camera = new Camera(ecran);
     }
 
     let lancer = function() {
+        init();
         console.log("lancer !");
     };
 
-    window.Jeu.lancer = lancer;
+    EndlessKingdom.lancer = lancer;
 })();
 
 // Event trigger quand load
 window.addEventListener('load', function() {
-    Jeu.lancer();
+    EndlessKingdom.lancer();
 });
