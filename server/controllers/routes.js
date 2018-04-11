@@ -31,6 +31,8 @@ module.exports = async function(req, res) {
     try {
         content = await pages.send(chemin);
     } catch (e) {
+        console.log(e)
+        if (e.code === 'undefined') return;
         if (e.code == 'ENOENT') {
             return pages.sendNotFound();
         } else {
