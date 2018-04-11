@@ -7,7 +7,7 @@ const identification = require('../identification/identification');
 
 module.exports = async function(req, res) {
     let chemin = '.' + req.url;
-
+    
     if (chemin === './') {
         chemin = './client/identification/index.html';
     } else if (chemin === './jeu/' || chemin === './client/jeu/index.html') {
