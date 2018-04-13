@@ -9,18 +9,22 @@ window.EndlessKingdom = {};
 
 // Main du jeu
 (function() {
-    var ecran;
-    var camera;
+    var ecran = new Ecran();
+    var camera = new Camera();
 
     let init = function() {
-        ecran = new Ecran(document.querySelector("#ecran"));
+        ecran.canvas(document.querySelector("#ecran"));
         ecran.dimension(800, 600);
+        ecran.chargement();
         camera = new Camera(ecran);
     }
 
     let lancer = function() {
         init();
-        console.log("lancer !");
+        setTimeout(function() {
+            ecran.clear();
+        }, 3000);
+        console.log("EndlessKingdom v0.0.1");
     };
 
     EndlessKingdom.lancer = lancer;
