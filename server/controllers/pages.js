@@ -6,7 +6,7 @@ module.exports = {
     send : function(path) {
         let promise = new Promise(function(resolve, reject) {
             fs.readFile(path, function(err, content) {
-                if (err) reject();
+                if (err) reject(err);
                 resolve(content);
             });
         });
@@ -15,7 +15,7 @@ module.exports = {
     sendNotFound : function() {
         let promise = new Promise(function(resolve, reject) {
             fs.readFile('./client/identification/index.html', function(err, content) {
-                if (err) reject();
+                if (err) reject(err);
                 resolve(content);
             });
         });
