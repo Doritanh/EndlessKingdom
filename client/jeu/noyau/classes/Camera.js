@@ -1,4 +1,4 @@
-class Camera {
+export class Camera {
     constructor(ecran) {
         this.ecran = ecran;
     }

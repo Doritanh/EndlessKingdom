@@ -3,9 +3,11 @@
 **  Endless Kingdom
 **  Antho Charly Lucas Marion
 */
-
 "use strict";
 window.EndlessKingdom = {};
+
+import {Ecran} from '/client/jeu/noyau/classes/Ecran.js';
+import {Camera} from '/client/jeu/noyau/classes/Camera.js';
 
 // Main du jeu
 (function() {
@@ -17,7 +19,7 @@ window.EndlessKingdom = {};
         ecran.dimension(800, 600);
         ecran.chargement();
         camera = new Camera(ecran);
-    }
+    };
 
     let lancer = function() {
         init();
