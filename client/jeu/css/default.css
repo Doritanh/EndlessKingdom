@@ -8,7 +8,7 @@ html, body{
   display: flex;
   justify-content: center;
 }
-#canvas {
+#ecran {
   margin: auto;
   background-color: rgb(90, 96, 104);
   border: 12px solid rgb(90, 96, 104);
