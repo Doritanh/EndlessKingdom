@@ -9,10 +9,8 @@ html, body{
   justify-content: center;
 }
 #ecran {
-  margin: auto;
-  background-color: rgb(90, 96, 104);
-  border: 12px solid rgb(90, 96, 104);
-  border-radius: 6px;
+  width: 100%;
+  height: 100%;
   image-rendering: -moz-crisp-edges;
   image-rendering: -webkit-crisp-edges;
   image-rendering: pixelated;
