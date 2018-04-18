@@ -7,12 +7,18 @@
 </head>
 <body>
     <noscript>S'il vous plaît, télecharger un vrais naviguateur supportant Javascript...</noscript>
+    
     <div id="centre">
         <h1>Endless Kingdom</h1>
+
         <div id="message"></div>
+
         <div id="fenetre">
-            <input type="button" value="Connexion" id="btn_connexion" class="chMenu">
-            <input type="button" value="Inscription" id="btn_inscription"class="chMenu">
+            <div id="buttons">
+                <input type="button" value="Connexion" id="btn_connexion" class="chMenu">
+                <input type="button" value="Inscription" id="btn_inscription"class="chMenu">
+            </div>
+
             <div id="fade">
                 <div id="connexion">
                     <form id="frm_connexion" method="POST" action="jeu/" class="formulaire">
@@ -44,7 +50,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </body>
