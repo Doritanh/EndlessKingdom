@@ -100,14 +100,12 @@ window.EndlessKingdom.identification.verification = {};
 /*
  *  Partie identification
  */
-window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.location.hostname + ':8080');
-
 (function() {
     var submitEvents = function(s) {
         document.querySelector('#frm_connexion').addEventListener('submit', function(e) {
             e.preventDefault();
             let objet = {
-                'id' : 'connexionDemande',
+                'id' : 'connexion',
                 'values' : {
                     'pseudo' : document.querySelector('#Cpseudo').value,
                     'mdp' : document.querySelector('#Cmdp').value
@@ -118,7 +116,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
         document.querySelector('#frm_inscription').addEventListener('submit', function(e) {
             e.preventDefault();
             let objet = {
-                'id' : 'inscriptionDemande',
+                'id' : 'inscription',
                 'values' : {
                     'pseudo' : document.querySelector('#pseudo').value,
                     'mail' : document.querySelector("#adresse").value,
@@ -133,12 +131,13 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
         let id = JSON.parse(data).id;
         let content = JSON.parse(data).values;
         let message = document.querySelector('#message');
-        if (id === 'connexionReponse') {
+        if (id === 'connexion') {
             switch(content.number) {
                 case 0:
                     message.textContent = 'Problème serveur.';
                     break;
                 case 1:
+                    sessionStorage.setItem('sessionID', content.sessionID);
                     document.querySelector('#frm_connexion').submit();
                     break;
                 case 2:
@@ -150,7 +149,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
                 default:
                     message.textContent = 'Message non géré.';
             }
-        } else if (id === 'inscriptionReponse') {
+        } else if (id === 'inscription') {
             switch(content.number) {
                 case 0:
                     message.textContent = 'Problème serveur';
@@ -176,7 +175,7 @@ window.EndlessKingdom.identification.socket = new WebSocket('ws://' + window.loc
         }
     };
 
-    let socket = EndlessKingdom.identification.socket;
+    const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     EndlessKingdom.identification.websocket = function() {
         // Quand une connexion est effectué
         socket.addEventListener('open', function (e) {
