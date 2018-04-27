@@ -8,48 +8,26 @@ window.EndlessKingdom = {};
 
 // Main du jeu
 (function() {
-    const socket = new WebSocket('ws://' + window.location.hostname + '/jeu/:8080');
-    console.log(window.location.hostname)
-    var context, div;
+    const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
+    const context = document.querySelector("#ecran").getContext('2d');
+    const menu = document.querySelector("#menu");
+    const id = sessionStorage.getItem('sessionID');
 
-    // Affichage du menu principal
-    let menuPrincipal = function() {
-        let btnDonjonSuivant = document.createElement('button');
-        let btnDonjonSuivantText = document.createTextNode('Donjon Suivant');
-        btnDonjonSuivant.appendChild(btnDonjonSuivantText);
-    
-        btnDonjonSuivant.addEventListener('click', function(e) {
-            div.parentNode.removeChild(div);
-            lancerDonjon();
-        }, false);
-        
-        div.appendChild(btnDonjonSuivant);
-    
-        div.style.position = 'absolute';
-        document.body.appendChild(div);
-    };
-
-    let lancerDonjon = function() {
-
-    };
-
-    let init = function() {
-        // Partie pour dessiner les scenes
-        context = document.querySelector("#ecran").getContext('2d');
-        // Partie pour dessiner l'interface
-        div = document.createElement('div');
-
-        // sockets
-        socket.addEventListener('message', function (event) {
-            console.log('Message from server ', event.data);
+    let lancer = function() {
+        socket.addEventListener('open', function (event) {
+            socket.send(JSON.stringify({
+                'id' : 'infosMenu',
+                'values' : {
+                    'id' : id
+                }
+            }));
         });
 
         // lancer le menu
-        menuPrincipal();
         console.log("EndlessKingdom v0.0.1");
     };
 
-    EndlessKingdom.lancer = init;
+    EndlessKingdom.lancer = lancer;
 })();
 
 // Event trigger quand load
