@@ -14,9 +14,9 @@ window.EndlessKingdom = {};
     const id = sessionStorage.getItem('sessionID');
 
     let lancer = function() {
-        socket.addEventListener('open', function (event) {
+        socket.addEventListener('open', function (e) {
             socket.send(JSON.stringify({
-                'id' : 'infosMenu',
+                'id' : 'sessionID',
                 'values' : {
                     'id' : id
                 }

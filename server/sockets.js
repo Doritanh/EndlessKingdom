@@ -12,9 +12,6 @@ module.exports = function(wss) {
 
         // Reception d'un socket
         ws.on('message', async function(data) {
-
-            console.log(data);
-
             let id = JSON.parse(data).id;
             let content = JSON.parse(data).values;
             let number = 0;
@@ -29,10 +26,10 @@ module.exports = function(wss) {
                     break;
                 case 'inscription':
                     number = await inscription(ws, content.pseudo, content.mail, content.mdp, content.mdpConfirm);
-                    socketSend(ws, 'inscription', {'number': number});
+                    sendSocket(ws, 'inscription', {'number': number});
                     break;
-                case 'infosMenu':
-                    console.log("recu : " + content.id);
+                case 'sessionID':
+                    sessionID = content.id;
                     break;
             }
         });
