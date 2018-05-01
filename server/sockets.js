@@ -2,6 +2,7 @@
 
 const Sessions = require('./sessions');
 const identification = require('./identification/identification.js');
+const jeu = require('./jeu/jeu');
 
 module.exports = function(wss) {
     // Declaration des sessions ID
@@ -21,7 +22,6 @@ module.exports = function(wss) {
                 case 'connexion':
                     number = await connexion(ws, content.pseudo, content.mdp);
                     if (number === 1) sessionID = sessions.ajouter(content.pseudo);
-                    console.log("envoie : " + sessionID)
                     sendSocket(ws, 'connexion', {'number' : number, 'sessionID' : sessionID});
                     break;
                 case 'inscription':
@@ -30,6 +30,10 @@ module.exports = function(wss) {
                     break;
                 case 'sessionID':
                     sessionID = content.id;
+                    break;
+                case 'infosMenu':
+                    let menu = await jeu.getMenu(sessions.get(sessionID));
+                    sendSocket(ws, 'infosMenu', {'menu' : menu});
                     break;
             }
         });
