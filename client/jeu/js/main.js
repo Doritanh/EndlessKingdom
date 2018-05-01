@@ -9,9 +9,17 @@ window.EndlessKingdom = {};
 // Main du jeu
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
-    const context = document.querySelector("#ecran").getContext('2d');
-    const menu = document.querySelector("#menu");
     const id = sessionStorage.getItem('sessionID');
+    // Fenetre d'ecran
+    const context = document.querySelector("#ecran").getContext('2d');
+    const menu = document.querySelector("#menu")
+    // Touches de clavier
+    let clavier = {
+        haut : false,
+        bas : false,
+        gauche : false,
+        droite : false
+    }
 
     let construireMenu = function(content) {
         console.log("menu : " + content)
@@ -22,20 +30,66 @@ window.EndlessKingdom = {};
     }
 
     let init = function() {
+        // RIen d'affiché au début
         context.canvas.style.display = "none";
         menu.style.display = "none";
 
+        // Ecoute des evenements du clavier
+        window.addEventListener('keydown', function(e) {
+            switch (e.key) {
+                case 'ArrowUp':
+                    clavier.haut = true;
+                    break;
+                case 'ArrowDown':
+                    clavier.bas = true;
+                    break;
+                case 'ArrowLeft' :
+                    clavier.gauche = true;
+                    break;
+                case 'ArrowRight':
+                    clavier.droite = true;
+                    break;
+            }
+        });
+
+        window.addEventListener('keyup', function(e) {
+            switch (e.key) {
+                case 'ArrowUp':
+                    clavier.haut = false;
+                    break;
+                case 'ArrowDown':
+                    clavier.bas = false;
+                    break;
+                case 'ArrowLeft' :
+                    clavier.gauche = false;
+                    break;
+                case 'ArrowRight':
+                    clavier.droite = false;
+                    break;
+            }
+        });
+
+        // Reception d'un socket
         socket.addEventListener('message', function(e) {
             let id = JSON.parse(e.data).id;
             let content = JSON.parse(e.data).values;
 
             switch (id) {
-                case 'infosMenu':
-                    construireMenu(content);
+                case 'status':
+                    switch (content.status) {
+                        case 'NO_PERSONNAGE':
+                            break;
+                        case 'MENU':
+                            construireMenu(content);
+                            break;
+                        case 'DONJON':
+                            break;
+                    }
                     break;
             }
         });
 
+        // Ouverture de la connexion au serveur de socket
         socket.addEventListener('open', function (e) {
             // Envoie de l'id de session
             socket.send(JSON.stringify({
@@ -46,12 +100,12 @@ window.EndlessKingdom = {};
             }));
 
             socket.send(JSON.stringify({
-                'id' : 'infosMenu',
+                'id' : 'status',
                 'values' : {}
             }));
         });
 
-        // lancer le menu
+        // Petit message sympa
         console.log("EndlessKingdom v0.0.1");
     };
 

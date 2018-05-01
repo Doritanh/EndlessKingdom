@@ -3,22 +3,26 @@
 const requetes = require('../data/requetes');
 
 module.exports = {
-    getMenu : async function(pseudo) {
-        let menu = {};
+    getStatus : async function(pseudo) {
         let id = await requetes.getIDFromPseudo(pseudo);
         let data = await requetes.getDataFromID(id);
-        menu.personnages = personnages(data.personnages);
-        return menu;
+        if (aucunPersonnage(data.personnages)) {
+            return STATUS_CODE.NO_PERSONNAGE;
+        }
+        return false;
     }
 }
 
-let personnages = function(personnages) {
-    let content = {};
+let aucunPersonnage = function(personnages) {
+    let existe = false;
     if (typeof personnages !== 'undefined') {
-        content.vide = false;
-        console.log("personnage > 0")
-    } else {
-        content.vide = true;
+        existe = true;
     }
-    return content;
+    return existe;
+}
+
+const STATUS_CODE = {
+    NO_PERSONNAGE : "NO_PERSONNAGE",
+    MENU : 'MENU',
+    DONJON : 'DONJON'
 }

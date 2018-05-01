@@ -31,9 +31,9 @@ module.exports = function(wss) {
                 case 'sessionID':
                     sessionID = content.id;
                     break;
-                case 'infosMenu':
-                    let menu = await jeu.getMenu(sessions.get(sessionID));
-                    sendSocket(ws, 'infosMenu', {'menu' : menu});
+                case 'status':
+                    let status = await jeu.getStatus(sessions.get(sessionID));
+                    sendSocket(ws, 'status', {'status' : status});
                     break;
             }
         });
