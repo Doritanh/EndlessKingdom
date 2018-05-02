@@ -1,24 +1,34 @@
 'use strict';
 
-module.exports = class Sessions {
+module.exports =  class Sessions {
     constructor() {
-        this.map = new Map();
+        this.liste = {};
     }
 
     ajouter(pseudo) {
         let id = 0;
         do {
             id = Math.floor(Math.random() * 1000000000);
-        } while(this.map.has(id));
-        this.map.set(id, pseudo);
+        } while (this.has(id));
+        this.liste[id] = pseudo;
         return id;
-    };
+    }
 
     supprimer(id) {
-        this.map.delete(id);
+        this.liste[id] = null;
     }
 
     get(id) {
-        return this.map.get(id);
+        return this.liste[id];
+    }
+
+    has(id) {
+        let has = false;
+        if (this.liste.hasOwnProperty(id)) {
+            if (this.liste[id] !== null) {
+                has = true;
+            }
+        }
+        return has;
     }
 }

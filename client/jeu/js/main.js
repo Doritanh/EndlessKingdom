@@ -11,8 +11,12 @@ window.EndlessKingdom = {};
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     const id = sessionStorage.getItem('sessionID');
     // Fenetre d'ecran
-    const context = document.querySelector("#ecran").getContext('2d');
-    const menu = document.querySelector("#menu")
+    const fenetre = {
+        ecran : document.querySelector("#ecran"),
+        menu : document.querySelector("#menu"),
+        creationPerso : document.querySelector('#creationPerso')
+    }
+    const fenetreActive = null;
     // Touches de clavier
     let clavier = {
         haut : false,
@@ -21,18 +25,30 @@ window.EndlessKingdom = {};
         droite : false
     }
 
-    let construireMenu = function(content) {
+    let activerFenetre = function(fenetreActive) {
+        for(var f in fenetre) {
+            fenetre[f].style.display = "none";
+        }
+        if (fenetreActive !== "none") {
+            fenetre[fenetreActive].style.display = "block";
+        }
+    }
+
+    let afficherMenu = function(content) {
         console.log("menu : " + content)
         /*
         ** Construction du menu
         */
-       menu.style.display = "block";
+       activerFenetre("menu")
+    }
+
+    let afficherCreationPerso = function() {
+        activerFenetre("creationPerso");
     }
 
     let init = function() {
-        // RIen d'affiché au début
-        context.canvas.style.display = "none";
-        menu.style.display = "none";
+        // Rien d'affiché au début
+        activerFenetre("none");
 
         // Ecoute des evenements du clavier
         window.addEventListener('keydown', function(e) {
@@ -78,9 +94,10 @@ window.EndlessKingdom = {};
                 case 'status':
                     switch (content.status) {
                         case 'NO_PERSONNAGE':
+                            afficherCreationPerso();
                             break;
                         case 'MENU':
-                            construireMenu(content);
+                            afficherMenu(content);
                             break;
                         case 'DONJON':
                             break;
@@ -99,6 +116,7 @@ window.EndlessKingdom = {};
                 }
             }));
 
+            // Requete du status
             socket.send(JSON.stringify({
                 'id' : 'status',
                 'values' : {}
