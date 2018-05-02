@@ -18,7 +18,15 @@
 
     <!-- Fenetre de création du personnage -->
     <div id="creationPerso">
-        Héhé
+        <form>
+            <p>Nom de votre personnage</p>
+            <input type="text" name="nom" value="Foo">
+            <p>Difficulté choisis</p>
+            <input type="radio" name="difficulte" value="0">Héritage Total<br>
+            <input type="radio" name="difficulte" value="1" checked>Héritage de compétences<br>
+            <input type="radio" name="difficulte" value="2">Pas d'héritage<br>
+            <input type="submit" value="Créer !" >
+        </form>
     </div>
     <!-- Fichier du jeu -->
     <script src="/client/jeu/js/main.js"></script>

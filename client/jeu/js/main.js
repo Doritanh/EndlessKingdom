@@ -16,7 +16,6 @@ window.EndlessKingdom = {};
         menu : document.querySelector("#menu"),
         creationPerso : document.querySelector('#creationPerso')
     }
-    const fenetreActive = null;
     // Touches de clavier
     let clavier = {
         haut : false,
@@ -43,6 +42,14 @@ window.EndlessKingdom = {};
     }
 
     let afficherCreationPerso = function() {
+        let form = fenetre.creationPerso.querySelector('form');
+        form.addEventListener('submit', function submit(e) {
+            form.removeEventListener('submit', submit, false);
+            e.preventDefault();
+            let nom = form.querySelector('input[name="nom"]');
+            let difficulte = form.querySelector('input[name="difficulte"]');
+            console.log(nom.value + difficulte.value)
+        }, false);
         activerFenetre("creationPerso");
     }
 
