@@ -13,15 +13,16 @@ module.exports = async function(req, res) {
         chemin = './client/identification/index.html';
     } else if (chemin === './jeu/' || chemin === './client/jeu/index.html') {
         chemin = './client/jeu/index.html';
-        let data = await post.getData(req);
+        /*let data = await post.getData(req);
         if (data.pseudo === 'undefined' || data.mdp === 'undefined') {
             codeErreur = 1;
         } else {
             let connexion = await identification.connexion(data.pseudo, data.mdp);
             if (connexion !== 1) codeErreur = 1;
-        }
+        }*/
     } else if (!chemin.startsWith("./client/")) {
-        chemin = './client/identification/index.html';
+        codeErreur = 1;
+        //chemin = './client/identification/index.html';
     }
 
     let content;

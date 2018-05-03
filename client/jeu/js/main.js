@@ -13,6 +13,7 @@ window.EndlessKingdom = {};
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     const id = sessionStorage.getItem('sessionID');
+    console.log(id)
     // Fenetre d'ecran
     const fenetres = {
         ecran : document.querySelector("#ecran"),
