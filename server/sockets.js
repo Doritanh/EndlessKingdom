@@ -34,7 +34,6 @@ module.exports = function(wss) {
                     sessionID = content.id;
                     break;
                 case 'status':
-                    console.log(sessions.get(sessionID))
                     status = await jeu.getStatus(sessions.get(sessionID));
                     sendSocket(ws, 'status', {'status' : status});
                     break;
