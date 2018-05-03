@@ -112,6 +112,7 @@ window.EndlessKingdom.identification.verification = {};
                 }
             };
             s.send(JSON.stringify(objet));
+            window.location.replace('http://' + window.location.hostname + '/jeu/');
         });
         document.querySelector('#frm_inscription').addEventListener('submit', function(e) {
             e.preventDefault();
