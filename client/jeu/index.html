@@ -10,7 +10,25 @@
     <canvas id="ecran" width=800 height=600>
         Arreter d'utiliser des naviguateurs du tier monde SVP.
     </canvas>
+
+    <!-- Fenetre du menu -->
+    <div id="menu">
+        <button id="prochainDonjon">Prochain donjon</button>
+    </div>
+
+    <!-- Fenetre de création du personnage -->
+    <div id="creationPerso">
+        <form>
+            <p>Nom de votre personnage</p>
+            <input type="text" name="nom" value="Foo">
+            <p>Difficulté choisis</p>
+            <input type="radio" name="difficulte" value="0">Héritage Total<br>
+            <input type="radio" name="difficulte" value="1" checked>Héritage de compétences<br>
+            <input type="radio" name="difficulte" value="2">Pas d'héritage<br>
+            <input type="submit" value="Créer !" >
+        </form>
+    </div>
     <!-- Fichier du jeu -->
-    <script src="/client/jeu/js/main.js" type="module"></script>
+    <script src="/client/jeu/js/main.js"></script>
 </body>
 </html>

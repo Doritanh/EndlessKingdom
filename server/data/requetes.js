@@ -27,6 +27,19 @@ module.exports = {
         });
         return promise;
     },
+    getDataFromID : async function(id) {
+        const client = await database.connect();
+        const collection =  client.db(database.nom()).collection('utilisateurs');
+        let promise = new Promise(function(resolve, reject) {
+            collection.find({'_id' : id}).toArray(function(err, data) {
+                client.close();
+                if (err) return reject();
+                if (data.length > 0) return resolve(data[0]);
+                return resolve(false);
+            })
+        });
+        return promise;
+    },
     getMdp : async function(id) {
         const client = await database.connect();
         const collection =  client.db(database.nom()).collection('utilisateurs');
@@ -48,11 +61,30 @@ module.exports = {
                 'pseudo' : pseudo,
                 'mail' : mail,
                 'mdp' : mdp,
-                'personnages' : {},
-                'donjons' : {},
-                'inventaire' : {},
+                'personnages' : [],
+                'donjons' : [],
+                'inventaire' : [],
                 'score' : 0
             }, function(err, result) {
+                client.close();
+                if (err) return reject();
+                if (result) {
+                    return resolve(true);
+                } else {
+                    return resolve(false);
+                }
+            });
+        });
+        return promise;
+    },
+    ajouterPersonnage : async function(id, nom, difficulte) {
+        const client = await database.connect();
+        const collection =  client.db(database.nom()).collection('utilisateurs');
+        let promise = new Promise(function(resolve, reject) {
+            collection.update({'_id' : id}, {$push : {'personnages' : {
+                'nom' : nom,
+                'difficulte' : difficulte
+            }}}, function(err, result) {
                 client.close();
                 if (err) return reject();
                 if (result) {
