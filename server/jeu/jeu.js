@@ -13,10 +13,9 @@ module.exports = {
     },
     ajouterPerso : async function(pseudo, nom, difficulte) {
         let id = await requetes.getIDFromPseudo(pseudo);
-        try {
+        let data = await requetes.getDataFromID(id);
+        if (data.personnages.length === 0) {
             requetes.ajouterPersonnage(id, nom, difficulte);
-        } catch (e) {
-            console.log(e);
         }
     }
 }

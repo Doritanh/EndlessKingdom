@@ -34,6 +34,7 @@ module.exports = function(wss) {
                     sessionID = content.id;
                     break;
                 case 'status':
+                    console.log(sessions.get(sessionID))
                     status = await jeu.getStatus(sessions.get(sessionID));
                     sendSocket(ws, 'status', {'status' : status});
                     break;
@@ -46,9 +47,9 @@ module.exports = function(wss) {
         });
 
         // Le client ferme sa connexion
-        /*ws.on('close', function() {
-
-        });*/
+        ws.on('close', function() {
+            sessionID = 0;
+        });
     });
 }
 

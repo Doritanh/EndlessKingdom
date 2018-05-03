@@ -57,8 +57,8 @@ window.EndlessKingdom = {};
     let creationPerso = function() {
         let form = fenetres.creationPerso.querySelector('form');
         form.addEventListener('submit', function submit(e) {
-            form.removeEventListener('submit', submit, false);
             e.preventDefault();
+            form.removeEventListener('submit', submit, false);
             let nom = form.querySelector('input[name="nom"]');
             let arrayDifficultes = form.querySelectorAll('input[name="difficulte"]');
             let difficulte;
