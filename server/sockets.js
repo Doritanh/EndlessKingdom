@@ -15,7 +15,9 @@ module.exports = function(wss) {
         ws.on('message', async function(data) {
             let id = JSON.parse(data).id;
             let content = JSON.parse(data).values;
+
             let number = 0;
+            let status;
 
             // Instructions en fonction de l'entete du socket
             switch (id) {
@@ -32,7 +34,12 @@ module.exports = function(wss) {
                     sessionID = content.id;
                     break;
                 case 'status':
-                    let status = await jeu.getStatus(sessions.get(sessionID));
+                    status = await jeu.getStatus(sessions.get(sessionID));
+                    sendSocket(ws, 'status', {'status' : status});
+                    break;
+                case 'creationPerso':
+                    await jeu.ajouterPerso(sessions.get(sessionID), content.nom, content.difficulte);
+                    status = await jeu.getStatus(sessions.get(sessionID));
                     sendSocket(ws, 'status', {'status' : status});
                     break;
             }

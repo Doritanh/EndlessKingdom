@@ -6,19 +6,19 @@ module.exports = {
     getStatus : async function(pseudo) {
         let id = await requetes.getIDFromPseudo(pseudo);
         let data = await requetes.getDataFromID(id);
-        if (aucunPersonnage(data.personnages)) {
+        if (data.personnages.length === 0) {
             return STATUS_CODE.NO_PERSONNAGE;
         }
         return STATUS_CODE.MENU;
+    },
+    ajouterPerso : async function(pseudo, nom, difficulte) {
+        let id = await requetes.getIDFromPseudo(pseudo);
+        try {
+            requetes.ajouterPersonnage(id, nom, difficulte);
+        } catch (e) {
+            console.log(e);
+        }
     }
-}
-
-let aucunPersonnage = function(personnages) {
-    let existe = false;
-    if (typeof personnages !== 'undefined') {
-        existe = true;
-    }
-    return existe;
 }
 
 const STATUS_CODE = {

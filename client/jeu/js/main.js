@@ -2,6 +2,9 @@
 **  Programme principal du jeu
 **  Endless Kingdom
 **  Antho Charly Lucas Marion
+**
+**  JavaScript, ECMASCRIPT 6
+**  JSDOC 3
 */
 "use strict";
 window.EndlessKingdom = {};
@@ -11,7 +14,7 @@ window.EndlessKingdom = {};
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     const id = sessionStorage.getItem('sessionID');
     // Fenetre d'ecran
-    const fenetre = {
+    const fenetres = {
         ecran : document.querySelector("#ecran"),
         menu : document.querySelector("#menu"),
         creationPerso : document.querySelector('#creationPerso')
@@ -24,42 +27,61 @@ window.EndlessKingdom = {};
         droite : false
     }
 
-    let activerFenetre = function(fenetreActive) {
-        for(var f in fenetre) {
-            fenetre[f].style.display = "none";
+    /**
+     * Rends visible une fenetre
+     * @param {fenetre} fenetre
+     */
+    let afficherFenetre = function(fenetre) {
+        for (var f in fenetres) {
+            fenetres[f].style.display = "none";
         }
-        if (fenetreActive !== "none") {
-            fenetre[fenetreActive].style.display = "block";
+        if (fenetre !== "none") {
+            fenetres[fenetre].style.display = "block";
         }
     }
 
-    let afficherMenu = function(content) {
+    /**
+     * Affiche le menu
+     * @param {*} content 
+     */
+    let menu = function(content) {
         console.log("menu : " + content)
         /*
         ** Construction du menu
         */
-       activerFenetre("menu")
     }
 
-    let afficherCreationPerso = function() {
-        let form = fenetre.creationPerso.querySelector('form');
+    /**
+     * Fonction pour initialiser la creation de personnages
+     */
+    let creationPerso = function() {
+        let form = fenetres.creationPerso.querySelector('form');
         form.addEventListener('submit', function submit(e) {
             form.removeEventListener('submit', submit, false);
             e.preventDefault();
             let nom = form.querySelector('input[name="nom"]');
-            let difficulte = form.querySelector('input[name="difficulte"]');
-            console.log(nom.value + difficulte.value)
+            let arrayDifficultes = form.querySelectorAll('input[name="difficulte"]');
+            let difficulte;
+            arrayDifficultes.forEach(function(item) {
+                if (item.checked) difficulte = item;
+            });
+            socket.send(JSON.stringify({
+                'id' : 'creationPerso',
+                'values' : {
+                    'nom' : nom.value,
+                    'difficulte' : difficulte.value
+                }
+            }));
         }, false);
-        activerFenetre("creationPerso");
     }
 
     let init = function() {
         // Rien d'affiché au début
-        activerFenetre("none");
+        afficherFenetre("none");
 
         // Ecoute des evenements du clavier
-        window.addEventListener('keydown', function(e) {
-            switch (e.key) {
+        window.addEventListener('keydown', event => {
+            switch (event.key) {
                 case 'ArrowUp':
                     clavier.haut = true;
                     break;
@@ -75,8 +97,8 @@ window.EndlessKingdom = {};
             }
         });
 
-        window.addEventListener('keyup', function(e) {
-            switch (e.key) {
+        window.addEventListener('keyup', event => {
+            switch (event.key) {
                 case 'ArrowUp':
                     clavier.haut = false;
                     break;
@@ -93,7 +115,7 @@ window.EndlessKingdom = {};
         });
 
         // Reception d'un socket
-        socket.addEventListener('message', function(e) {
+        socket.addEventListener('message', e => {
             let id = JSON.parse(e.data).id;
             let content = JSON.parse(e.data).values;
 
@@ -101,10 +123,12 @@ window.EndlessKingdom = {};
                 case 'status':
                     switch (content.status) {
                         case 'NO_PERSONNAGE':
-                            afficherCreationPerso();
+                            creationPerso();
+                            afficherFenetre("creationPerso");
                             break;
                         case 'MENU':
-                            afficherMenu(content);
+                            menu(content);
+                            afficherFenetre("menu");
                             break;
                         case 'DONJON':
                             break;
@@ -114,7 +138,7 @@ window.EndlessKingdom = {};
         });
 
         // Ouverture de la connexion au serveur de socket
-        socket.addEventListener('open', function (e) {
+        socket.addEventListener('open', e => {
             // Envoie de l'id de session
             socket.send(JSON.stringify({
                 'id' : 'sessionID',
@@ -138,6 +162,6 @@ window.EndlessKingdom = {};
 })();
 
 // Event trigger quand load
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
     EndlessKingdom.init();
 });
