@@ -11,6 +11,8 @@ html, body {
     justify-content: center;
 }
 #fenetre {
+    display: flex;
+    flex-direction: column;
     border: solid 1px black;
     margin-top: 150px;
     border: outset 5px;
@@ -20,6 +22,12 @@ html, body {
     min-width: 340px;
 }
 /* BOUTONS */
+#buttons {
+    display: flex;
+    flex-direction: row;
+    min-height: 70px;
+}
+
 .chMenu {
     font-size: 30px;
     margin: 0px;
@@ -28,11 +36,9 @@ html, body {
 #btn_connexion {
     border-radius: 10px 0px 0px 0px;
     border-style: inset;
-    margin-right: -5px;
 }
 #btn_inscription {
     border-radius:0px 10px 0px 0px;
-    margin-left: -5px;
 }
 .btn_validation {
     margin-top: 10px;
