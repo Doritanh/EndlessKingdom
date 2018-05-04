@@ -6,6 +6,7 @@ module.exports = {
     getStatus : async function(pseudo) {
         let id = await requetes.getIDFromPseudo(pseudo);
         let data = await requetes.getDataFromID(id);
+        if (!data) return STATUS_CODE.ERROR;
         if (data.personnages.length === 0) {
             return STATUS_CODE.NO_PERSONNAGE;
         }
@@ -21,7 +22,8 @@ module.exports = {
 }
 
 const STATUS_CODE = {
-    NO_PERSONNAGE : "NO_PERSONNAGE",
+    ERROR : 'ERROR',
+    NO_PERSONNAGE : 'NO_PERSONNAGE',
     MENU : 'MENU',
     DONJON : 'DONJON'
 }
