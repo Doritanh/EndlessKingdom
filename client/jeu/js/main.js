@@ -15,6 +15,7 @@ window.EndlessKingdom = {};
     const id = sessionStorage.getItem('sessionID');
     // Fenetre d'ecran
     const fenetres = {
+        erreur : document.querySelector('#erreur'),
         ecran : document.querySelector("#ecran"),
         menu : document.querySelector("#menu"),
         creationPerso : document.querySelector('#creationPerso')
@@ -76,6 +77,10 @@ window.EndlessKingdom = {};
     }
 
     let init = function() {
+        // Pas d'id définis, retour au menu
+        if (id === null) {
+            //window.location.replace('http://' + window.location.hostname + '/');
+        }
         // Rien d'affiché au début
         afficherFenetre("none");
 
@@ -122,6 +127,9 @@ window.EndlessKingdom = {};
             switch (id) {
                 case 'status':
                     switch (content.status) {
+                        case 'ERROR':
+                            afficherFenetre('erreur');
+                            break;
                         case 'NO_PERSONNAGE':
                             creationPerso();
                             afficherFenetre("creationPerso");
