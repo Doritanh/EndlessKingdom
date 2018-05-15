@@ -18,7 +18,7 @@ window.EndlessKingdom = {};
         erreur : document.querySelector('#erreur'),
         ecran : document.querySelector("#ecran"),
         menu : document.querySelector("#menu"),
-        creationPerso : document.querySelector('#creationPerso')
+        creationPerso : document.querySelector('#creationPerso'),
     }
     // Touches de clavier
     let clavier = {
@@ -47,9 +47,13 @@ window.EndlessKingdom = {};
      */
     let menu = function(content) {
         console.log("menu : " + content)
-        /*
-        ** Construction du menu
-        */
+        let prochainDonjon = document.querySelector("#prochainDonjon");
+        prochainDonjon.addEventListener("click", e => {
+            socket.send(JSON.stringify({
+                'id' : 'jeu',
+                'values' : {}
+            }));            
+        });
     }
 
     /**
@@ -139,6 +143,8 @@ window.EndlessKingdom = {};
                             afficherFenetre("menu");
                             break;
                         case 'DONJON':
+                            console.log("donjon")
+                            afficherFenetre("ecran");
                             break;
                     }
                     break;

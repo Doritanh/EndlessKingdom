@@ -1,8 +1,12 @@
 'use strict';
 
 const requetes = require('../data/requetes');
+const donjon = require('./donjon.js');
 
 module.exports = {
+    listeStatus : function() {
+        return STATUS_CODE;
+    },
     getStatus : async function(pseudo) {
         let id = await requetes.getIDFromPseudo(pseudo);
         let data = await requetes.getDataFromID(id);
@@ -18,6 +22,9 @@ module.exports = {
         if (data.personnages.length === 0) {
             requetes.ajouterPersonnage(id, nom, difficulte);
         }
+    },
+    genererDonjon : function() {
+        return donjon.genererDonjon(10);
     }
 }
 
