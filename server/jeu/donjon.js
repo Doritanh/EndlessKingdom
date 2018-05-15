@@ -1,6 +1,6 @@
 module.exports = {
-    genererDonjon : function(maxSalles) {
-        return generationDonjon(maxSalles);
+    generer : function(maxSalles) {
+        return nouveauDonjon(maxSalles);
     }
 }
 
@@ -8,7 +8,7 @@ var generationNombre = function(min, max) {
     return Math.floor(Math.random()*(max - min + 1) + min);
 }
 
-var generationDonjon = function(maxSalles) {
+var nouveauDonjon = function(maxSalles) {
     let tailleX = 10;
     let tailleY = 10;
 
@@ -34,7 +34,6 @@ var generationDonjon = function(maxSalles) {
     
     tabGenerated[spawnX][spawnY] = true;
 	salles[0] = new Salle(spawnX, spawnY);
-    //let nbSalle =1;
 
     for (let n=0; n < maxSalles-1; n++) {
         // Au debut tout est possible
@@ -62,23 +61,20 @@ var generationDonjon = function(maxSalles) {
                         switch (j) {
                         //MIN J
                         case 0:
-                            if(tabGenerated[i+1][j] == false && tabGenerated[i][j+1] == false)
-                            {
+                            if(tabGenerated[i+1][j] == false && tabGenerated[i][j+1] == false){
                                 tabPossible[i][j] = false;
                             }
                             break;
                         //MAX J	
                         case tailleY-1:
-                            if(tabGenerated[i+1][j] == false && tabGenerated[i][j-1] == false)
-                            {
+                            if(tabGenerated[i+1][j] == false && tabGenerated[i][j-1] == false){
                                     tabPossible[i][j] = false;
                             }
                             break;
                         //DEF J
                         default :
                             if(tabGenerated[i+1][j] == false && tabGenerated[i][j-1] == false 
-                                && tabGenerated[i][j+1] == false)
-                            {
+                                && tabGenerated[i][j+1] == false) {
                                     tabPossible[i][j] = false;
                             }
                             break;
@@ -89,23 +85,20 @@ var generationDonjon = function(maxSalles) {
                         switch (j){
                             //MIN J
                             case 0:
-                                if(tabGenerated[i-1][j] == false && tabGenerated[i][j+1] == false)
-                                {
+                                if(tabGenerated[i-1][j] == false && tabGenerated[i][j+1] == false) {
                                     tabPossible[i][j] = false;
                                 }
                                 break;
                             //MAX J	
                             case tailleY-1:
-                                if(tabGenerated[i-1][j] == false && tabGenerated[i][j-1] == false)
-                                {
+                                if(tabGenerated[i-1][j] == false && tabGenerated[i][j-1] == false){
                                         tabPossible[i][j] = false;
                                 }
                                 break;
                             //DEF J
                             default :
                                 if(tabGenerated[i-1][j] == false && tabGenerated[i][j-1] == false 
-                                    && tabGenerated[i][j+1] == false)
-                                {
+                                    && tabGenerated[i][j+1] == false){
                                         tabPossible[i][j] = false;
                                 }
                                 break;
@@ -117,24 +110,21 @@ var generationDonjon = function(maxSalles) {
                             //MIN J
                             case 0:
                                 if(tabGenerated[i+1][j] == false && tabGenerated[i-1][j] == false 
-                                    && tabGenerated[i][j+1] == false)
-                                {
+                                    && tabGenerated[i][j+1] == false){
                                     tabPossible[i][j] = false;
                                 }
                                 break;
                             //MAX J	
                             case tailleY-1:
                                 if(tabGenerated[i+1][j] == false && tabGenerated[i-1][j] == false 
-                                    && tabGenerated[i][j-1] == false)
-                                {
+                                    && tabGenerated[i][j-1] == false){
                                         tabPossible[i][j] = false;
                                 }
                                 break;
                             //DEF J
                             default :
                                 if(tabGenerated[i+1][j] == false && tabGenerated[i-1][j] == false 
-                                    && tabGenerated[i][j+1] == false && tabGenerated[i][j-1] == false)
-                                {
+                                    && tabGenerated[i][j+1] == false && tabGenerated[i][j-1] == false){
                                     tabPossible[i][j] = false;
                                 }
                                 break;
@@ -146,7 +136,7 @@ var generationDonjon = function(maxSalles) {
             }
             // tjs dans la fonction
         }
-        for(let i =0; i<tailleX;i++) {
+        /*for(let i =0; i<tailleX;i++) {
             let ligne = "";
             for (let j=0; j<tailleY;j++) {
                 if(tabPossible[i][j] == true) {
@@ -157,7 +147,7 @@ var generationDonjon = function(maxSalles) {
                 }
             }
             console.log(ligne)
-        }
+        }*/
 
         //Compte le nombre de possibilite
         for(let i =0; i<tailleX;i++){
@@ -167,10 +157,15 @@ var generationDonjon = function(maxSalles) {
                 }
             }
         }
-        console.log(compteur);
+        
+        
+        //console.log(compteur);
+        
         //Generation d'un nombre pour la nouvelle salle
         newSalle = generationNombre(1,compteur);
-        console.log(newSalle);
+        
+        //console.log(newSalle);
+        
         compteur =0;
         for(let i =0; i<tailleX;i++) {
             for (let j=0; j<tailleY;j++) {

@@ -24,7 +24,7 @@ module.exports = {
         }
     },
     genererDonjon : function() {
-        return donjon.genererDonjon(10);
+        return donjon.generer(10);
     }
 }
 
