@@ -43,13 +43,14 @@ window.EndlessKingdom = {};
 
     /**
      * Affiche le menu
-     * @param {*} content 
+     * @param {object} content
      */
     let menu = function(content) {
-        console.log("menu : " + content)
-        /*
-        ** Construction du menu
-        */
+        console.log(content);
+        let addDonjon = function(donjon) {
+            let donjonsTable = document.querySelector("#choixDonjon table");
+            let trDonjon = document.createElement()
+        }
     }
 
     /**
@@ -135,7 +136,7 @@ window.EndlessKingdom = {};
                             afficherFenetre("creationPerso");
                             break;
                         case 'MENU':
-                            menu(content);
+                            menu(content.infos);
                             afficherFenetre("menu");
                             break;
                         case 'DONJON':

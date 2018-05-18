@@ -27,7 +27,8 @@ module.exports = function(wss) {
                     sendSocket(ws, 'connexion', {'number' : number, 'sessionID' : sessionID});
                     break;
                 case 'inscription':
-                    number = await inscription(ws, content.pseudo, content.mail, content.mdp, content.mdpConfirm);
+                    number = await inscription(ws, content.pseudo, content.mail, content.mdp, 
+                        content.mdpConfirm);
                     sendSocket(ws, 'inscription', {'number': number});
                     break;
                 case 'sessionID':
@@ -35,7 +36,18 @@ module.exports = function(wss) {
                     break;
                 case 'status':
                     status = await jeu.getStatus(sessions.get(sessionID));
-                    sendSocket(ws, 'status', {'status' : status});
+                    switch (status) {
+                        case 'MENU':
+                            let menu = await jeu.getInfosMenu(sessions.get(sessionID));
+                            sendSocket(ws, 'status', {
+                                'status' : status,
+                                'infos' : menu
+                            });
+                            break;
+                        default:
+                            sendSocket(ws, 'status', {'status' : status});
+                            break;
+                    }
                     break;
                 case 'creationPerso':
                     await jeu.ajouterPerso(sessions.get(sessionID), content.nom, content.difficulte);
