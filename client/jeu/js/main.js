@@ -46,10 +46,63 @@ window.EndlessKingdom = {};
      * @param {object} content
      */
     let menu = function(content) {
-        console.log(content);
-        let addDonjon = function(donjon) {
-            let donjonsTable = document.querySelector("#choixDonjon table");
-            let trDonjon = document.createElement()
+        //console.log(content);
+        //  Partie affichage des personnages
+        let personnageSelected = 0;
+        let champPersonnage = document.querySelector("#choixPerso span");
+        champPersonnage.textContent = content.personnages[personnageSelected].nom;
+
+        //  Partie affichage des donjons
+        let addDonjon = function(nom, niveau, mode) {
+            const listeDonjons = document.querySelector("#choixDonjon table");
+
+            let trDonjon = document.createElement("tr");
+            let thNom = document.createElement('th');
+            let thNiveau = document.createElement('th');
+            let thMode = document.createElement('th');
+            let btnMode = document.createElement('button');
+
+            let nomDonjon = document.createTextNode(nom);
+            let niveauDonjon = document.createTextNode(niveau);
+            let modeDonjon = document.createTextNode(mode);
+
+            thNom.appendChild(nomDonjon);
+            thNiveau.appendChild(niveauDonjon);
+            btnMode.appendChild(modeDonjon);
+            thMode.appendChild(btnMode);
+
+            trDonjon.appendChild(thNom);
+            trDonjon.appendChild(thNiveau);
+            trDonjon.appendChild(thMode);
+
+            listeDonjons.appendChild(trDonjon);
+        }
+
+        if (content.donjons.length !== 0) {
+            const donjons = document.querySelector("#choixDonjon");
+            let listeDonjons = document.createElement("table");
+
+            let trDonjon = document.createElement("tr");
+            let thNom = document.createElement('th');
+            let thNiveau = document.createElement('th');
+            let thMode = document.createElement('th');
+
+            thNom.appendChild(document.createTextNode("Nom"));
+            thNiveau.appendChild(document.createTextNode("Niveau"));
+            thMode.appendChild(document.createTextNode("Mode"));
+
+            trDonjon.appendChild(thNom);
+            trDonjon.appendChild(thNiveau);
+            trDonjon.appendChild(thMode);
+
+            listeDonjons.appendChild(trDonjon);
+            donjons.appendChild(listeDonjons);
+
+            for (var i=0; i<content.donjons.length; i++) {
+                console.log("new donjons : " + content.donjons[i])
+            }
+        } else {
+            // Si il n'y as pas de donjons
         }
     }
 
