@@ -18,31 +18,27 @@
 
     <!-- Fenetre du menu -->
     <div id="menu">
-        <span>EndlessKingdom</span>
-        <div id="choixPerso">
-            <button id="btnLeft"><</button>
-            <span>Personnage 1</span>
-            <button id="btnRight">></button>
-        </div>
-        <div id="choixDonjon">
-            <span>Liste de vos donjons</span>
-            <!--<table>
-                <tr>
-                    <th>Nom</th>
-                    <th>Niveau</th>
-                    <th>Mode</th>
-                </tr>
-                <tr>
-                    <th>Crypte du nécromancien fou</th>
-                    <th>1</th>
-                    <th><button>Exploration</button></th>
-                </tr>
-                <tr>
-                    <th>Forêt du limon obscur</th>
-                    <th>2</th>
-                    <th><button>Découverte</button></th>
-                </tr>
-            </table>-->
+        <div class="gridMenu">
+            <div class="title">
+                <span>EndlessKingdom</span>
+            </div>
+            <div id="choixPerso">
+                <span class="titreChoixPerso">Choix de votre héros</span>
+                <div class="picturePerso"></div>
+                <div id="selectionPerso">
+                    <button id="btnLeft"><</button>
+                    <span class="selectedPerso">Personnage 1</span>
+                    <button id="btnRight">></button>
+                </div>
+                <button class="nouveauPerso">Nouveau héros</button>
+            </div>
+            <div id="compte">
+                <span class="titreChoixCompte">Titulaire du compte</span>
+            </div>
+            <div id="choixDonjon">
+                <span class="titreChoixDonjon">Liste de vos donjons</span>
+                <table></table>
+            </div>
         </div>
     </div>
 

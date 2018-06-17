@@ -46,63 +46,71 @@ window.EndlessKingdom = {};
      * @param {object} content
      */
     let menu = function(content) {
-        //console.log(content);
         //  Partie affichage des personnages
         let personnageSelected = 0;
-        let champPersonnage = document.querySelector("#choixPerso span");
+        let champPersonnage = document.querySelector("#selectionPerso span");
         champPersonnage.textContent = content.personnages[personnageSelected].nom;
 
-        //  Partie affichage des donjons
+        // Constantes
+        const choixDonjon = document.querySelector('#choixDonjon');
+        const listeDonjons = document.querySelector("#choixDonjon table");
+
+        /**
+         * Ajoute un donjon au menu
+         * @param {String} nom 
+         * @param {String} niveau 
+         * @param {String} mode
+         */
         let addDonjon = function(nom, niveau, mode) {
-            const listeDonjons = document.querySelector("#choixDonjon table");
-
             let trDonjon = document.createElement("tr");
-            let thNom = document.createElement('th');
-            let thNiveau = document.createElement('th');
-            let thMode = document.createElement('th');
-            let btnMode = document.createElement('button');
 
+            let tdNom = document.createElement('td');
             let nomDonjon = document.createTextNode(nom);
+            tdNom.appendChild(nomDonjon);
+            trDonjon.appendChild(tdNom);
+
+            let tdNiveau = document.createElement('td');
             let niveauDonjon = document.createTextNode(niveau);
+            tdNiveau.appendChild(niveauDonjon);
+            trDonjon.appendChild(tdNiveau);
+
+            let tdMode = document.createElement('td');
             let modeDonjon = document.createTextNode(mode);
-
-            thNom.appendChild(nomDonjon);
-            thNiveau.appendChild(niveauDonjon);
+            let btnMode = document.createElement('button');
             btnMode.appendChild(modeDonjon);
-            thMode.appendChild(btnMode);
-
-            trDonjon.appendChild(thNom);
-            trDonjon.appendChild(thNiveau);
-            trDonjon.appendChild(thMode);
+            tdMode.appendChild(btnMode);
+            trDonjon.appendChild(tdMode);
 
             listeDonjons.appendChild(trDonjon);
         }
 
+        // Ajout des donjons
         if (content.donjons.length !== 0) {
-            const donjons = document.querySelector("#choixDonjon");
-            let listeDonjons = document.createElement("table");
-
+            // On ajoute l'entete du tableau puis on y met les donjons
             let trDonjon = document.createElement("tr");
+
             let thNom = document.createElement('th');
-            let thNiveau = document.createElement('th');
-            let thMode = document.createElement('th');
-
             thNom.appendChild(document.createTextNode("Nom"));
-            thNiveau.appendChild(document.createTextNode("Niveau"));
-            thMode.appendChild(document.createTextNode("Mode"));
-
             trDonjon.appendChild(thNom);
+
+            let thNiveau = document.createElement('th');
+            thNiveau.appendChild(document.createTextNode("Niveau"));
             trDonjon.appendChild(thNiveau);
+
+            let thMode = document.createElement('th');
+            thMode.appendChild(document.createTextNode("Mode"));
             trDonjon.appendChild(thMode);
 
             listeDonjons.appendChild(trDonjon);
-            donjons.appendChild(listeDonjons);
-
             for (var i=0; i<content.donjons.length; i++) {
-                console.log("new donjons : " + content.donjons[i])
+                addDonjon(content.donjons[i].nom, content.donjons[i].niveau, content.donjons[i].mode);
             }
         } else {
             // Si il n'y as pas de donjons
+            let creerButton = document.createElement('button');
+            let boutonNode = document.createTextNode('Création du premier donjon');
+            creerButton.appendChild(boutonNode);
+            choixDonjon.appendChild(creerButton);
         }
     }
 
