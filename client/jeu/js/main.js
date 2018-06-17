@@ -9,6 +9,8 @@
 "use strict";
 window.EndlessKingdom = {};
 
+import vueMenu from './vueMenu.js';
+
 // Main du jeu
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
@@ -54,36 +56,7 @@ window.EndlessKingdom = {};
         // Constantes
         const choixDonjon = document.querySelector('#choixDonjon');
         const listeDonjons = document.querySelector("#choixDonjon table");
-
-        /**
-         * Ajoute un donjon au menu
-         * @param {String} nom 
-         * @param {String} niveau 
-         * @param {String} mode
-         */
-        let addDonjon = function(nom, niveau, mode) {
-            let trDonjon = document.createElement("tr");
-
-            let tdNom = document.createElement('td');
-            let nomDonjon = document.createTextNode(nom);
-            tdNom.appendChild(nomDonjon);
-            trDonjon.appendChild(tdNom);
-
-            let tdNiveau = document.createElement('td');
-            let niveauDonjon = document.createTextNode(niveau);
-            tdNiveau.appendChild(niveauDonjon);
-            trDonjon.appendChild(tdNiveau);
-
-            let tdMode = document.createElement('td');
-            let modeDonjon = document.createTextNode(mode);
-            let btnMode = document.createElement('button');
-            btnMode.appendChild(modeDonjon);
-            tdMode.appendChild(btnMode);
-            trDonjon.appendChild(tdMode);
-
-            listeDonjons.appendChild(trDonjon);
-        }
-
+        
         // Ajout des donjons
         if (content.donjons.length !== 0) {
             // On ajoute l'entete du tableau puis on y met les donjons
