@@ -9,7 +9,8 @@
 "use strict";
 window.EndlessKingdom = {};
 
-import vueMenu from './vueMenu.js';
+import VueMenu from './vueMenu.js';
+import ModeleMenu from './modeleMenu.js';
 
 // Main du jeu
 (function() {
@@ -40,50 +41,6 @@ import vueMenu from './vueMenu.js';
         }
         if (fenetre !== "none") {
             fenetres[fenetre].style.display = "block";
-        }
-    }
-
-    /**
-     * Affiche le menu
-     * @param {object} content
-     */
-    let menu = function(content) {
-        //  Partie affichage des personnages
-        let personnageSelected = 0;
-        let champPersonnage = document.querySelector("#selectionPerso span");
-        champPersonnage.textContent = content.personnages[personnageSelected].nom;
-
-        // Constantes
-        const choixDonjon = document.querySelector('#choixDonjon');
-        const listeDonjons = document.querySelector("#choixDonjon table");
-        
-        // Ajout des donjons
-        if (content.donjons.length !== 0) {
-            // On ajoute l'entete du tableau puis on y met les donjons
-            let trDonjon = document.createElement("tr");
-
-            let thNom = document.createElement('th');
-            thNom.appendChild(document.createTextNode("Nom"));
-            trDonjon.appendChild(thNom);
-
-            let thNiveau = document.createElement('th');
-            thNiveau.appendChild(document.createTextNode("Niveau"));
-            trDonjon.appendChild(thNiveau);
-
-            let thMode = document.createElement('th');
-            thMode.appendChild(document.createTextNode("Mode"));
-            trDonjon.appendChild(thMode);
-
-            listeDonjons.appendChild(trDonjon);
-            for (var i=0; i<content.donjons.length; i++) {
-                addDonjon(content.donjons[i].nom, content.donjons[i].niveau, content.donjons[i].mode);
-            }
-        } else {
-            // Si il n'y as pas de donjons
-            let creerButton = document.createElement('button');
-            let boutonNode = document.createTextNode('Création du premier donjon');
-            creerButton.appendChild(boutonNode);
-            choixDonjon.appendChild(creerButton);
         }
     }
 
@@ -170,8 +127,9 @@ import vueMenu from './vueMenu.js';
                             afficherFenetre("creationPerso");
                             break;
                         case 'MENU':
-                            menu(content.infos);
-                            afficherFenetre("menu");
+                            afficherFenetre("none");
+                            let modeleMenu = new ModeleMenu(content.infos.personnages, content.infos.donjons);
+                            let vueMenu = new VueMenu(modeleMenu);
                             break;
                         case 'DONJON':
                             break;
