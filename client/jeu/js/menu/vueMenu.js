@@ -1,8 +1,9 @@
-export class vueMenu {
+export class VueMenu {
     constructor(modele) {
         this._modele = modele;
         this._element = document.querySelector("#menu");
-        rafraichir();
+        this.listerDonjons();
+        this.listerPersonnages();
     }
 
     afficher() {
@@ -19,12 +20,14 @@ export class vueMenu {
     }
 }
 
-vueMenu.prototype.listerPersonnages() = function() {
-    let champPersonnage = document.querySelector("#selectionPerso span");
-    champPersonnage.textContent = _modele._personnages[0].nom;
+VueMenu.prototype.listerPersonnages = function() {
+    if (typeof this._modeles === undefined) {
+        let champPersonnage = document.querySelector("#selectionPerso span");
+        champPersonnage.textContent = this._modele._personnages[0].nom;
+    }
 }
 
-vueMenu.prototype.listerDonjons = function() {
+VueMenu.prototype.listerDonjons = function() {
     const choixDonjon = document.querySelector('#choixDonjon');
     const listeDonjons = document.querySelector("#choixDonjon table");
 
@@ -55,7 +58,7 @@ vueMenu.prototype.listerDonjons = function() {
         choixDonjon.appendChild(creerButton);
     }
 
-    for(i = 0; i<this._modele._donjons; i++) {
+    for(let i = 0; i<this._modele._donjons; i++) {
         let trDonjon = document.createElement("tr");
     
         let tdNom = document.createElement('td');

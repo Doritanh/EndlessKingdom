@@ -9,20 +9,30 @@
 "use strict";
 window.EndlessKingdom = {};
 
-import VueMenu from './vueMenu.js';
-import ModeleMenu from './modeleMenu.js';
+// Menu
+import {VueMenu} from './menu/vueMenu.js';
+import {ModeleMenu} from './menu/modeleMenu.js';
+
+// Creation Perso
+import {VueCreationPerso} from './menu/vueCreationPerso.js';
+import {ModeleCreationPerso} from './menu/modeleCreationPerso.js';
 
 // Main du jeu
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     const id = sessionStorage.getItem('sessionID');
-    // Fenetre d'ecran
-    const fenetres = {
-        erreur : document.querySelector('#erreur'),
-        ecran : document.querySelector("#ecran"),
-        menu : document.querySelector("#menu"),
-        creationPerso : document.querySelector('#creationPerso')
+    
+    const modeles = {
+        menu : new ModeleMenu(),
+        creationPerso : new ModeleCreationPerso()
     }
+    const vues = {
+        //erreur : document.querySelector('#erreur'),
+        //ecran : document.querySelector("#ecran")
+        menu : new VueMenu(modeles.menu),
+        creationPerso : new VueCreationPerso(modeles.creationPerso)
+    }
+
     // Touches de clavier
     let clavier = {
         haut : false,
@@ -31,41 +41,9 @@ import ModeleMenu from './modeleMenu.js';
         droite : false
     }
 
-    /**
-     * Rends visible une fenetre
-     * @param {fenetre} fenetre
-     */
-    let afficherFenetre = function(fenetre) {
-        for (var f in fenetres) {
-            fenetres[f].style.display = "none";
-        }
-        if (fenetre !== "none") {
-            fenetres[fenetre].style.display = "block";
-        }
-    }
-
-    /**
-     * Fonction pour initialiser la creation de personnages
-     */
-    let creationPerso = function() {
-        let form = fenetres.creationPerso.querySelector('form');
-        form.addEventListener('submit', function submit(e) {
-            e.preventDefault();
-            form.removeEventListener('submit', submit, false);
-            let nom = form.querySelector('input[name="nom"]');
-            let arrayDifficultes = form.querySelectorAll('input[name="difficulte"]');
-            let difficulte;
-            arrayDifficultes.forEach(function(item) {
-                if (item.checked) difficulte = item;
-            });
-            socket.send(JSON.stringify({
-                'id' : 'creationPerso',
-                'values' : {
-                    'nom' : nom.value,
-                    'difficulte' : difficulte.value
-                }
-            }));
-        }, false);
+    let clearVues = function() {
+        vues.menu.cacher();
+        vues.creationPerso.cacher();
     }
 
     let init = function() {
@@ -73,8 +51,6 @@ import ModeleMenu from './modeleMenu.js';
         if (id === null) {
             //window.location.replace('http://' + window.location.hostname + '/');
         }
-        // Rien d'affiché au début
-        afficherFenetre("none");
 
         // Ecoute des evenements du clavier
         window.addEventListener('keydown', event => {
@@ -127,9 +103,10 @@ import ModeleMenu from './modeleMenu.js';
                             afficherFenetre("creationPerso");
                             break;
                         case 'MENU':
-                            afficherFenetre("none");
-                            let modeleMenu = new ModeleMenu(content.infos.personnages, content.infos.donjons);
-                            let vueMenu = new VueMenu(modeleMenu);
+                            clearVues();
+                            modeles.menu.setPersonnages(content.infos.personnages)
+                            modeles.menu.setDonjons(content.infos.donjons);
+                            vues.menu.afficher();
                             break;
                         case 'DONJON':
                             break;
