@@ -9,115 +9,19 @@
 "use strict";
 window.EndlessKingdom = {};
 
+import { Controlleur } from './controlleur.js'; 
+
 // Main du jeu
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     const id = sessionStorage.getItem('sessionID');
-    // Fenetre d'ecran
-    const fenetres = {
-        erreur : document.querySelector('#erreur'),
-        ecran : document.querySelector("#ecran"),
-        menu : document.querySelector("#menu"),
-        creationPerso : document.querySelector('#creationPerso')
-    }
-    // Touches de clavier
-    let clavier = {
-        haut : false,
-        bas : false,
-        gauche : false,
-        droite : false
-    }
-
-    /**
-     * Rends visible une fenetre
-     * @param {fenetre} fenetre
-     */
-    let afficherFenetre = function(fenetre) {
-        for (var f in fenetres) {
-            fenetres[f].style.display = "none";
-        }
-        if (fenetre !== "none") {
-            fenetres[fenetre].style.display = "block";
-        }
-    }
-
-    /**
-     * Affiche le menu
-     * @param {*} content 
-     */
-    let menu = function(content) {
-        console.log("menu : " + content)
-        /*
-        ** Construction du menu
-        */
-    }
-
-    /**
-     * Fonction pour initialiser la creation de personnages
-     */
-    let creationPerso = function() {
-        let form = fenetres.creationPerso.querySelector('form');
-        form.addEventListener('submit', function submit(e) {
-            e.preventDefault();
-            form.removeEventListener('submit', submit, false);
-            let nom = form.querySelector('input[name="nom"]');
-            let arrayDifficultes = form.querySelectorAll('input[name="difficulte"]');
-            let difficulte;
-            arrayDifficultes.forEach(function(item) {
-                if (item.checked) difficulte = item;
-            });
-            socket.send(JSON.stringify({
-                'id' : 'creationPerso',
-                'values' : {
-                    'nom' : nom.value,
-                    'difficulte' : difficulte.value
-                }
-            }));
-        }, false);
-    }
+    const controlleur = new Controlleur(socket);
 
     let init = function() {
         // Pas d'id définis, retour au menu
         if (id === null) {
-            //window.location.replace('http://' + window.location.hostname + '/');
+           window.location.replace('http://' + window.location.hostname + '/');
         }
-        // Rien d'affiché au début
-        afficherFenetre("none");
-
-        // Ecoute des evenements du clavier
-        window.addEventListener('keydown', event => {
-            switch (event.key) {
-                case 'ArrowUp':
-                    clavier.haut = true;
-                    break;
-                case 'ArrowDown':
-                    clavier.bas = true;
-                    break;
-                case 'ArrowLeft' :
-                    clavier.gauche = true;
-                    break;
-                case 'ArrowRight':
-                    clavier.droite = true;
-                    break;
-            }
-        });
-
-        window.addEventListener('keyup', event => {
-            switch (event.key) {
-                case 'ArrowUp':
-                    clavier.haut = false;
-                    break;
-                case 'ArrowDown':
-                    clavier.bas = false;
-                    break;
-                case 'ArrowLeft' :
-                    clavier.gauche = false;
-                    break;
-                case 'ArrowRight':
-                    clavier.droite = false;
-                    break;
-            }
-        });
 
         // Reception d'un socket
         socket.addEventListener('message', e => {
@@ -126,21 +30,7 @@ window.EndlessKingdom = {};
 
             switch (id) {
                 case 'status':
-                    switch (content.status) {
-                        case 'ERROR':
-                            afficherFenetre('erreur');
-                            break;
-                        case 'NO_PERSONNAGE':
-                            creationPerso();
-                            afficherFenetre("creationPerso");
-                            break;
-                        case 'MENU':
-                            menu(content);
-                            afficherFenetre("menu");
-                            break;
-                        case 'DONJON':
-                            break;
-                    }
+                    controlleur.setStatus(content);
                     break;
             }
         });

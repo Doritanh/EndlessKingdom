@@ -12,6 +12,15 @@ module.exports = {
         }
         return STATUS_CODE.MENU;
     },
+    getInfosMenu : async function(pseudo) {
+        let id = await requetes.getIDFromPseudo(pseudo);
+        let data = await requetes.getDataFromID(id);
+        if (!data) return STATUS_CODE.ERROR;
+        return {
+            personnages : data.personnages,
+            donjons : data.donjons
+        };
+    },
     ajouterPerso : async function(pseudo, nom, difficulte) {
         let id = await requetes.getIDFromPseudo(pseudo);
         let data = await requetes.getDataFromID(id);
