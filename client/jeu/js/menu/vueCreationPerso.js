@@ -1,6 +1,8 @@
-export class VueCreationPerso {
+import {Vue} from '../vue.js';
+
+export class VueCreationPerso extends Vue{
     constructor(modele) {
-        this._modele = modele;
+        super(modele);
         this._element = document.querySelector('#creationPerso');
         let form = this._element.querySelector('form');
         form.addEventListener('submit', function submit(e) {
@@ -20,13 +22,5 @@ export class VueCreationPerso {
                 }
             }));
         }, false);
-    }
-
-    afficher() {
-        this._element.style.display = "block";
-    }
-
-    cacher() {
-        this._element.style.display = "none";
     }
 }

@@ -17,6 +17,14 @@ import {ModeleMenu} from './menu/modeleMenu.js';
 import {VueCreationPerso} from './menu/vueCreationPerso.js';
 import {ModeleCreationPerso} from './menu/modeleCreationPerso.js';
 
+// Erreur
+import {VueErreur} from './erreur/vueErreur.js';
+import {ModeleErreur} from './erreur/modeleErreur.js';
+
+// Ecran
+import { VueEcran } from './ecran/vueEcran.js';
+import { ModeleEcran } from './ecran/modeleEcran.js';
+
 // Main du jeu
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
@@ -24,13 +32,15 @@ import {ModeleCreationPerso} from './menu/modeleCreationPerso.js';
     
     const modeles = {
         menu : new ModeleMenu(),
-        creationPerso : new ModeleCreationPerso()
+        creationPerso : new ModeleCreationPerso(),
+        erreur : new ModeleErreur(),
+        ecran : new ModeleEcran()
     }
     const vues = {
-        //erreur : document.querySelector('#erreur'),
-        //ecran : document.querySelector("#ecran")
         menu : new VueMenu(modeles.menu),
-        creationPerso : new VueCreationPerso(modeles.creationPerso)
+        creationPerso : new VueCreationPerso(modeles.creationPerso),
+        erreur : new VueErreur(),
+        ecran : new VueEcran()
     }
 
     // Touches de clavier
@@ -42,8 +52,9 @@ import {ModeleCreationPerso} from './menu/modeleCreationPerso.js';
     }
 
     let clearVues = function() {
-        vues.menu.cacher();
-        vues.creationPerso.cacher();
+        for (let vue in vues) {
+            vues[vue].cacher();
+        }
     }
 
     let init = function() {
@@ -96,11 +107,10 @@ import {ModeleCreationPerso} from './menu/modeleCreationPerso.js';
                 case 'status':
                     switch (content.status) {
                         case 'ERROR':
-                            afficherFenetre('erreur');
+                            vues.erreur.afficher();
                             break;
                         case 'NO_PERSONNAGE':
-                            creationPerso();
-                            afficherFenetre("creationPerso");
+                            vues.creationPerso.afficher();
                             break;
                         case 'MENU':
                             clearVues();

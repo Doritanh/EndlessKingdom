@@ -1,17 +1,11 @@
-export class VueMenu {
+import {Vue} from '../vue.js';
+
+export class VueMenu extends Vue {
     constructor(modele) {
-        this._modele = modele;
+        super(modele);
         this._element = document.querySelector("#menu");
         this.listerDonjons();
         this.listerPersonnages();
-    }
-
-    afficher() {
-        this._element.style.display = "block";
-    }
-
-    cacher() {
-        this._element.style.display = "none";
     }
 
     rafrachir() {

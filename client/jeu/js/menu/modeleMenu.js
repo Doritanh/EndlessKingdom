@@ -1,5 +1,8 @@
-export class ModeleMenu {
+import {Modele} from '../modele.js';
+
+export class ModeleMenu extends Modele{
     constructor() {
+        super();
         this._personnages = [];
         this._donjons = [];
     }
