@@ -50,6 +50,9 @@ VueMenu.prototype.listerDonjons = function() {
         let boutonNode = document.createTextNode('Création du premier donjon');
         creerButton.appendChild(boutonNode);
         choixDonjon.appendChild(creerButton);
+        creerButton.addEventListener('click', e => {
+            this._modele.creerDonjon();
+        }, false);
     }
 
     for(let i = 0; i<this._modele._donjons; i++) {

@@ -5,6 +5,7 @@ export class Vue {
     }
 
     afficher() {
+        this.rafraichir();
         this._element.style.display = "block";
     }
 

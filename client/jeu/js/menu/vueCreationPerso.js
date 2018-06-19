@@ -14,13 +14,7 @@ export class VueCreationPerso extends Vue{
             arrayDifficultes.forEach(function(item) {
                 if (item.checked) difficulte = item;
             });
-            socket.send(JSON.stringify({
-                'id' : 'creationPerso',
-                'values' : {
-                    'nom' : nom.value,
-                    'difficulte' : difficulte.value
-                }
-            }));
-        }, false);
+            this._modele.nouveauPersonnage(nom.value, difficulte.value);
+        }.bind(this), false);
     }
 }

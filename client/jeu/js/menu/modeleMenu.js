@@ -1,8 +1,8 @@
 import {Modele} from '../modele.js';
 
 export class ModeleMenu extends Modele{
-    constructor() {
-        super();
+    constructor(socket) {
+        super(socket);
         this._personnages = [];
         this._donjons = [];
     }
@@ -14,4 +14,11 @@ export class ModeleMenu extends Modele{
     setDonjons(donjons) {
         this._donjons = donjons;
     }
+}
+
+ModeleMenu.prototype.creerDonjon = function() {
+    this._socket.send(JSON.stringify({
+        'id' : 'creerDonjon',
+        'values' : {}
+    }));
 }

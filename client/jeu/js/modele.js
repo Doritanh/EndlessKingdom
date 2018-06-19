@@ -1,5 +1,5 @@
 export class Modele {
-    constructor() {
-        
+    constructor(socket) {
+        this._socket = socket;
     }
 }

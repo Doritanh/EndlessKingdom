@@ -15,12 +15,12 @@ import { Controlleur } from './controlleur.js';
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     const id = sessionStorage.getItem('sessionID');
-    const controlleur = new Controlleur();
+    const controlleur = new Controlleur(socket);
 
     let init = function() {
         // Pas d'id définis, retour au menu
         if (id === null) {
-           // window.location.replace('http://' + window.location.hostname + '/');
+           window.location.replace('http://' + window.location.hostname + '/');
         }
 
         // Reception d'un socket
@@ -30,21 +30,7 @@ import { Controlleur } from './controlleur.js';
 
             switch (id) {
                 case 'status':
-                    switch (content.status) {
-                        case 'ERROR':
-                            controlleur.afficher('erreur');
-                            break;
-                        case 'NO_PERSONNAGE':
-                            controlleur.afficher('creationPerso');
-                            break;
-                        case 'MENU':
-                            controlleur.menu.modele.setPersonnage(content.infos.personages);
-                            controlleur.menu.modele.setDonjons(content.infos.donjons);
-                            controlleur.afficher('menu');
-                            break;
-                        case 'DONJON':
-                            break;
-                    }
+                    controlleur.setStatus(content);
                     break;
             }
         });

@@ -12,7 +12,7 @@ import { ModeleErreur } from './erreur/modeleErreur.js';
 import { ModeleEcran } from './ecran/modeleEcran.js';
 
 export class Controlleur {
-    constructor() {
+    constructor(socket) {
         // Actions du joueur
         this._clavier = {
             haut : false,
@@ -22,87 +22,76 @@ export class Controlleur {
         };
         // Modeles & Vues
         this._modeles = {
-            menu : new ModeleMenu(),
-            creationPerso : new ModeleCreationPerso(),
-            erreur : new ModeleErreur(),
-            ecran : new ModeleEcran()
+            menu : new ModeleMenu(socket),
+            creationPerso : new ModeleCreationPerso(socket),
+            erreur : new ModeleErreur(socket),
+            ecran : new ModeleEcran(socket)
         };
         this._vues = {
-            menu : new VueMenu(modeles.menu),
-            creationPerso : new VueCreationPerso(modeles.creationPerso),
-            erreur : new VueErreur(),
-            ecran : new VueEcran()
+            menu : new VueMenu(this._modeles.menu),
+            creationPerso : new VueCreationPerso(this._modeles.creationPerso),
+            erreur : new VueErreur(this._modeles.erreur),
+            ecran : new VueEcran(this._modeles.ecran)
         }
         // Ecoute des evenements du clavier
         keyboardEvents(this);
     }
 }
 
-Controlleur.prototype.afficher = function(vue) {
-    for (let vue in _vues) {
-        vues[vue].cacher();
+Controlleur.prototype.setStatus = function(content) {
+    let status = content.status;
+    let contenu = content.contenu;
+    for (let vue in this._vues) {
+        this._vues[vue].cacher();
     }
-    this._vues[vue].afficher();
-}
-
-Controlleur.prototype.menu = function() {
-    return {
-        vue : this._vues.menu,
-        modele : this._modeles.menu
-    }
-}
-
-Controlleur.prototype.creationPerso = function() {
-    return {
-        vue : this._vues.creationPerso,
-        modele : this._modeles.creationPerso
-    }
-}
-
-Controlleur.prototype.erreur = function() {
-    return {
-        vue : this._vues.erreur,
-        modele : this._modeles.erreur
+    switch (status) {
+        case 'ERROR':
+            this._vues.erreur.afficher();
+            break;
+        case 'NO_PERSONNAGE':
+            this._vues.creationPerso.afficher();
+            break;
+        case 'MENU':
+            this._modeles.menu.setPersonnages(content.infos.personages);
+            this._modeles.menu.setDonjons(content.infos.donjons);
+            this._vues.menu.afficher('menu');
+            break;
+        case 'DONJON':
+            this.vues.ecran.afficher('ecran');
+            break;
     }
 }
 
-Controlleur.prototype.ecran = function() {
-    return {
-        vue : this._vues.ecran,
-        modele : this._modeles.ecran
-    }
-}
-
-let keyboardEvents = function(this) {
+let keyboardEvents = function(controlleur) {
     window.addEventListener('keydown', event => {
         switch (event.key) {
             case 'ArrowUp':
-                this._clavier.haut = true;
+                controlleur._clavier.haut = true;
                 break;
             case 'ArrowDown':
-                this._clavier.bas = true;
+                controlleur._clavier.bas = true;
                 break;
             case 'ArrowLeft' :
-                this._clavier.gauche = true;
+                controlleur._clavier.gauche = true;
                 break;
             case 'ArrowRight':
-                this._clavier.droite = true;
+                controlleur._clavier.droite = true;
                 break;
         }
     });
     window.addEventListener('keyup', event => {
         switch (event.key) {
             case 'ArrowUp':
-                this._clavier.haut = false;
+                controlleur._clavier.haut = false;
                 break;
             case 'ArrowDown':
-                this._clavier.bas = false;
+                controlleur._clavier.bas = false;
                 break;
             case 'ArrowLeft' :
-                this._clavier.gauche = false;
+                controlleur._clavier.gauche = false;
                 break;
             case 'ArrowRight':
-                this._clavier.droite = false;
+                controlleur._clavier.droite = false;
                 break;
         }
     });
