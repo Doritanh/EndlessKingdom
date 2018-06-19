@@ -9,94 +9,19 @@
 "use strict";
 window.EndlessKingdom = {};
 
-// Menu
-import {VueMenu} from './menu/vueMenu.js';
-import {ModeleMenu} from './menu/modeleMenu.js';
-
-// Creation Perso
-import {VueCreationPerso} from './menu/vueCreationPerso.js';
-import {ModeleCreationPerso} from './menu/modeleCreationPerso.js';
-
-// Erreur
-import {VueErreur} from './erreur/vueErreur.js';
-import {ModeleErreur} from './erreur/modeleErreur.js';
-
-// Ecran
-import { VueEcran } from './ecran/vueEcran.js';
-import { ModeleEcran } from './ecran/modeleEcran.js';
+import { Controlleur } from './controlleur.js'; 
 
 // Main du jeu
 (function() {
     const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     const id = sessionStorage.getItem('sessionID');
-    
-    const modeles = {
-        menu : new ModeleMenu(),
-        creationPerso : new ModeleCreationPerso(),
-        erreur : new ModeleErreur(),
-        ecran : new ModeleEcran()
-    }
-    const vues = {
-        menu : new VueMenu(modeles.menu),
-        creationPerso : new VueCreationPerso(modeles.creationPerso),
-        erreur : new VueErreur(),
-        ecran : new VueEcran()
-    }
-
-    // Touches de clavier
-    let clavier = {
-        haut : false,
-        bas : false,
-        gauche : false,
-        droite : false
-    }
-
-    let clearVues = function() {
-        for (let vue in vues) {
-            vues[vue].cacher();
-        }
-    }
+    const controlleur = new Controlleur();
 
     let init = function() {
         // Pas d'id définis, retour au menu
         if (id === null) {
-            //window.location.replace('http://' + window.location.hostname + '/');
+           // window.location.replace('http://' + window.location.hostname + '/');
         }
-
-        // Ecoute des evenements du clavier
-        window.addEventListener('keydown', event => {
-            switch (event.key) {
-                case 'ArrowUp':
-                    clavier.haut = true;
-                    break;
-                case 'ArrowDown':
-                    clavier.bas = true;
-                    break;
-                case 'ArrowLeft' :
-                    clavier.gauche = true;
-                    break;
-                case 'ArrowRight':
-                    clavier.droite = true;
-                    break;
-            }
-        });
-
-        window.addEventListener('keyup', event => {
-            switch (event.key) {
-                case 'ArrowUp':
-                    clavier.haut = false;
-                    break;
-                case 'ArrowDown':
-                    clavier.bas = false;
-                    break;
-                case 'ArrowLeft' :
-                    clavier.gauche = false;
-                    break;
-                case 'ArrowRight':
-                    clavier.droite = false;
-                    break;
-            }
-        });
 
         // Reception d'un socket
         socket.addEventListener('message', e => {
@@ -107,16 +32,15 @@ import { ModeleEcran } from './ecran/modeleEcran.js';
                 case 'status':
                     switch (content.status) {
                         case 'ERROR':
-                            vues.erreur.afficher();
+                            controlleur.afficher('erreur');
                             break;
                         case 'NO_PERSONNAGE':
-                            vues.creationPerso.afficher();
+                            controlleur.afficher('creationPerso');
                             break;
                         case 'MENU':
-                            clearVues();
-                            modeles.menu.setPersonnages(content.infos.personnages)
-                            modeles.menu.setDonjons(content.infos.donjons);
-                            vues.menu.afficher();
+                            controlleur.menu.modele.setPersonnage(content.infos.personages);
+                            controlleur.menu.modele.setDonjons(content.infos.donjons);
+                            controlleur.afficher('menu');
                             break;
                         case 'DONJON':
                             break;
