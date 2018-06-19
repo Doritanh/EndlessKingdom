@@ -41,7 +41,7 @@ module.exports = function(wss) {
                             let menu = await jeu.getInfosMenu(sessions.get(sessionID));
                             sendSocket(ws, 'status', {
                                 'status' : status,
-                                'infos' : menu
+                                'contenu' : menu
                             });
                             break;
                         default:
@@ -53,6 +53,8 @@ module.exports = function(wss) {
                     await jeu.ajouterPerso(sessions.get(sessionID), content.nom, content.difficulte);
                     status = await jeu.getStatus(sessions.get(sessionID));
                     sendSocket(ws, 'status', {'status' : status});
+                    break;
+                case 'creerDonjon':
                     break;
             }
         });
