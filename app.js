@@ -6,6 +6,6 @@ http.createServer(function(request, response) {
     routes(request, response);
 }).listen(80);
 
-const socket = require('./server/sockets')(new WebSocket.Server({ port: 8080 }));
+const main = require('./server/main')(new WebSocket.Server({ port: 8080 }));
 
 console.log("Serveur actif");

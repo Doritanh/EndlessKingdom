@@ -3,24 +3,6 @@ import { Modele } from '../modele.js';
 export class ModeleEcran extends Modele {
     constructor(socket) {
         super(socket);
-        this._donjon = null;
-        this._salle = null;
-        this._tiles = [];
-        this.init();
-    }
-
-    setDonjon(donjon) {
-        console.log(donjon)
-        this._donjon = donjon;
-    }
-
-    init() {
-        for(let i = 0; i < 32; i++) {
-            this._tiles[i] = [];
-            for (let j = 0; j < 32; j++) {
-                this._tiles[i][j] = 1;
-            }
-        }
     }
 }
 
