@@ -3,6 +3,13 @@ import { Modele } from '../modele.js';
 export class ModeleEcran extends Modele {
     constructor(socket) {
         super(socket);
+        this._donjon = [];
+        this._salleAffiche = null;
+    }
+
+    setDonjon(donjon) {
+        this._donjon = donjon;
+        this._salleAffiche = this._donjon._spawn;
     }
 }
 

@@ -32,6 +32,9 @@ export class Controlleur {
             creationPerso : new VueCreationPerso(this._modeles.creationPerso),
             erreur : new VueErreur(this._modeles.erreur),
             ecran : new VueEcran(this._modeles.ecran)
+        };
+        for (let vue in this._vues) {
+            this._vues[vue].cacher();
         }
         // Ecoute des evenements du clavier
         keyboardEvents(this);
@@ -58,7 +61,7 @@ Controlleur.prototype.setStatus = function(content) {
             this._vues.menu.afficher('menu');
             break;
         case 'DONJON':
-            console.log(contenu)
+            this._modeles.ecran.setDonjon(contenu.donjon);
             this._vues.ecran.afficher('ecran');
             break;
     }
