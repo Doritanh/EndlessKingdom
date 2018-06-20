@@ -41,7 +41,7 @@ Utilisateur.prototype.inscription = async function(pseudo, mail, mdp, mdpConfirm
     this._socket.send('inscription', {'number': number});
 }
 
-Utilisateur.prototype.sendStatus = async function() {
+Utilisateur.prototype.sendStatus = async function(erreur = false) {
     const id = await requetes.getIDFromPseudo(this._pseudo);
     const data = await requetes.getDataFromID(id);
     const STATUS_CODE = {
@@ -52,12 +52,12 @@ Utilisateur.prototype.sendStatus = async function() {
     }
     let status = STATUS_CODE.MENU;
 
-    if (!data) {
+    if (erreur || !data) {
         status = STATUS_CODE.ERROR;
     } else if (data.personnages.length === 0) {
         status = STATUS_CODE.NO_PERSONNAGE;
-    } else if (typeof data.donjons.actuel !== 'undefined') {
-        if (data.donjons.actuel !== 'none') {
+    } else if (typeof data.actuelDonjon !== 'undefined') {
+        if (data.actuelDonjon !== 'none') {
             status = STATUS_CODE.DONJON;
         }
     }
@@ -65,6 +65,8 @@ Utilisateur.prototype.sendStatus = async function() {
     let contenu = [];
     if (status === STATUS_CODE.MENU) {
         contenu = {'personnages' : data.personnages, 'donjons' : data.donjons};
+    } else if (status === STATUS_CODE.DONJON) {
+        contenu = {'donjon' : data.donjons[data.actuelDonjon]};
     }
     this._socket.send('status', {'status' : status, 'contenu' : contenu});
 }
@@ -79,13 +81,17 @@ Utilisateur.prototype.creationPersonnage = async function(nom, difficulte) {
 
 Utilisateur.prototype.creationDonjon = async function() {
     let data = await requetes.getDataFromID(await requetes.getIDFromPseudo(this._pseudo));
-    if (!data) console.log("Bug non gerer utilisateur.js ligne 84")
+    if (!data) this.sendStatus(true);
     let niveau = data.donjons.length;
     let donjon = new Donjon(niveau, 10, 10);
     requetes.ajouterDonjon(data._id, donjon);
     this.sendStatus();
 }
 
-Utilisateur.prototype.lancerDonjon = function(niveau) {
-    socket.send('status', {'status' : 'DONJON'});
+Utilisateur.prototype.lancerDonjon = async function(niveau) {
+    let id = await requetes.getIDFromPseudo(this._pseudo);
+    let data = await requetes.getDataFromID(id);
+    if (!data || data.donjons.length <= niveau) this.sendStatus(true);
+    let r = await requetes.setDonjonActuel(id, niveau);
+    this.sendStatus();
 }
