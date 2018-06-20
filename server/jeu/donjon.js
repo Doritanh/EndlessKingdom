@@ -202,8 +202,8 @@ let nom = function() {
         'sombre',
         'pas content'
     ];
-    let mot1 = emplacements[generationNombre(0, emplacements.length)];
-    let mot2 = bosses [generationNombre(0, bosses.length)];
-    let mot3 = adjectifs[generationNombre(0, adjectifs.length)];
+    let mot1 = emplacements[generationNombre(0, emplacements.length-1)];
+    let mot2 = bosses [generationNombre(0, bosses.length-1)];
+    let mot3 = adjectifs[generationNombre(0, adjectifs.length-1)];
     return mot1 + " " + mot2 + " " + mot3;
 }
