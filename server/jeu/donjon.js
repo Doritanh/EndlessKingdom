@@ -1,39 +1,54 @@
-module.exports = {
-    nouveauTerrain : function(maxSalles) {
-        return nouveauTerrain(maxSalles);
+class Donjon {
+    constructor(niveau, taille, salles) {
+        this._niveau = niveau;
+        this._taille = taille;
+        this._salles = salles;
+        this._spawn = {
+            x : generationNombre(0,this._taille-1),
+            y : generationNombre(0,this._taille-1)
+        };
+        this._matrice = matrice(this._salles, this._taille, this._spawn.x, this._spawn.y);
+        this._mode = 0;
+        this._nom = nom();
     }
 }
+
+module.exports = Donjon;
 
 var generationNombre = function(min, max) {
     return Math.floor(Math.random()*(max - min + 1) + min);
 }
 
-var nouveauTerrain = function(maxSalles) {
-    let tailleX = 10;
-    let tailleY = 10;
+/**
+ * Genere une matrice representant un donjon
+ * @param {*} maxSalles 
+ * @param {*} spawnX 
+ * @param {*} spawnY 
+ * @author Lucas Payet
+ */
+let matrice = function(maxSalles, taille, spawnX, spawnY) {
+    let tailleX = taille;
+    let tailleY = taille;
 
     let salles = [];
     let tabGenerated= [];
     let tabPossible = [];
     for (let i =0; i<tailleX; i++) {
+        salles[i] = [];
         tabGenerated[i] = [];
         tabPossible[i] = [];
     }
 
-    let compteur = 0;
-    let newSalle;
-
-    let spawnX = generationNombre(0,tailleX-1);
-    let spawnY = generationNombre(0, tailleY-1);
-
     for(let i=0; i<tailleX;i++) {
         for (let j=0; j<tailleY;j++) {
+            salles[i][j] = 0;
             tabGenerated[i][j] = false;
         }
     }
-    
+
     tabGenerated[spawnX][spawnY] = true;
-	salles[0] = new Salle(spawnX, spawnY);
+    salles[spawnX][spawnY] = 1;
+	//salles[0] = new Salle(spawnX, spawnY);
 
     for (let n=0; n < maxSalles-1; n++) {
         // Au debut tout est possible
@@ -136,6 +151,8 @@ var nouveauTerrain = function(maxSalles) {
             }
         }
 
+        let compteur = 0;
+
         //Compte le nombre de possibilite
         for(let i =0; i<tailleX;i++){
             for (let j=0; j<tailleY;j++) {
@@ -146,7 +163,7 @@ var nouveauTerrain = function(maxSalles) {
         }
         
         //Generation d'un nombre pour la nouvelle salle
-        newSalle = generationNombre(1,compteur);
+        let newSalle = generationNombre(1,compteur);
         
         compteur = 0;
         for(let i =0; i<tailleX;i++) {
@@ -154,7 +171,8 @@ var nouveauTerrain = function(maxSalles) {
                 if(tabPossible[i][j] == true) {
                     compteur ++;
                     if(compteur == newSalle) {
-                        salles[salles.length]= new Salle(i,j);
+                        //salles[salles.length]= new Salle(i,j);
+                        salles[i][j] = 1;
                         tabGenerated[i][j]= true;
                         break;
                     }	
@@ -166,17 +184,24 @@ var nouveauTerrain = function(maxSalles) {
     return salles;
 }
 
-class Salle {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    getX() {
-        return x;
-    }
-
-    getY() {
-        return y;
-    }
+let nom = function() {
+    const emplacements = [
+        'Crypte du',
+        'Donjon du',
+        'Chateau du',
+        'Foret du'
+    ];
+    const bosses = [
+        'nécromancien',
+        'golem'
+    ];
+    const adjectifs = [
+        'maudit',
+        'sombre',
+        'pas content'
+    ];
+    let mot1 = emplacements[generationNombre(0, emplacements.length-1)];
+    let mot2 = bosses [generationNombre(0, bosses.length-1)];
+    let mot3 = adjectifs[generationNombre(0, adjectifs.length-1)];
+    return mot1 + " " + mot2 + " " + mot3;
 }

@@ -13,11 +13,11 @@ import { Controlleur } from './controlleur.js';
 
 // Main du jeu
 (function() {
-    const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
-    const id = sessionStorage.getItem('sessionID');
-    const controlleur = new Controlleur(socket);
-
     let init = function() {
+        const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
+        const id = sessionStorage.getItem('sessionID');
+        const controlleur = new Controlleur(socket);
+
         // Pas d'id définis, retour au menu
         if (id === null) {
            window.location.replace('http://' + window.location.hostname + '/');
@@ -27,7 +27,6 @@ import { Controlleur } from './controlleur.js';
         socket.addEventListener('message', e => {
             let id = JSON.parse(e.data).id;
             let content = JSON.parse(e.data).values;
-
             switch (id) {
                 case 'status':
                     controlleur.setStatus(content);
@@ -43,12 +42,6 @@ import { Controlleur } from './controlleur.js';
                 'values' : {
                     'id' : id
                 }
-            }));
-
-            // Requete du status
-            socket.send(JSON.stringify({
-                'id' : 'status',
-                'values' : {}
             }));
         });
 

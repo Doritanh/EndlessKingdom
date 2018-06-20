@@ -32,6 +32,9 @@ export class Controlleur {
             creationPerso : new VueCreationPerso(this._modeles.creationPerso),
             erreur : new VueErreur(this._modeles.erreur),
             ecran : new VueEcran(this._modeles.ecran)
+        };
+        for (let vue in this._vues) {
+            this._vues[vue].cacher();
         }
         // Ecoute des evenements du clavier
         keyboardEvents(this);
@@ -52,11 +55,13 @@ Controlleur.prototype.setStatus = function(content) {
             this._vues.creationPerso.afficher();
             break;
         case 'MENU':
-            this._modeles.menu.setPersonnages(contenu.personages);
+            this._modeles.menu.setPersonnages(contenu.personnages);
             this._modeles.menu.setDonjons(contenu.donjons);
+            this._vues.menu.rafraichir();
             this._vues.menu.afficher('menu');
             break;
         case 'DONJON':
+            this._modeles.ecran.setDonjon(contenu.donjon);
             this._vues.ecran.afficher('ecran');
             break;
     }
