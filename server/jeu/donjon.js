@@ -45,8 +45,6 @@ let matrice = function(maxSalles, taille, spawnX, spawnY) {
             tabGenerated[i][j] = false;
         }
     }
-    
-    console.log(spawnX + " " + spawnY)
 
     tabGenerated[spawnX][spawnY] = true;
     salles[spawnX][spawnY] = 1;
