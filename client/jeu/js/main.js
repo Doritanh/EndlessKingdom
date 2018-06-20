@@ -27,7 +27,7 @@ import { Controlleur } from './controlleur.js';
         socket.addEventListener('message', e => {
             let id = JSON.parse(e.data).id;
             let content = JSON.parse(e.data).values;
-
+            
             switch (id) {
                 case 'status':
                     controlleur.setStatus(content);
