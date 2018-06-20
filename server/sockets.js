@@ -10,6 +10,7 @@ module.exports = function(wss) {
 
     wss.on('connection', function(ws) {
         let sessionID = 0;
+        jeu.genererDonjon();
 
         // Reception d'un socket
         ws.on('message', async function(data) {
@@ -54,7 +55,11 @@ module.exports = function(wss) {
                     status = await jeu.getStatus(sessions.get(sessionID));
                     sendSocket(ws, 'status', {'status' : status});
                     break;
-                case 'creerDonjon':
+                case 'donjon':
+                    sendSocket(ws, 'status', {'status' : jeu.listeStatus.DONJON});
+                    break;
+                case 'demandeDonjon':
+                    let donjon = jeu.genererDonjon();
                     break;
             }
         });
