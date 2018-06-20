@@ -64,7 +64,8 @@ module.exports = {
                 'personnages' : [],
                 'donjons' : [],
                 'inventaire' : [],
-                'score' : 0
+                'score' : 0,
+                'actuelDonjon' : 'none'
             }, function(err, result) {
                 client.close();
                 if (err) return reject();
@@ -85,6 +86,40 @@ module.exports = {
                 'nom' : nom,
                 'difficulte' : difficulte
             }}}, function(err, result) {
+                client.close();
+                if (err) return reject();
+                if (result) {
+                    return resolve(true);
+                } else {
+                    return resolve(false);
+                }
+            });
+        });
+        return promise;
+    },
+    ajouterDonjon : async function(id, donjon) {
+        const client = await database.connect();
+        const collection =  client.db(database.nom()).collection('utilisateurs');
+        let promise = new Promise(function(resolve, reject) {
+            collection.update({'_id' : id}, {$push : {'donjons' : donjon}
+        }, function(err, result) {
+                client.close();
+                if (err) return reject();
+                if (result) {
+                    return resolve(true);
+                } else {
+                    return resolve(false);
+                }
+            });
+        });
+        return promise;
+    },
+    setDonjonActuel : async function(id, niveau) {
+        const client = await database.connect();
+        const collection =  client.db(database.nom()).collection('utilisateurs');
+        let promise = new Promise(function(resolve, reject) {
+            collection.update({'_id' : id}, {$set : {'actuelDonjon' : niveau}
+        }, function(err, result) {
                 client.close();
                 if (err) return reject();
                 if (result) {

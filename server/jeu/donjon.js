@@ -1,6 +1,6 @@
 module.exports = {
-    generer : function(maxSalles) {
-        return nouveauDonjon(maxSalles);
+    nouveauTerrain : function(maxSalles) {
+        return nouveauTerrain(maxSalles);
     }
 }
 
@@ -8,7 +8,7 @@ var generationNombre = function(min, max) {
     return Math.floor(Math.random()*(max - min + 1) + min);
 }
 
-var nouveauDonjon = function(maxSalles) {
+var nouveauTerrain = function(maxSalles) {
     let tailleX = 10;
     let tailleY = 10;
 
@@ -134,20 +134,7 @@ var nouveauDonjon = function(maxSalles) {
                     
                 }
             }
-            // tjs dans la fonction
         }
-        /*for(let i =0; i<tailleX;i++) {
-            let ligne = "";
-            for (let j=0; j<tailleY;j++) {
-                if(tabPossible[i][j] == true) {
-                    ligne += "1";
-                }
-                else {
-                    ligne += "0";
-                }
-            }
-            console.log(ligne)
-        }*/
 
         //Compte le nombre de possibilite
         for(let i =0; i<tailleX;i++){
@@ -158,15 +145,10 @@ var nouveauDonjon = function(maxSalles) {
             }
         }
         
-        
-        //console.log(compteur);
-        
         //Generation d'un nombre pour la nouvelle salle
         newSalle = generationNombre(1,compteur);
         
-        //console.log(newSalle);
-        
-        compteur =0;
+        compteur = 0;
         for(let i =0; i<tailleX;i++) {
             for (let j=0; j<tailleY;j++) {
                 if(tabPossible[i][j] == true) {
@@ -179,7 +161,7 @@ var nouveauDonjon = function(maxSalles) {
                 }
             }
         }
-        compteur =0;
+        compteur = 0;
     }
     return salles;
 }
