@@ -44,12 +44,6 @@ import { Controlleur } from './controlleur.js';
                     'id' : id
                 }
             }));
-
-            // Requete du status
-            socket.send(JSON.stringify({
-                'id' : 'status',
-                'values' : {}
-            }));
         });
 
         // Petit message sympa
