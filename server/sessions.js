@@ -8,7 +8,7 @@ module.exports =  class Sessions {
     ajouter(pseudo) {
         let id = 0;
         do {
-            id = generateID();
+            id = generateID(pseudo);
         } while (this.has(id));
         this.liste[id] = pseudo;
         return id;
@@ -33,58 +33,28 @@ module.exports =  class Sessions {
     }
 }
 
-let generateID = function() {
-    var key = ['1', '2', '3', '4', '5', '6']
-    return Math.floor(Math.random() * 1000000000);
-} 
-
-/*
-let getRandomKey = function(number) {
-    var key = ['1', '2', '3', '4', '5', '6', '7', '8', '9',
-    	'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-      'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-    let numberMod = number%key.length;
-    return key[numberMod];
+let generateID = function(pseudo) {
+    let id = "";
+    let valTab = createValTab();
+    id = "";
+    let idLength = Math.floor(Math.random()*200);
+    while (idLength < 50) {
+        idLength = Math.floor(Math.random()*200);
+    }
+    for(let i = 0; i < idLength; i++) {
+        id += valTab[Math.floor(Math.random() * 10)];
+    }
+    return Math.floor(id);
 }
 
-let genererCle = function(size) {
-		let rand1 = Math.random();
-    let rand2 = Math.random();
-    for (var i = 0; i < 10; i++) {
-    	rand1 *= 10;
-      rand2 *= 10;
+let createValTab = function() {
+    let tab = [];
+    for(let i = 0; i<10; i++) {
+        let value;
+        do {
+            value = Math.floor(Math.random() * 10);
+        } while(tab.includes(value));
+        tab[i] = value;
     }
-    rand1 = Math.floor(rand1);
-    rand2 = Math.floor(rand2);
-    console.log(rand1)
-    console.log(rand2)
-    var cle = rand1*rand2;
-    cle = cle.toString();
-    if (cle.length < 20)  {
-    	var manquant = 20 - cle.length;
-      for (var i = 0; i < manquant; i++) {
-      	cle += '0';
-      }
-    }
-    return cle;
+    return tab;
 }
-
-let generateID = function() {
-   var cle1 = genererCle();
-   console.log(cle1)
-   var cle2 = genererCle();
-   console.log(cle2)
-   var cle = '';
-   for (var i = 0; i < cle1.length; i++) {
-    	let number = parseInt(cle1.charAt(i))*parseInt(cle2.charAt(i));
-      console.log(number)
-      cle += getRandomKey(number);
-    }
-    return cle;
-} 
-
-document.querySelector('#button').addEventListener('click', e => {
-	let id = generateID();
-  document.querySelector('#result').textContent = id;
-});
-*/
