@@ -27,7 +27,7 @@ ModeleMenu.prototype.lancerDonjon = function(niveau) {
     this._socket.send(JSON.stringify({
         'id' : 'lancerDonjon',
         'values' : {
-            'id' : niveau
+            'niveau' : niveau
         }
     }));
 }
