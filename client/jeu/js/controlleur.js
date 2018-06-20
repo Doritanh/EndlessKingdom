@@ -57,6 +57,7 @@ Controlleur.prototype.setStatus = function(content) {
             this._vues.menu.afficher('menu');
             break;
         case 'DONJON':
+            this._modeles.ecran.setDonjon(contenu);
             this._vues.ecran.afficher('ecran');
             break;
     }
