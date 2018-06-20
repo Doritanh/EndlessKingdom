@@ -27,10 +27,9 @@ module.exports = function(socketServer) {
             } else if (id === 'creationPerso') {
                 utilisateur.creationPersonnage(content.nom, content.difficulte);
             } else if (id === 'creerDonjon') {
-                let contenu = await utilisateur._jeu.ajouterDonjon();
-                socket.send('status', {'status' : 'DONJON', 'contenu' : contenu});
+                utilisateur.creationDonjon();
             } else if (id === 'lancerDonjon') {
-                socket.send('status', {'status' : 'DONJON'});
+                utilisateur.lancerDonjon(content.niveau);
             }
         });
 

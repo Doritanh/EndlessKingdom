@@ -1,4 +1,5 @@
 const Jeu = require('./jeu/jeu');
+const Donjon = require('./jeu/donjon');
 const identification = require('./identification/identification');
 const requetes = require('./data/requetes');
 
@@ -8,12 +9,10 @@ class Utilisateur {
         this._sessions = sessions;
         this._sessionID = 0;
         this._pseudo = null;
-        this._jeu = new Jeu();
     }
 
     setSessionID(id) {
         this._sessionID = id;
-        this._jeu.setPseudo(this._sessions.get(this._sessionID));
         this._pseudo = this._sessions.get(this._sessionID);
         this.sendStatus();
     }
@@ -76,4 +75,17 @@ Utilisateur.prototype.creationPersonnage = async function(nom, difficulte) {
         requetes.ajouterPersonnage(id, nom, difficulte);
     }
     this.sendStatus();
+}
+
+Utilisateur.prototype.creationDonjon = async function() {
+    let data = await requetes.getDataFromID(await requetes.getIDFromPseudo(this._pseudo));
+    if (!data) console.log("Bug non gerer utilisateur.js ligne 84")
+    let niveau = data.donjons.length;
+    let donjon = new Donjon(niveau, 10, 10);
+    requetes.ajouterDonjon(data._id, donjon);
+    this.sendStatus();
+}
+
+Utilisateur.prototype.lancerDonjon = function(niveau) {
+    socket.send('status', {'status' : 'DONJON'});
 }
