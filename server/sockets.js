@@ -30,20 +30,9 @@ module.exports = function(wss) {
             } else if (id === 'sessionID') {
                 sessionID = content.id;
                 jeu.setPseudo(sessions.get(sessionID));
+                sendStatus(socket, jeu);
             } else if (id === 'status') {
-                let status = await jeu.getStatus();
-                switch (status) {
-                    case 'MENU':
-                        let menu = await jeu.getInfosMenu();
-                        socket.send('status', {
-                            'status' : status,
-                            'contenu' : menu
-                        });
-                        break;
-                    default:
-                        socket.send('status', {'status' : status});
-                        break;
-                }
+                sendStatus(socket, jeu);
             } else if (id === 'creationPerso') {
                 await jeu.ajouterPerso(content.nom, content.difficulte);
                 let status = await jeu.getStatus();
@@ -94,4 +83,11 @@ let inscription = async function(ws, pseudo, mail, mdp, mdpConfirm) {
         console.log(error);
     }
     return number;
+}
+
+let sendStatut = async function(socket, jeu) {
+    let status = await jeu.getStatus();
+    let contenu = [];
+    if (status === 'MENU') contenu = await jeu.getInfosMenu();
+    socket.send('status', {'status' : status, 'contenu' : contenu});
 }
