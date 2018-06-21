@@ -207,11 +207,43 @@ let nom = function() {
 
 let salles = function(matrice) {
     let tabSalles = matrice;
+    let fin = false;
+    let nb = Donjon._maxSalles -1;
+    let north = false;
+    let south = false;
+    let west = false;
+    let east = false;
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
             if (matrice[i][j] == 1) {
-                tabSalles[i][j] = new Salle();
+                if (matrice[i-1][j] == 1){
+                    west = true;
+                } 
+                if (matrice[i+1][j] == 1)
+                {
+                    east = true;
+                }
+                if (matrice[i][j-1])
+                {
+                    north = true;
+                }
+                if (matrice[i][j+1])
+                {
+                    south = true;
+                }
+                if (fin == false){
+                    if (generationNombre(0,nb)==0)
+                    {
+                        fin = true;
+                    }
+                }
+                tabSalles[i][j] = new Salle(north, south, west, east, fin);
             }
+            nb-= 1;
+            west = false;
+            east = false;
+            north = false;
+            south = false;
         }
     }
     return tabSalles;
@@ -239,10 +271,44 @@ let spawn = function(maxSalles, tabSalles) {
 }
 
 class Salle {
-    constructor() {
+    constructor(north, south, west, east, fin) {
         this._taille = {
             x : 21,
             y : 12
         };
+        this._porteNorth = north;
+        this._porteSouth = south;
+        this._porteWest = west;
+        this._porteEast = east;
+        this._fin = fin;
+        this._nbMonstre;
+
+        console.log(this._porteEast, this._portWest, this._porteNorth, this._porteSouth, this._fin, this._nbMonstre);
+
+        //Pourcentage change nombre de monstre
+        let x = generationNombre(0,20);
+        switch (x){
+            case 0 :
+                _nbMonstre = 0;
+            break;
+            case x<6 :
+                _nbMonstre = 1;
+            break;
+            case x<11:
+                _nbMonstre = 2;
+            break;
+            case x<16:
+                _nbMonstre = 3;
+            break;
+            case x<20:
+                _nbMonstre = 4;
+            break;
+            case 20:
+                _nbMonstre =5;
+            break;
+        }
+
+        console.log(this._porteEast, this._portWest, this._porteNorth, this._porteSouth, this._fin, this._nbMonstre);
     }
+
 }
