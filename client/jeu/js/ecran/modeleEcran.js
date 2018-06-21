@@ -4,12 +4,17 @@ export class ModeleEcran extends Modele {
     constructor(socket) {
         super(socket);
         this._donjon = [];
+        this._personnage = [];
         this._salleAffiche = null;
     }
 
     setDonjon(donjon) {
         this._donjon = donjon;
         this._salleAffiche = this._donjon._spawn;
+    }
+
+    setPersonnage(personnage) {
+        this._personnage = personnage;
     }
 }
 

@@ -1,13 +1,14 @@
 class Donjon {
-    constructor(niveau, taille, salles) {
+    constructor(niveau, maxTaille, maxSalles) {
         this._niveau = niveau;
-        this._taille = taille;
-        this._salles = salles;
+        this._maxTaille = maxTaille;
+        this._maxSalles = maxSalles;
         this._spawn = {
-            x : generationNombre(0,this._taille-1),
-            y : generationNombre(0,this._taille-1)
+            x : 0,
+            y :0
         };
-        this._matrice = matrice(this._salles, this._taille, this._spawn.x, this._spawn.y);
+        this._matrice = matrice(this._maxSalles, this._maxTaille);
+        this._salles = salles(this._matrice);
         this._mode = 0;
         this._nom = nom();
     }
@@ -26,9 +27,9 @@ var generationNombre = function(min, max) {
  * @param {*} spawnY 
  * @author Lucas Payet
  */
-let matrice = function(maxSalles, taille, spawnX, spawnY) {
-    let tailleX = taille;
-    let tailleY = taille;
+let matrice = function(maxSalles, maxTaille) {
+    let tailleX = maxTaille;
+    let tailleY = maxTaille;
 
     let salles = [];
     let tabGenerated= [];
@@ -46,9 +47,11 @@ let matrice = function(maxSalles, taille, spawnX, spawnY) {
         }
     }
 
+    let spawnX = generationNombre(0,tailleX-1);
+    let spawnY = generationNombre(0,tailleY-1);
+
     tabGenerated[spawnX][spawnY] = true;
     salles[spawnX][spawnY] = 1;
-	//salles[0] = new Salle(spawnX, spawnY);
 
     for (let n=0; n < maxSalles-1; n++) {
         // Au debut tout est possible
@@ -204,4 +207,28 @@ let nom = function() {
     let mot2 = bosses [generationNombre(0, bosses.length-1)];
     let mot3 = adjectifs[generationNombre(0, adjectifs.length-1)];
     return mot1 + " " + mot2 + " " + mot3;
+}
+
+let salles = function(matrice) {
+    let tabSalles = matrice;
+    console.log(matrice.length)
+    for (let i = 0; i < matrice.length; i++) {
+        console.log(matrice[i].length)
+        for (let j = 0; j < matrice[i].length; j++) {
+            console.log(matrice[i][j] == 1)
+            if (matrice[i][j] == 1) {
+                tabSalles[i][j] = new Salle();
+            }
+        }
+    }
+    return tabSalles;
+}
+
+class Salle {
+    constructor() {
+        this._taille = {
+            x : 21,
+            y : 12
+        };
+    }
 }

@@ -23,11 +23,12 @@ ModeleMenu.prototype.creerDonjon = function() {
     }));
 }
 
-ModeleMenu.prototype.lancerDonjon = function(niveau) {
+ModeleMenu.prototype.lancerDonjon = function(niveau, personnage) {
     this._socket.send(JSON.stringify({
         'id' : 'lancerDonjon',
         'values' : {
-            'niveau' : niveau
+            'niveau' : niveau,
+            'personnage' : personnage
         }
     }));
 }

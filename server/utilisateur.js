@@ -66,7 +66,7 @@ Utilisateur.prototype.sendStatus = async function(erreur = false) {
     if (status === STATUS_CODE.MENU) {
         contenu = {'personnages' : data.personnages, 'donjons' : data.donjons};
     } else if (status === STATUS_CODE.DONJON) {
-        contenu = {'donjon' : data.donjons[data.actuelDonjon]};
+        contenu = {'donjon' : data.donjons[data.actuelDonjon], 'personnage' : data.personnages[data.actuelPersonnage]};
     }
     this._socket.send('status', {'status' : status, 'contenu' : contenu});
 }
@@ -88,10 +88,13 @@ Utilisateur.prototype.creationDonjon = async function() {
     this.sendStatus();
 }
 
-Utilisateur.prototype.lancerDonjon = async function(niveau) {
+Utilisateur.prototype.lancerDonjon = async function(niveau, personnage) {
     let id = await requetes.getIDFromPseudo(this._pseudo);
     let data = await requetes.getDataFromID(id);
-    if (!data || data.donjons.length <= niveau) this.sendStatus(true);
-    let r = await requetes.setDonjonActuel(id, niveau);
+    if (!data || data.donjons.length <= niveau || data.personnages.length <= personnage) {
+        this.sendStatus(true);
+    }
+    await requetes.setDonjonActuel(id, niveau);
+    await requetes.setPersonnageActuel(id, personnage);
     this.sendStatus();
 }
