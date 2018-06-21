@@ -72,7 +72,8 @@ Utilisateur.prototype.sendStatus = async function(erreur = false) {
 }
 
 Utilisateur.prototype.creationPersonnage = async function(nom, difficulte) {
-    let data = await requetes.getDataFromID(await requetes.getIDFromPseudo(this._pseudo));
+    let id = await requetes.getIDFromPseudo(this._pseudo);
+    let data = await requetes.getDataFromID(id);
     if (data.personnages.length === 0) {
         requetes.ajouterPersonnage(id, nom, difficulte);
     }

@@ -6,17 +6,37 @@ export class ModeleEcran extends Modele {
         this._donjon = [];
         this._personnage = [];
         this._salleAffiche = null;
+        this._pixelTaille = 32;
+        this._playerPosition = {
+            x: 10,
+            y : 6
+        }
     }
 
     setDonjon(donjon) {
         this._donjon = donjon;
         this._salleAffiche = this._donjon._salles[this._donjon._spawn.x][this._donjon._spawn.y];
-        //this._donjon._spawn;
     }
 
     setPersonnage(personnage) {
         this._personnage = personnage;
     }
+}
+
+ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
+    if (haut) {
+        this._playerPosition.y--;
+    }
+    if (bas) {
+        this._playerPosition.y++;
+    }
+    if (gauche) {
+        this._playerPosition.x--;
+    }
+    if (droit) {
+        this._playerPosition.x++;
+    }
+    console.log(this._playerPosition);
 }
 
 class Salle {

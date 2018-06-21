@@ -63,8 +63,10 @@ Controlleur.prototype.setStatus = function(content) {
         case 'DONJON':
             this._modeles.ecran.setDonjon(contenu.donjon);
             this._modeles.ecran.setPersonnage(contenu.personnage);
-            console.log(this._modeles.ecran)
             this._vues.ecran.afficher('ecran');
+            setInterval(function() {
+                this._vues.ecran.dessiner();
+            }.bind(this), 1000/60);
             break;
     }
 }
@@ -85,6 +87,11 @@ let keyboardEvents = function(controlleur) {
                 controlleur._clavier.droite = true;
                 break;
         }
+        controlleur._modeles.ecran.bougerPersonnage(
+            controlleur._clavier.haut, 
+            controlleur._clavier.bas, 
+            controlleur._clavier.gauche, 
+            controlleur._clavier.droite);
     });
     window.addEventListener('keyup', event => {
         switch (event.key) {
