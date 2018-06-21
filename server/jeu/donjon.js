@@ -277,8 +277,8 @@ let spawn = function(maxSalles, matrice) {
 class Salle {
     constructor(north, south, west, east) {
         this._taille = {
-            x : 21,
-            y : 12
+            x : 20,
+            y : 11
         };
         this._portes = {
             'north' : north,

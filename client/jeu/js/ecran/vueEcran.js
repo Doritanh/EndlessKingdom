@@ -24,8 +24,8 @@ VueEcran.prototype.dessiner = function() {
 }
 
 VueEcran.prototype.dessinerSalle = function() {
-    for(let i = 0; i < this._modele._salleAffiche._taille.x; i++) {
-        for (let j = 0; j < this._modele._salleAffiche._taille.y; j++) {
+    for(let i = 0; i <= this._modele._salleAffiche._taille.x; i++) {
+        for (let j = 0; j <= this._modele._salleAffiche._taille.y; j++) {
             this._ctx.drawImage(this._images.SolPierre, i*32,j*32);
         }
     }
