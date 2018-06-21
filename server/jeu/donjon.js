@@ -206,11 +206,45 @@ let nom = function() {
 }
 
 let salles = function(matrice) {
-    let tabSalles = matrice;
+    let tabSalles = [];
+    for (let i = 0; i < matrice.length; i++) {
+        for (let j = 0; j < matrice[i].length; j++) {
+            tabSalles[i] = [];
+            tabSalles[i][j] = matrice[i][j];
+        }
+    }
+    let north = false;
+    let south = false;
+    let west = false;
+    let east = false;
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
             if (matrice[i][j] == 1) {
-                tabSalles[i][j] = new Salle();
+                if (j-1 > 0) {
+                    if (matrice[i][j-1] == 1) {
+                        west = true;
+                    }
+                }
+                if (j+1 < matrice[i].length) {
+                    if (matrice[i][j+1] == 1) {
+                        east = true;
+                    }
+                }
+                if (i-1 > 0) {
+                    if (matrice[i-1][j] == 1) {
+                        north = true;
+                    } 
+                }
+                if (i+1 < matrice.length) {
+                    if (matrice[i+1][j] == 1) {
+                        south = true;
+                    }
+                }
+                tabSalles[i][j] = new Salle(north, south, west, east);
+                west = false;
+                east = false;
+                north = false;
+                south = false;
             }
         }
     }
@@ -239,10 +273,34 @@ let spawn = function(maxSalles, tabSalles) {
 }
 
 class Salle {
-    constructor() {
+    constructor(north, south, west, east) {
         this._taille = {
             x : 21,
             y : 12
         };
+        this._portes = {
+            'north' : north,
+            'south' : south,
+            'west' : west,
+            'east' : east
+        }
+        this._nbMonstre = 0;
+
+        //Pourcentage change nombre de monstre
+        let x = generationNombre(0,20);
+        if (x === 0) {
+            this._nbMonstre = 0;
+        } else if(x < 6) {
+            this._nbMonstre = 1;
+        } else if (x < 11) {
+            this._nbMonstre = 2;
+        } else if (x < 16) {
+            this._nbMonstre = 3;
+        } else if (x < 20) {
+            this._nbMonstre = 4;
+        } else {
+            this._nbMonstre = 5;
+        }
     }
+
 }
