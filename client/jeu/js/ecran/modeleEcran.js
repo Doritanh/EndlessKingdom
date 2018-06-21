@@ -41,7 +41,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         this._etatMouvement = "idleDroit";
         this._playerPosition.x++;
     }
-    console.log(this._playerPosition);
+    //console.log(this._playerPosition);
 }
 
 class Salle {
