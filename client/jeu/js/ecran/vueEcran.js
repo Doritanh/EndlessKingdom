@@ -1,9 +1,12 @@
 import { Vue } from '../vue.js';
 
+import { Canvas } from './canvas.js';
+
 export class VueEcran extends Vue {
     constructor(modele) {
         super(modele);
         this._element = document.querySelector("#ecran");
+        this._canvas = new Canvas(this._element);
         this.init();
     }
 }
