@@ -72,7 +72,7 @@ VueMenu.prototype.listeDonjons = function() {
             let modeDonjon = document.createTextNode(mode);
             let btnMode = document.createElement('button');
             btnMode.addEventListener('click', function(e) {
-                this._modele.lancerDonjon(donjon._niveau, this._modele._personnages[0]);
+                this._modele.lancerDonjon(donjon._niveau, 0);
             }.bind(this), false);
             btnMode.appendChild(modeDonjon);
             tdMode.appendChild(btnMode);

@@ -14,8 +14,8 @@ export class VueEcran extends Vue {
 VueEcran.prototype.init = function() {
     let img = new Image();
     img.onload = function() {
-        for (let i = 0; i < this._modele._donjon._taille; i++) {
-            for (let j = 0; j < this._modele._donjon._taille; j++) {
+        for (let i = 0; i < 21; i++) {
+            for (let j = 0; j < 12; j++) {
                 this._element.getContext('2d').drawImage(img, i*32,j*32);
             }
         }

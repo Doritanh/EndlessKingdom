@@ -29,8 +29,9 @@ export class Canvas {
     **  prends tout l'écran.
     */
     resize() {
-        this.size.style.width = window.innerWidth/1.5;
+        this.size.style.width = window.innerWidth;
         this.size.style.height = window.innerHeight;
+        console.log(this.size.style.width + " " + this.size.style.height)
 
         //Le style qui sera toujours en version 16/9 pour chaque users
         if (this.size.style.height < this.size.style.width / this.RATIO) {
