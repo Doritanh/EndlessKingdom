@@ -88,7 +88,7 @@ Utilisateur.prototype.creationDonjon = async function() {
     this.sendStatus();
 }
 
-Utilisateur.prototype.lancerDonjon = async function(niveau) {
+Utilisateur.prototype.lancerDonjon = async function(niveau, personnage) {
     let id = await requetes.getIDFromPseudo(this._pseudo);
     let data = await requetes.getDataFromID(id);
     if (!data || data.donjons.length <= niveau) this.sendStatus(true);
