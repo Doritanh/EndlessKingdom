@@ -11,7 +11,7 @@ export class VueEcran extends Vue {
 }
 
 
-VueEcran.prototype.dessiner = async function() {
+VueEcran.prototype.dessiner = function() {
     this._canvas.clear();
     let dataImage = JSON.parse(sessionStorage.getItem('ressources'));
     //Images Decors
