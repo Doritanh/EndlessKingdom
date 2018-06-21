@@ -6,63 +6,62 @@ export class VueEcran extends Vue {
     constructor(modele) {
         super(modele);
         this._element = document.querySelector("#ecran");
-        this._canvas = new Canvas(this._element);
+        this._canvas = new Canvas(this._element.querySelector('canvas'));
+        this._ctx = this._element.querySelector('canvas').getContext('2d');
+        this._images = getImages()
     }
 }
 
-
 VueEcran.prototype.dessiner = function() {
+    // Clear canvas
     this._canvas.clear();
-    let dataImage = JSON.parse(sessionStorage.getItem('ressources'));
-    //Images Decors
-    let solPierre = new Image();
-    solPierre.src = "data:image/png;base64," + dataImage['SolPierre'];
-    //------
 
-    //Images Persos
-    let barbareFace = new Image();
-    let barbareDroite = new Image();
-    let barbareHaut = new Image();
-    let barbareGauche = new Image();
-    barbareFace.src = "data:image/png;base64," + dataImage['BarbareFace'];
-    barbareDroite.src = "data:image/png;base64," + dataImage['BarbareDroite'];
-    barbareHaut.src = "data:image/png;base64," + dataImage['BarbareHaut'];
-    barbareGauche.src = "data:image/png;base64," + dataImage['BarbareGauche'];
-    //--------
+    // Dessiner la salle
+    this.dessinerSalle();
 
+    // Joueur
+    this.dessinerJoueur();
+}
+
+VueEcran.prototype.dessinerSalle = function() {
     for(let i = 0; i < this._modele._salleAffiche._taille.x; i++) {
         for (let j = 0; j < this._modele._salleAffiche._taille.y; j++) {
-            this._element.getContext('2d').drawImage(solPierre, i*32,j*32);
+            this._ctx.drawImage(this._images.SolPierre, i*32,j*32);
         }
     }
 
-    //Animations
-    switch(this._modele._etatMouvement) {
-        case "idleBas" :
-            this._element.getContext('2d').drawImage(barbareFace, this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
-            break;
-        case "idleDroit" :
-            this._element.getContext('2d').drawImage(barbareDroite, this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
-            break;
-        case "idleHaut" :
-            this._element.getContext('2d').drawImage(barbareHaut, this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
-            break;
-        case "idleGauche" :
-            this._element.getContext('2d').drawImage(barbareGauche, this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
-            break;
-    }
-    //---------
 }
 
-VueEcran.prototype.animation = function() {
+VueEcran.prototype.dessinerJoueur = function() {
+    let nomImage = 'BarbareFace';
+    switch(this._modele._etatMouvement) {
+        case "idleBas" :
+            nomImage = 'BarbareFace';
+            break;
+        case "idleDroit" :
+            nomImage = 'BarbareDroite';
+            break;
+        case "idleHaut" :
+            nomImage = 'BarbareHaut';
+            break;
+        case "idleGauche" :
+            nomImage = 'BarbareGauche';
+            break;
+    }
+    this._ctx.drawImage(this._images[nomImage], this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
+}
+
+let getImages = function() {
     let dataImage = JSON.parse(sessionStorage.getItem('ressources'));
-    let barbareFace = new Image();
-    barbareFace.src = "data:image/png;base64," + dataImage['BarbareFace'];
-   // switch(this._modele._etatMouvement) {
-        //case "idleBas" :
-        console.log("bwah")
-            this._element.getContext('2d').drawImage(barbareFace, this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
-            //break;
-    //}
-    
+    let images = {
+        SolPierre : new Image(),
+        BarbareFace : new Image(),
+        BarbareDroite : new Image(),
+        BarbareHaut : new Image(),
+        BarbareGauche : new Image()
+    }
+    for (let nomImage in images) {
+        images[nomImage].src = "data:image/png;base64," + dataImage[nomImage];
+    }
+    return images;
 }
