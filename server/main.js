@@ -29,7 +29,7 @@ module.exports = function(socketServer) {
             } else if (id === 'creerDonjon') {
                 utilisateur.creationDonjon();
             } else if (id === 'lancerDonjon') {
-                utilisateur.lancerDonjon(content.niveau);
+                utilisateur.lancerDonjon(content.niveau, content.personnage);
             }
         });
 
