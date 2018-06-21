@@ -32,11 +32,11 @@ module.exports = function(socketServer) {
                 utilisateur.lancerDonjon(content.niveau, content.personnage);
             }
         });
-
+        /*
         // Le client ferme sa connexion
         ws.on('close', function() {
             //sessionID = 0;
-        });
+        });*/
     });
 }
 
