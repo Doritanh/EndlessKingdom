@@ -10,7 +10,8 @@ export class ModeleEcran extends Modele {
 
     setDonjon(donjon) {
         this._donjon = donjon;
-        this._salleAffiche = this._donjon._spawn;
+        this._salleAffiche = this._donjon._salles[this._donjon._spawn.x][this._donjon._spawn.y];
+        //this._donjon._spawn;
     }
 
     setPersonnage(personnage) {
