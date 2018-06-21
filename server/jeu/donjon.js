@@ -206,9 +206,13 @@ let nom = function() {
 }
 
 let salles = function(matrice) {
-    let tabSalles = matrice;
-    let fin = false;
-    let nb = Donjon._maxSalles -1;
+    let tabSalles = [];
+    for (let i = 0; i < matrice.length; i++) {
+        for (let j = 0; j < matrice[i].length; j++) {
+            tabSalles[i] = [];
+            tabSalles[i][j] = matrice[i][j];
+        }
+    }
     let north = false;
     let south = false;
     let west = false;
@@ -216,34 +220,32 @@ let salles = function(matrice) {
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
             if (matrice[i][j] == 1) {
-                if (matrice[i-1][j] == 1){
-                    west = true;
-                } 
-                if (matrice[i+1][j] == 1)
-                {
-                    east = true;
-                }
-                if (matrice[i][j-1])
-                {
-                    north = true;
-                }
-                if (matrice[i][j+1])
-                {
-                    south = true;
-                }
-                if (fin == false){
-                    if (generationNombre(0,nb)==0)
-                    {
-                        fin = true;
+                if (j-1 > 0) {
+                    if (matrice[i][j-1] == 1) {
+                        west = true;
                     }
                 }
-                tabSalles[i][j] = new Salle(north, south, west, east, fin);
+                if (j+1 < matrice[i].length) {
+                    if (matrice[i][j+1] == 1) {
+                        east = true;
+                    }
+                }
+                if (i-1 > 0) {
+                    if (matrice[i-1][j] == 1) {
+                        north = true;
+                    } 
+                }
+                if (i+1 < matrice.length) {
+                    if (matrice[i+1][j] == 1) {
+                        south = true;
+                    }
+                }
+                tabSalles[i][j] = new Salle(north, south, west, east);
+                west = false;
+                east = false;
+                north = false;
+                south = false;
             }
-            nb-= 1;
-            west = false;
-            east = false;
-            north = false;
-            south = false;
         }
     }
     return tabSalles;
@@ -271,44 +273,34 @@ let spawn = function(maxSalles, tabSalles) {
 }
 
 class Salle {
-    constructor(north, south, west, east, fin) {
+    constructor(north, south, west, east) {
         this._taille = {
             x : 21,
             y : 12
         };
-        this._porteNorth = north;
-        this._porteSouth = south;
-        this._porteWest = west;
-        this._porteEast = east;
-        this._fin = fin;
-        this._nbMonstre;
-
-        console.log(this._porteEast, this._portWest, this._porteNorth, this._porteSouth, this._fin, this._nbMonstre);
+        this._portes = {
+            'north' : north,
+            'south' : south,
+            'west' : west,
+            'east' : east
+        }
+        this._nbMonstre = 0;
 
         //Pourcentage change nombre de monstre
         let x = generationNombre(0,20);
-        switch (x){
-            case 0 :
-                _nbMonstre = 0;
-            break;
-            case x<6 :
-                _nbMonstre = 1;
-            break;
-            case x<11:
-                _nbMonstre = 2;
-            break;
-            case x<16:
-                _nbMonstre = 3;
-            break;
-            case x<20:
-                _nbMonstre = 4;
-            break;
-            case 20:
-                _nbMonstre =5;
-            break;
+        if (x === 0) {
+            this._nbMonstre = 0;
+        } else if(x < 6) {
+            this._nbMonstre = 1;
+        } else if (x < 11) {
+            this._nbMonstre = 2;
+        } else if (x < 16) {
+            this._nbMonstre = 3;
+        } else if (x < 20) {
+            this._nbMonstre = 4;
+        } else {
+            this._nbMonstre = 5;
         }
-
-        console.log(this._porteEast, this._portWest, this._porteNorth, this._porteSouth, this._fin, this._nbMonstre);
     }
 
 }
