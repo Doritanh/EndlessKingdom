@@ -14,46 +14,47 @@ import { Ressource } from './ressource.js';
 
 // Main du jeu
 (function() {
-    let init = function() {
+    let init = async function() {
+        // Ressources
         const ressource = new Ressource();
-        ressource.load(function(ressources) {
-            console.log(ressources)
-            sessionStorage.setItem('ressources', JSON.stringify(ressources));
-            const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
-            const id = sessionStorage.getItem('sessionID');
-            const controlleur = new Controlleur(socket);
-    
-            // Pas d'id définis, retour au menu
-            if (id === null) {
-               window.location.replace('http://' + window.location.hostname + '/');
+        let ressources = await ressource.load();
+        sessionStorage.setItem('ressources', JSON.stringify(ressources));
+
+        // Constantes
+        const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
+        const id = sessionStorage.getItem('sessionID');
+        const controlleur = new Controlleur(socket);
+
+        // Pas d'id définis, retour au menu
+        if (id === null) {
+            window.location.replace('http://' + window.location.hostname + '/');
+        }
+
+        // Reception d'un socket
+        socket.addEventListener('message', e => {
+            let id = JSON.parse(e.data).id;
+            let content = JSON.parse(e.data).values;
+            switch (id) {
+                case 'status':
+                    controlleur.setStatus(content);
+                    break;
             }
-    
-            // Reception d'un socket
-            socket.addEventListener('message', e => {
-                let id = JSON.parse(e.data).id;
-                let content = JSON.parse(e.data).values;
-                switch (id) {
-                    case 'status':
-                        controlleur.setStatus(content);
-                        break;
-                }
-            });
-    
-            // Ouverture de la connexion au serveur de socket
-            socket.addEventListener('open', e => {
-                // Envoie de l'id de session
-                socket.send(JSON.stringify({
-                    'id' : 'sessionID',
-                    'values' : {
-                        'id' : id
-                    }
-                }));
-            });
-    
-            // Petit message sympa
-            console.log("EndlessKingdom v0.0.1");
         });
-    };
+
+        // Ouverture de la connexion au serveur de socket
+        socket.addEventListener('open', e => {
+            // Envoie de l'id de session
+            socket.send(JSON.stringify({
+                'id' : 'sessionID',
+                'values' : {
+                    'id' : id
+                }
+            }));
+        });
+
+        // Petit message sympa
+        console.log("EndlessKingdom v0.0.1");
+    }
 
     EndlessKingdom.init = init;
 })();

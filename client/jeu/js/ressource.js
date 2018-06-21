@@ -1,35 +1,55 @@
 export class Ressource {
     constructor() {
         this._location = '/client/jeu/ressources/';
-        this._images = [];
+        this._images = {
+            SolPierre : {
+                conteneur : new Image(),
+                source : 'SolPierre.png'
+            },
+            BarbareDroite : {
+                conteneur : new Image(),
+                source : 'BarbareDroite.png'
+            },
+            BarbareHaut : {
+                conteneur : new Image(),
+                source : 'BarbareDos.png'
+            },
+            BarbareGauche : {
+                conteneur : new Image(),
+                source : 'BarbareGauche.png'
+            },
+            BarbareFace : {
+                conteneur : new Image(),
+                source : 'BarbareFace.png'
+            }
+        };
     }
 }
 
-Ressource.prototype.load = function(callback) {
-    //Ressources Decors
-    let solPierre = new Image();
-    //----
-    //Ressources Persos
-    let barbareDroite = new Image();
-    let barbareHaut = new Image();
-    let barbareGauche = new Image();
-    let barbareFace = new Image();
-    //----
-    barbareFace.addEventListener('load', function() {
+Ressource.prototype.load = async function() {
+    let self = this;
+    let promesse = new Promise((resolve, reject) => {
         let data = {};
-        data['SolPierre'] = getBase64Image(solPierre);
-        data['BarbareFace'] = getBase64Image(barbareFace);
-        data['BarbareDroite'] = getBase64Image(barbareDroite);
-        data['BarbareHaut'] = getBase64Image(barbareHaut);
-        data['BarbareGauche'] = getBase64Image(barbareGauche);
-        callback(data);
-    }, false);
-    solPierre.src = '' + this._location + 'SolPierre.png';
-    barbareDroite.src = '' + this._location + 'BarbareDroite.png';
-    barbareHaut.src = '' + this._location + 'BarbareDos.png';
-    barbareGauche.src = '' + this._location + 'BarbareGauche.png'
-    barbareFace.src = '' + this._location + 'BarbareFace.png';
+
+        for (let image in self._images) {
+            self._images[image].conteneur.addEventListener('load', function() {
+                data[image] = getBase64Image(self._images[image].conteneur);
+                checkNumber();
+            }, false);
+        }
+        let checkNumber = function() {
+            if (Object.keys(data).length === Object.keys(self._images).length) {
+                resolve(data);
+            }
+        }
     
+        // Nom du fichier d'image
+        for (let image in self._images) {
+            self._images[image].conteneur.src = '' + self._location + self._images[image].source;
+        }
+    });
+    
+    return promesse;
 }
 
 let getBase64Image = function(img) {
