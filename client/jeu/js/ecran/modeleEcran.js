@@ -7,6 +7,7 @@ export class ModeleEcran extends Modele {
         this._personnage = [];
         this._salleAffiche = null;
         this._pixelTaille = 32;
+        this._etatMouvement = "idleBas";
         this._playerPosition = {
             x: 10,
             y : 6
@@ -25,15 +26,19 @@ export class ModeleEcran extends Modele {
 
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (haut) {
+        this._etatMouvement = "idleHaut";
         this._playerPosition.y--;
     }
     if (bas) {
+        this._etatMouvement = "idleBas";
         this._playerPosition.y++;
     }
     if (gauche) {
+        this._etatMouvement = "idleGauche";
         this._playerPosition.x--;
     }
     if (droit) {
+        this._etatMouvement = "idleDroit";
         this._playerPosition.x++;
     }
     console.log(this._playerPosition);
