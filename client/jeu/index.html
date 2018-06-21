@@ -12,13 +12,39 @@
     </div>
 
     <!-- Fenetre d'affichage du jeu -->
-    <canvas id="ecran" width=800 height=600>
-        Arreter d'utiliser des naviguateurs du tier monde SVP.
-    </canvas>
+    <div id="ecran">
+        <div class="flex">
+            <canvas class="avant" width=800 height=600>
+                Arreter d'utiliser des naviguateurs du tier monde SVP.
+            </canvas>
+        </div>
+    </div>
 
     <!-- Fenetre du menu -->
     <div id="menu">
-        <button id="prochainDonjon">Prochain donjon</button>
+        <!--<img src="/client/jeu/ressources/SolPierre.png">-->
+        <div class="gridMenu">
+            <div class="title">
+                <span>EndlessKingdom</span>
+            </div>
+            <div id="choixPerso">
+                <span class="titreChoixPerso">Choix de votre héros</span>
+                <div class="picturePerso"></div>
+                <div id="selectionPerso">
+                    <button id="btnLeft"><</button>
+                    <span class="selectedPerso">Personnage 1</span>
+                    <button id="btnRight">></button>
+                </div>
+                <button class="nouveauPerso">Nouveau héros</button>
+            </div>
+            <div id="compte">
+                <span class="titreChoixCompte">Titulaire du compte</span>
+            </div>
+            <div id="choixDonjon">
+                <span class="titreChoixDonjon">Liste de vos donjons</span>
+                <table></table>
+            </div>
+        </div>
     </div>
 
     <!-- Fenetre de création du personnage -->
@@ -34,6 +60,6 @@
         </form>
     </div>
     <!-- Fichier du jeu -->
-    <script src="/client/jeu/js/main.js"></script>
+    <script src="/client/jeu/js/main.js" type="module"></script>
 </body>
 </html>
