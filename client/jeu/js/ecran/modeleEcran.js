@@ -64,9 +64,13 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
             this.creerEnnemy(this._salleAffiche);
             this._playerPosition.y = this._salleAffiche._taille.y;
-            setInterval(function(){
-                this.bougerEnnemy();
-            }.bind(this),1000/2);
+            if(this._salleAffiche._nbMonstre > 0)
+            {
+                setInterval(function(){
+                    this.bougerEnnemy();
+                }.bind(this),1000/2);
+            }
+            
 
         }
     }
@@ -77,9 +81,12 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
             this.creerEnnemy(this._salleAffiche);
             this._playerPosition.y = 0;
-            setInterval(function(){
-                this.bougerEnnemy();
-            }.bind(this),1000/2);
+            if(this._salleAffiche._nbMonstre > 0)
+            {
+                setInterval(function(){
+                    this.bougerEnnemy();
+                }.bind(this),1000/2);
+            }
         }
     }
     if (this._playerPosition.x == 0 && this._playerPosition.y == 5 && this._etatMouvement == 'idleGauche') {
@@ -88,9 +95,12 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
             this.creerEnnemy(this._salleAffiche);
             this._playerPosition.x = this._salleAffiche._taille.x;
-            setInterval(function(){
-                this.bougerEnnemy();
-            }.bind(this),1000/2);
+            if(this._salleAffiche._nbMonstre > 0)
+            {
+                setInterval(function(){
+                    this.bougerEnnemy();
+                }.bind(this),1000/2);
+            }
         }
     }
     if (this._playerPosition.x == this._salleAffiche._taille.x && this._playerPosition.y == 5
@@ -100,12 +110,66 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
             this.creerEnnemy(this._salleAffiche);
             this._playerPosition.x = 0;
-            setInterval(function(){
-                this.bougerEnnemy();
-            }.bind(this),1000/1);
+            if(this._salleAffiche._nbMonstre >0)
+            {
+                setInterval(function(){
+                    this.bougerEnnemy();
+                }.bind(this),1000/2);
+            }
         }
     }
     console.log(this._playerPosition);
+}
+
+ModeleEcran.prototype.attaquer = function() {
+    let x;
+    let y;
+    console.log(this._etatMouvement);
+    switch (this._etatMouvement){
+        case 'idleGauche':
+            x = -1;
+            y = 0;
+           break;
+        case 'idleDroit':
+            x = 1;
+            y = 0;
+            break;
+        case 'idleBas':
+            x = 0;
+            y = 1;
+            break;
+        case 'idleHaut':
+            x = 0;
+            y =-1;
+            break;
+    }
+    
+    this._ennemy.forEach(e => {
+        console.log(x + " " + y);
+        console.log(this._playerPosition.x + " " + this._playerPosition.y);
+        console.log(e._pos.x + " " + e._pos.y)
+        if((e._pos.x == this._playerPosition.x && e._pos.y == this._playerPosition.y )){
+            e.PV -= 5;
+            console.log(e.PV);
+        }
+        else if(e._pos.x == this._playerPosition.x + x && e._pos.y == this._playerPosition.y + y)
+        {
+            e.PV -= 5;
+            console.log(e.PV);
+        }
+
+        if(e.PV <= 0)
+        {
+            for(let i =0; i< this._ennemy.length; i++)
+            {
+                if (this._ennemy[i] == e)
+                {
+                    this._ennemy.splice(i,1);
+                    this._salleAffiche._nbMonstre -= 1;
+                }
+            }
+        }
+    });
 }
 
 ModeleEcran.prototype.creerEnnemy = function(salle) {
@@ -122,11 +186,14 @@ ModeleEcran.prototype.creerEnnemy = function(salle) {
 }
 
 ModeleEcran.prototype.bougerEnnemy = function() {
-    let direction = this.cheminEnnemy(this._ennemy[0]);
-    this._ennemy.forEach(e => {
-        e._pos.x += direction.x; 
-        e._pos.y += direction.y;
-    });
+    if (this._salleAffiche._nbMonstre != 0)
+    {
+        let direction = this.cheminEnnemy(this._ennemy[0]);
+        this._ennemy.forEach(e => {
+             e._pos.x += direction.x; 
+            e._pos.y += direction.y;
+         });
+    } 
 }
 
 ModeleEcran.prototype.cheminEnnemy = function(ennemy)
@@ -135,21 +202,44 @@ ModeleEcran.prototype.cheminEnnemy = function(ennemy)
         x:0,
         y:0
     }
-    if (this._playerPosition.x - ennemy._pos.x > 0)
+    //If next to Joueur
+    if((this._playerPosition.x - ennemy._pos.x == 1 || this._playerPosition.x - ennemy._pos.x == -1)&&(this._playerPosition.y - ennemy._pos.y == 0))
     {
-        direction.x = 1;
+       console.log("nextTo");
+        direction.x =0;
+        direction.y =0;
     }
-    else if (this._playerPosition.x - ennemy._pos.x < 0)
+    else if((this._playerPosition.x - ennemy._pos.x == 0)&&(this._playerPosition.y - ennemy._pos.y == 1 || this._playerPosition.y - ennemy._pos.y == -1))
     {
-        direction.x = -1;
+       console.log("nextTo");
+        direction.x =0;
+        direction.y =0;
     }
-    if (this._playerPosition.y - ennemy._pos.y > 0)
+    else if((this._playerPosition.x - ennemy._pos.x == 1 || this._playerPosition.x - ennemy._pos.x == -1)&&(this._playerPosition.y - ennemy._pos.y == 1 || this._playerPosition.y - ennemy._pos.y == -1))
     {
-        direction.y = 1;
+       console.log("nextTo");
+        direction.x =0;
+        direction.y =0;
     }
-    else if (this._playerPosition.y - ennemy._pos.y < 0)
+    else 
     {
-        direction.y = -1;
+        console.log("notNext");
+        if (this._playerPosition.x - ennemy._pos.x > 0)
+        {
+            direction.x = 1;
+        }
+        if (this._playerPosition.x - ennemy._pos.x < 0)
+        {
+            direction.x = -1;
+        }
+        if (this._playerPosition.y - ennemy._pos.y > 0)
+        {
+            direction.y = 1;
+        }
+        if (this._playerPosition.y - ennemy._pos.y < 0)
+        {
+            direction.y = -1;
+        }
     }
     return direction;
 }

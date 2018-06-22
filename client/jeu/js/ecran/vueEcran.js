@@ -55,7 +55,6 @@ VueEcran.prototype.dessinerJoueur = function() {
 VueEcran.prototype.dessinerEnnemy = function() {
     if (typeof this._modele._ennemy[0] !== 'undefined')
     {
-        console.log("test2");
         this._ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[0]._pos.x*32,this._modele._ennemy[0]._pos.y*32)
     }
     
