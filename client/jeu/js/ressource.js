@@ -89,6 +89,26 @@ export class Ressource {
             OrcFace : {
                 conteneur : new Image(),
                 source : 'OrcFace.png'
+            },
+            HealthBar0 : {
+                conteneur : new Image(),
+                source : 'HealthBar0.png'
+            },
+            HealthBarContent0 : {
+                conteneur : new Image(),
+                source : 'HealthBarContent0.png'
+            },
+            HealthBar1 : {
+                conteneur : new Image(),
+                source : 'HealthBar1.png'
+            },
+            HealthBarContent1 : {
+                conteneur : new Image(),
+                source : 'HealthBarContent1.png'
+            },
+            Heart : {
+                conteneur : new Image,
+                source : 'Heart.png'
             }
         };
     }
