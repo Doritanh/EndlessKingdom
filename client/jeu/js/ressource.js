@@ -6,13 +6,13 @@ export class Ressource {
                 conteneur : new Image(),
                 source : 'SolPierre.png'
             },
-            BarbareDroite : {
+            BarbareDroite0 : {
                 conteneur : new Image(),
-                source : 'BarbareDroite.png'
+                source : 'BarbareDroite(0).png'
             },
-            BarbareHaut : {
+            BarbareHaut0 : {
                 conteneur : new Image(),
-                source : 'BarbareDos.png'
+                source : 'BarbareDos(0).png'
             },
             BarbareGauche0 : {
                 conteneur : new Image(),
@@ -30,9 +30,9 @@ export class Ressource {
                 conteneur : new Image(),
                 source : 'BarbareGauche(3).png'
             },
-            BarbareFace : {
+            BarbareFace0 : {
                 conteneur : new Image(),
-                source : 'BarbareFace.png'
+                source : 'BarbareFace(0).png'
             },
             MurHaut : {
                 conteneur : new Image(),

@@ -8,6 +8,8 @@ export class ModeleEcran extends Modele {
         this._salleAffiche = "";
         this._pixelTaille = 32;
         this._etatMouvement = "idleBas";
+        this._numeroFrameMouvement = 0;
+        this._nomFrameMouvement = "BarbareFace0";
         this._position = {
             x : 0,
             y : 0
@@ -35,24 +37,28 @@ export class ModeleEcran extends Modele {
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (haut) {
         this._etatMouvement = "idleHaut";
+        this._nomFrameMouvement = "BarbareHaut" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.y > 0) {
             this._playerPosition.y--;
         }
     }
     if (bas) {
         this._etatMouvement = "idleBas";
+        this._nomFrameMouvement = "BarbareFace" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.y < this._salleAffiche._taille.y) {
             this._playerPosition.y++;
         }
     }
     if (gauche) {
         this._etatMouvement = "idleGauche";
+        this._nomFrameMouvement = "BarbareGauche" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.x > 0) {
             this._playerPosition.x--;
         }
     }
     if (droit) {
         this._etatMouvement = "idleDroit";
+        this._nomFrameMouvement = "BarbareDroite" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.x < this._salleAffiche._taille.x) {
             this._playerPosition.x++;
         }
