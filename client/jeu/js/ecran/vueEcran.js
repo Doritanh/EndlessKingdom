@@ -34,22 +34,7 @@ VueEcran.prototype.dessinerSalle = function() {
 }
 
 VueEcran.prototype.dessinerJoueur = function() {
-    let nomImage = 'BarbareFace';
-    switch(this._modele._etatMouvement) {
-        case "idleBas" :
-            nomImage = 'BarbareFace';
-            break;
-        case "idleDroit" :
-            nomImage = 'BarbareDroite';
-            break;
-        case "idleHaut" :
-            nomImage = 'BarbareHaut';
-            break;
-        case "idleGauche" :
-            nomImage = 'BarbareGauche';
-            break;
-    }
-    this._ctx.drawImage(this._images[nomImage], this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
+    this._ctx.drawImage(this._images[this._modele._nomFrameMouvement], this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
 }
 
 VueEcran.prototype.dessinerEnnemy = function() {
@@ -64,10 +49,22 @@ let getImages = function() {
     let dataImage = JSON.parse(sessionStorage.getItem('ressources'));
     let images = {
         SolPierre : new Image(),
-        BarbareFace : new Image(),
-        BarbareDroite : new Image(),
-        BarbareHaut : new Image(),
-        BarbareGauche : new Image(),
+        BarbareFace0 : new Image(),
+        BarbareFace1 : new Image(),
+        BarbareFace2 : new Image(),
+        BarbareFace3 : new Image(),
+        BarbareDroite0 : new Image(),
+        BarbareDroite1 : new Image(),
+        BarbareDroite2 : new Image(),
+        BarbareDroite3 : new Image(),
+        BarbareHaut0 : new Image(),
+        BarbareHaut1 : new Image(),
+        BarbareHaut2 : new Image(),
+        BarbareHaut3 : new Image(),
+        BarbareGauche0 : new Image(),
+        BarbareGauche1 : new Image(),
+        BarbareGauche2 : new Image(),
+        BarbareGauche3 : new Image(),
         MurHaut : new Image(),
         MurBas : new Image(),
         MurGauche : new Image(),
