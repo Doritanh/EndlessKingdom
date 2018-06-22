@@ -19,6 +19,7 @@ window.EndlessKingdom.identification.design = {};
             document.querySelector("#btn_inscription").style.borderStyle = "outset";
             document.querySelector("#fade").style.opacity = 0;
             document.querySelector("#fenetre").style.height = tailleFenetreConnexion;
+            document.querySelector("#message").textContent = '';
             setTimeout(function() {
                 document.querySelector("#inscription").style.display = "none";
                 document.querySelector("#connexion").style.display = "inline";
@@ -69,8 +70,11 @@ window.EndlessKingdom.identification.verification = {};
 
         if (!reg.test(document.querySelector("#mdp").value)) {
             document.querySelector("#mdp").style.backgroundColor = "#FE5353";
+            document.querySelector("#message").textContent = 'Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre.';
+
         } else {
             document.querySelector("#mdp").style.backgroundColor = "white";
+            document.querySelector("#message").textContent = '';
         }
         verifConfMdp();
     };
