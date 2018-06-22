@@ -51,6 +51,8 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     }
     if (gauche) {
         this._etatMouvement = "idleGauche";
+        this._numeroFrameMouvement++;
+        if(this._numeroFrameMouvement == 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareGauche" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.x > 0) {
             this._playerPosition.x--;
