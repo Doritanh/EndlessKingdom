@@ -37,3 +37,20 @@ ModeleMenu.prototype.lancerDonjon = function(niveau, personnage) {
         }
     }));
 }
+
+ModeleMenu.prototype.creerPerso = function() {
+    this._socket.send(JSON.stringify({
+        'id' : 'demandePerso',
+        'values' : {}
+    }));
+}
+
+ModeleMenu.prototype.changerPerso = function(modifier) {
+    let selected = this._actuelPersonnage + modifier;
+    this._socket.send(JSON.stringify({
+        'id' : 'selectionnerPerso',
+        'values' : {
+            'selected' : selected
+        }
+    }));
+}

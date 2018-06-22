@@ -58,13 +58,13 @@ Controlleur.prototype.setStatus = function(content) {
         case 'MENU':
             this._modeles.menu.setPersonnages(contenu.personnages);
             this._modeles.menu.setDonjons(contenu.donjons);
+            this._modeles.menu.setActuelPersonnage(contenu.actuelPersonnage);
             this._vues.menu.rafraichir();
             this._vues.menu.afficher('menu');
             break;
         case 'DONJON':
             this._modeles.ecran.setDonjon(contenu.donjon);
             this._modeles.ecran.setPersonnage(contenu.personnage);
-            this._modeles.ecran.setActuelPersonnage(contenu.actuelPersonnage);
             this._vues.ecran.afficher('ecran');
             setInterval(function() {
                 this._vues.ecran.dessiner();

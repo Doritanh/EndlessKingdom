@@ -15,17 +15,20 @@ export class VueMenu extends Vue {
 VueMenu.prototype.listePersonnage = function() {
     let champPersonnage = document.querySelector("#selectionPerso span");
     let leftArrow = document.querySelector('#btnLeft');
-    let rightArrow = docuement.querySelector('#btnRight');
-    if (typeof this._modele !== undefined) {
-        champPersonnage.textContent = this._modele._personnages[this._modele._actuelPersonnage]._nom;
-    }
+    let rightArrow = document.querySelector('#btnRight');
+    let creerPerso = document.querySelector('#nouveauPerso');
+    champPersonnage.textContent = this._modele._personnages[this._modele._actuelPersonnage]._nom;
     leftArrow.addEventListener('click', function() {
-        
-    });
+        this._modele.changerPerso(-1);
+    }.bind(this), false);
     rightArrow.addEventListener('click', function() {
-
-    });
-
+        this._modele.changerPerso(1)
+    }.bind(this), false);
+    creerPerso.addEventListener('click', function() {
+        this._modele.creerPerso();
+    }.bind(this), false);
+    let img = document.querySelector('#picturePerso');
+    img.src = "data:image/png;base64," + JSON.parse(sessionStorage.getItem('ressources')).BarbareFace;
 }
 
 VueMenu.prototype.listeDonjons = function() {
