@@ -122,13 +122,37 @@ ModeleEcran.prototype.creerEnnemy = function(salle) {
 }
 
 ModeleEcran.prototype.bougerEnnemy = function() {
+    let direction = this.cheminEnnemy(this._ennemy[0]);
     this._ennemy.forEach(e => {
-        e._pos.x += 1; 
-        e._pos.y += 1;
+        e._pos.x += direction.x; 
+        e._pos.y += direction.y;
     });
 }
 
-
+ModeleEcran.prototype.cheminEnnemy = function(ennemy)
+{
+    let direction = {
+        x:0,
+        y:0
+    }
+    if (this._playerPosition.x - ennemy._pos.x > 0)
+    {
+        direction.x = 1;
+    }
+    else if (this._playerPosition.x - ennemy._pos.x < 0)
+    {
+        direction.x = -1;
+    }
+    if (this._playerPosition.y - ennemy._pos.y > 0)
+    {
+        direction.y = 1;
+    }
+    else if (this._playerPosition.y - ennemy._pos.y < 0)
+    {
+        direction.y = -1;
+    }
+    return direction;
+}
 
 var generationNombre = function(min, max) {
     return Math.floor(Math.random()*(max - min + 1) + min);
