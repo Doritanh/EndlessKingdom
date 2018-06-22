@@ -7,7 +7,7 @@ export class ModeleEcran extends Modele {
         this._personnage = [];
         this._salleAffiche = "";
         this._pixelTaille = 32;
-        this._etatMouvement = "bas";
+        this._etatMouvement = "idleBas";
         this._position = {
             x : 0,
             y : 0
@@ -34,31 +34,31 @@ export class ModeleEcran extends Modele {
 
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (haut) {
-        this._etatMouvement = "haut";
+        this._etatMouvement = "idleHaut";
         if (this._playerPosition.y > 0) {
             this._playerPosition.y--;
         }
     }
     if (bas) {
-        this._etatMouvement = "bas";
+        this._etatMouvement = "idleBas";
         if (this._playerPosition.y < this._salleAffiche._taille.y) {
             this._playerPosition.y++;
         }
     }
     if (gauche) {
-        this._etatMouvement = "gauche";
+        this._etatMouvement = "idleGauche";
         if (this._playerPosition.x > 0) {
             this._playerPosition.x--;
         }
     }
     if (droit) {
-        this._etatMouvement = "droit";
+        this._etatMouvement = "idleDroit";
         if (this._playerPosition.x < this._salleAffiche._taille.x) {
             this._playerPosition.x++;
         }
     }
     if (this._playerPosition.x == 10 && this._playerPosition.y == 0 
-        && this._etatMouvement == 'haut') {
+        && this._etatMouvement == 'idleHaut') {
         if (this._salleAffiche._portes.north == true) {
             this._position.x--;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
@@ -75,7 +75,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         }
     }
     if (this._playerPosition.x == 10 && this._playerPosition.y == this._salleAffiche._taille.y 
-        && this._etatMouvement == 'bas') {
+        && this._etatMouvement == 'idleBas') {
         if (this._salleAffiche._portes.south == true) {
             this._position.x++;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
@@ -89,7 +89,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
             }
         }
     }
-    if (this._playerPosition.x == 0 && this._playerPosition.y == 5 && this._etatMouvement == 'gauche') {
+    if (this._playerPosition.x == 0 && this._playerPosition.y == 5 && this._etatMouvement == 'idleGauche') {
         if (this._salleAffiche._portes.west == true) {
             this._position.y--;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
@@ -104,7 +104,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         }
     }
     if (this._playerPosition.x == this._salleAffiche._taille.x && this._playerPosition.y == 5
-        && this._etatMouvement == 'droit') {
+        && this._etatMouvement == 'idleDroit') {
         if (this._salleAffiche._portes.east == true) {
             this._position.y++;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
@@ -126,19 +126,19 @@ ModeleEcran.prototype.attaquer = function() {
     let y;
     console.log(this._etatMouvement);
     switch (this._etatMouvement){
-        case 'gauche':
+        case 'idleGauche':
             x = -1;
             y = 0;
            break;
-        case 'droit':
+        case 'idleDroit':
             x = 1;
             y = 0;
             break;
-        case 'bas':
+        case 'idleBas':
             x = 0;
             y = 1;
             break;
-        case 'haut':
+        case 'idleHaut':
             x = 0;
             y =-1;
             break;
