@@ -5,7 +5,7 @@ export class ModeleEcran extends Modele {
         super(socket);
         this._donjon = [];
         this._personnage = [];
-        this._salleAffiche = null;
+        this._salleAffiche = "";
         this._pixelTaille = 32;
         this._etatMouvement = "idleBas";
         this._position = {
