@@ -8,97 +8,75 @@
 <body>
     <noscript>S'il vous plaît, télécharger un vrai navigateur supportant Javascript...</noscript>
 
-    <!-- header debut -->
-      <header class="container-fluid header">
-          <div class="container">
-              <a href="#" class="logo">Endless Kingdom</a>
-                <nav class="menu">
-                    <a href="#Info"> Informations complémentaires </a>
-                </nav>
-          </div>
-      </header>
-      <!-- header fin -->
+    <!-- Banniere haute -->
+    <header>
+        <span class="logo">Endless Kingdom</span>
+        <a href="#Info" class="infosComplementaires">Informations complémentaires</a>
+    </header>
 
-      <!-- banniere debut -->
-      <section class="container-fluid banniere">
-        <div class="ban">
-            <img src="http://image.noelshack.com/fichiers/2018/25/4/1529590979-dungeon-wallpaper.jpg" alt="dungeon wallpaper" />
-        </div>
-        <div id="center">
-          <div class="inner-banner">
-              <div id="fenetre">
-                  <div id="buttons">
-                      <input type="button" value="Connexion" id="btn_connexion" class="chMenu">
-                      <input type="button" value="Inscription" id="btn_inscription" class="chMenu">
-                  </div>
-
-                  <div id="fade">
-                      <div id="connexion">
-                          <form id="frm_connexion" class="formulaire">
-                              <label class="labelForm">Pseudo</label>
-                              <input type="text" id="Cpseudo" name="pseudo" class="champ"/>
-
-                              <label class="labelForm">Mot de passe</label>
-                              <input type="password" id="Cmdp" name="mdp" class="champ"/>
-
-                              <input type="submit" value="Connexion" class="btn_validation" id="btn_valideConnexion"/>
-                          </form>
-                      </div>
-
-                      <div id="inscription">
-                          <form id="frm_inscription" method="POST" onsubmit="return false;" class="formulaire">
-                              <label class="labelForm">Pseudo</label>
-                              <input type="text" id="pseudo" name="pseudo" class = "champ"/>
-
-                              <label class="labelForm">Adresse Mail</label>
-                              <input type="text" id="adresse" name="adresse" class="champ"/>
-
-                              <label class="labelForm">Mot de passe</label>
-                              <input type ="password" id="mdp" name="mdp" class="champ"/>
-
-                              <label class="labelForm">Confirmation mot de passe</label>
-                              <input type ="password" id="confMdp" name="confMdp" class="champ"/>
-
-                              <input type="submit" value="S'inscrire" class="btn_validation" id="btn_valideInscription"/>
-                          </form>
-                      </div>
-                  </div>
+    <section class="identification">
+        <div id="fenetre">
+            <div id="buttons">
+                <input type="button" value="Connexion" id="btn_connexion">
+                <input type="button" value="Inscription" id="btn_inscription">
             </div>
-          </div>
-          <div id="message"></div>
+  
+            <div id="fade">
+                <div id="connexion">
+                    <form id="frm_connexion" class="formulaire">
+                        <label class="labelForm">Pseudo</label>
+                        <input type="text" id="Cpseudo" name="pseudo" class="champ"/>
+
+                        <label class="labelForm">Mot de passe</label>
+                        <input type="password" id="Cmdp" name="mdp" class="champ"/>
+
+                        <input type="submit" value="Connexion" class="btn_validation" id="btn_valideConnexion"/>
+                    </form>
+                </div>
+  
+                <div id="inscription">
+                    <form id="frm_inscription" method="POST" onsubmit="return false;" class="formulaire">
+                        <label class="labelForm">Pseudo</label>
+                        <input type="text" id="pseudo" name="pseudo" class = "champ"/>
+
+                        <label class="labelForm">Adresse Mail</label>
+                        <input type="text" id="adresse" name="adresse" class="champ"/>
+
+                        <label class="labelForm">Mot de passe</label>
+                        <input type ="password" id="mdp" name="mdp" class="champ"/>
+
+                        <label class="labelForm">Confirmation mot de passe</label>
+                        <input type ="password" id="confMdp" name="confMdp" class="champ"/>
+
+                        <input type="submit" value="S'inscrire" class="btn_validation" id="btn_valideInscription"/>
+                    </form>
+                </div>
+
+            </div>
         </div>
-      </section>
+    </section>
 
-      <section class="container-fluid Jeu_Aide_Apropos">
-              <div class="infos"
-                    <div class="row">
-                        <article class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                            <div id="Info">
-                              <h2> Le Jeu Endless Kingdom </h2>
-                              <p>
-                                Endless Kingdom est un jeu Rogue-Like 2D. Dans ce jeu, vous pouvez être un barbare, un archer ou bien un magicien. Vous évoluerez dans monde médiéval-fantastique. Pour gagner en compétence et en force, vous devrez parcourir des donjons peuplés de monstres, votre but ne pas mourir afin de faire évoluer vos personnages.
-                              </p>
-                            </div>
-                        </article>
-                        <article class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                              <h2> Aide </h2>
-                              <p>
-                                Pour télécharger le manuel d'utilisation, cliquer sur le lien : <a href="client/identification/Manuel Utilisateur - Endless Kingdom.pdf"> ici </a>
-                              <p>
-                        </article>
-                        <article class="col-md-4 col-lg-4 col-xs-12 col-sm-12">
-                              <h2> À propos </h2>
-                              <p>
-                                Ce site et ce jeu ont été réalisé dans le cadre d'un projet Universitaire de l'IUT d'Orsay.
-                              <p>
-                        </article>
-                    </div>
-              </div>
-          </div>
-
-
-
-      </section>
+    <footer>
+        <article>
+            <h2> Le Jeu Endless Kingdom </h2>
+            <p>
+            Endless Kingdom est un jeu Rogue-Like 2D. Dans ce jeu, vous pouvez être un barbare, un archer ou bien un magicien. Vous évoluerez dans monde médiéval-fantastique. Pour gagner en compétence et en force, vous devrez parcourir des donjons peuplés de monstres, votre but ne pas mourir afin de faire évoluer vos personnages.
+            </p>
+        </article>
+        <article>
+            <h2>Aide</h2>
+            <p>Pour télécharger le manuel d'utilisation, cliquer sur le lien : 
+                <a href="client/identification/manuelUtilisateur.pdf" download>ici</a>
+            </p>
+        </article>
+        <article>
+            <h2>À propos</h2>
+            <p>
+                Ce site et ce jeu ont été réalisé dans le cadre d'un projet Universitaire de l'IUT d'Orsay.
+                Jeu crée par Anthony CHARRIER, Lucas PAYET, Charly PRINTANNIER, Marion RIVIERE
+            </p>
+        </article>
+    </footer>
 
 </body>
 <script src="client/identification/js/main.js"></script>

@@ -4,107 +4,70 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Cinzel', sans-serif;
-    background-image: url(http://image.noelshack.com/fichiers/2018/25/5/1529660652-576.jpg);
-    /*display: flex;
-    flex-direction: row;
-    justify-content: center;*/
-}
-
-a, a:hover {
-  text-decoration: none;
-}
-
-#message {
-  color: white;
-  position: absolute;
-  top : 530px;
-  left: 580px;
-}
-
-/* header */
-.header {
-  /*background-color: #1E5532;*/
-  height: 80px;
-  line-height: 80px;
-  background-image: url(http://image.noelshack.com/fichiers/2018/25/5/1529660652-576.jpg);
-}
-
-.logo {
-  color : white;
-  text-transform: uppercase;
-  font-weight: bolder;
-  letter-spacing: 2px;
-  margin-left: 10px;
-}
-
-.menu {
-  float: right
-}
-
-.menu a {
-  font-weight: bolder;
-  color: white;
-  margin-right: 30px;
-}
-
-.menu a:hover {
-  color: #193441;
-}
-
-/* banniere */
-.banniere {
-  width: 100%;
-  max-width: 100%;
-}
-
-.ban {
-  width: 100%;
-  max-width: 100%;
-}
-
-.ban img {
-  width: 100%;
-  max-width: 100%;
-
-}
-
-.inner-banner {
-    position : absolute;
-    top : 30%;
-    left: 0;
-    text-align: center;
-}
-
-#centre {
-    text-align: center;
+    /*background-image: url(http://image.noelshack.com/fichiers/2018/25/5/1529660652-576.jpg);*/
+    background-color:  rgb(151, 160, 175);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    display: grid;
+}
 
+a {
+    color: white;
+    text-decoration : underline;
+}
+a:hover {
+    text-decoration: none;
+}
+
+/*
+**  SECTION HEADER
+*/
+header {
+    /*background-color: #1E5532;*/
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header .logo {
+    font-size: xx-large;
+    color : white;
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    margin-left: 10px;
+}
+header .infosComplementaires {
+    padding-right: 40px;
+}
+
+/*
+**  SECTION IDENTIFICATION
+*/
+
+.identification {
+    background-image: url(http://image.noelshack.com/fichiers/2018/25/4/1529590979-dungeon-wallpaper.jpg);
+    display: flex;
+    justify-content: center;
 }
 
 #fenetre {
-    position: absolute;
+    background-color: white;
+    margin-top: 2%;
+    margin-bottom: 2%;
     display:flex;
     flex-direction: column;
-    left: 550px;
-    bottom: -270px;
     border: outset 5px;
     border-radius: 18px;
     height: 280px;
     transition: 0.4s;
     min-width: 340px;
 }
-
-/* Boutons */
 #buttons {
     display: flex;
     flex-direction: row;
     min-height: 70px;
 }
-
-.chMenu {
+#buttons input {
     font-size: 30px;
     margin: 0px;
     padding: 15px;
@@ -118,68 +81,62 @@ a, a:hover {
 .btn_validation {
     margin-top: 10px;
 }
-
-/* Formulaires */
 #inscription {
     display: none;
 }
-
 .formulaire {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    text-align: center;
 }
-
 .formulaire input {
     width: 200px;
     align-content: center;
     transform: translateX(74.5px);
 }
-
 .formulaire input[type="submit"] {
-    width: 85px;
-    transform: translateX(132px);
+    border-radius: 4px;
+    border: 2px solid rgb(151, 160, 175);
+    background-color: white;
 }
-
+.formulaire input[type="submit"]:hover {
+    border-radius: 4px;
+    background-color: rgb(151, 160, 175);
+    color: white;
+}
 .champ {
     font-size: 20px;
     border:solid 1px;
     width: 200px;
     margin-bottom: 15px;
 }
-
 .labelForm {
-    color: white;
+    color: black;
     padding-bottom: 0px;
     font-size: 20px;
 }
-
 #fade {
     transition: 0.3s;
 }
 
-/* Le Jeu */
-
-.Fond2 {
-  width: 100%;
-  max-width: 100%;
-}
-
-.Fond2 img {
-  width: 100%;
-  max-width: 100%;
-}
-
-.infos {
+#message {
   color: white;
   position: absolute;
-  top : 110%;
-  left: 0;
-  text-align: center;
+  top : 530px;
+  left: 580px;
 }
 
-.info, a {
-  color: white;
-  text-decoration: underline;
+/*
+**  FOOTER
+*/
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color : white;
+}
+article {
+    text-align: center;
 }
