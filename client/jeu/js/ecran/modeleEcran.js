@@ -121,8 +121,8 @@ class Entity{
         this.PV = PV;
         this.ATK = ATK;
         this._pos = {
-            x = X,
-            y = Y
+            x : X,
+            y : Y
         }
     }
 }
