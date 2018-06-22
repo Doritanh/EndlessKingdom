@@ -164,7 +164,7 @@ window.EndlessKingdom.identification.verification = {};
                     message.textContent = 'Ce pseudo existe déjà.';
                     break;
                 case 4:
-                    message.textContent = 'Ce mail existe déjà.';
+                    message.textContent = 'Ce mail est déjà utilisé.';
                     break;
                 case 5:
                     message.textContent = 'Problème à l\'inscription';

@@ -1,57 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Identification</title>
+    <title>EndlessKingdom</title>
     <link rel="stylesheet" type="text/css" href="client/identification/css/default.css"/>
     <meta charset="utf-8" />
 </head>
 <body>
-    <noscript>S'il vous plaît, télecharger un vrais naviguateur supportant Javascript...</noscript>
-    
-    <div id="centre">
-        <h1>Endless Kingdom</h1>
+    <noscript>S'il vous plaît, télécharger un vrai navigateur supportant Javascript...</noscript>
 
-        <div id="message"></div>
+    <!-- header debut -->
+      <header class="container-fluid header">
+          <div class="container">
+              <a href="#" class="logo">Endless Kingdom</a>
+                <nav class="menu">
+                    <a href="#Le Jeu">Le Jeu</a>
+                    <a href="#Aide">Aide</a>
+                    <a href="#Apropos">À propos</a>
+                </nav>
+          </div>
+      </header>
+      <!-- header fin -->
 
-        <div id="fenetre">
-            <div id="buttons">
-                <input type="button" value="Connexion" id="btn_connexion" class="chMenu">
-                <input type="button" value="Inscription" id="btn_inscription"class="chMenu">
-            </div>
-
-            <div id="fade">
-                <div id="connexion">
-                    <form id="frm_connexion" class="formulaire">
-                        <label class="labelForm">Pseudo</label>
-                        <input type="text" id="Cpseudo" name="pseudo" class="champ"/>
-
-                        <label class="labelForm">Mot de passe</label>
-                        <input type="password" id="Cmdp" name="mdp" class="champ"/>
-
-                        <input type="submit" value="Connexion" class="btn_validation" id="btn_valideConnexion"/>
-                    </form>
-                </div>
-
-                <div id="inscription">
-                    <form id="frm_inscription" method="POST" onsubmit="return false;" class="formulaire">
-                        <label class="labelForm">Pseudo</label>
-                        <input type="text" id="pseudo" name="pseudo" class = "champ"/>
-
-                        <label class="labelForm">Adresse Mail</label>
-                        <input type="text" id="adresse" name="adresse" class="champ"/>
-
-                        <label class="labelForm">Mot de passe</label>
-                        <input type ="password" id="mdp" name="mdp" class="champ"/>
-
-                        <label class="labelForm">Confirmation mot de passe</label>
-                        <input type ="password" id="confMdp" name="confMdp" class="champ"/>
-
-                        <input type="submit" value="S'inscrire" class="btn_validation" id="btn_valideInscription"/>
-                    </form>
-                </div>
-            </div>
+      <!-- banniere debut -->
+      <section class="container-fluid banniere">
+        <div class="ban">
+            <img src="http://image.noelshack.com/fichiers/2018/25/4/1529590979-dungeon-wallpaper.jpg" alt="dungeon wallpaper" />
         </div>
-    </div>
+        <div id="center">
+          <div class="inner-banner">
+              <div id="fenetre">
+                  <div id="buttons">
+                      <input type="button" value="Connexion" id="btn_connexion" class="chMenu">
+                      <input type="button" value="Inscription" id="btn_inscription" class="chMenu">
+                  </div>
+
+                  <div id="fade">
+                      <div id="connexion">
+                          <form id="frm_connexion" class="formulaire">
+                              <label class="labelForm">Pseudo</label>
+                              <input type="text" id="Cpseudo" name="pseudo" class="champ"/>
+
+                              <label class="labelForm">Mot de passe</label>
+                              <input type="password" id="Cmdp" name="mdp" class="champ"/>
+
+                              <input type="submit" value="Connexion" class="btn_validation" id="btn_valideConnexion"/>
+                          </form>
+                      </div>
+
+                      <div id="inscription">
+                          <form id="frm_inscription" method="POST" onsubmit="return false;" class="formulaire">
+                              <label class="labelForm">Pseudo</label>
+                              <input type="text" id="pseudo" name="pseudo" class = "champ"/>
+
+                              <label class="labelForm">Adresse Mail</label>
+                              <input type="text" id="adresse" name="adresse" class="champ"/>
+
+                              <label class="labelForm">Mot de passe</label>
+                              <input type ="password" id="mdp" name="mdp" class="champ"/>
+
+                              <label class="labelForm">Confirmation mot de passe</label>
+                              <input type ="password" id="confMdp" name="confMdp" class="champ"/>
+
+                              <input type="submit" value="S'inscrire" class="btn_validation" id="btn_valideInscription"/>
+                          </form>
+                      </div>
+                  </div>
+            </div>
+          </div>
+          <div id="message"></div>
+        </div>
+      </section>
+      <h2 class="title" Bondour>
+      <hr class="separation">
 </body>
 <script src="client/identification/js/main.js"></script>
 </html>
