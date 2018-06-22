@@ -1,41 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Cinzel');
+
 html, body {
     margin: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-#centre {
-    text-align: center;
+    padding: 0;
+    font-family: 'Cinzel', sans-serif;
+    /*background-image: url(http://image.noelshack.com/fichiers/2018/25/5/1529660652-576.jpg);*/
+    background-color:  rgb(151, 160, 175);
     display: flex;
     flex-direction: column;
+}
+
+a {
+    color: white;
+    text-decoration : underline;
+}
+a:hover {
+    text-decoration: none;
+}
+
+/*
+**  SECTION HEADER
+*/
+header {
+    /*background-color: #1E5532;*/
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header .logo {
+    font-size: xx-large;
+    color : white;
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    margin-left: 10px;
+}
+header .infosComplementaires {
+    padding-right: 40px;
+}
+
+/*
+**  SECTION IDENTIFICATION
+*/
+
+.identification {
+    background-image: url(http://image.noelshack.com/fichiers/2018/25/4/1529590979-dungeon-wallpaper.jpg);
+    display: flex;
     justify-content: center;
 }
+
 #fenetre {
-    display: flex;
+    background-color: white;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display:flex;
     flex-direction: column;
-    border: solid 1px black;
-    margin-top: 150px;
     border: outset 5px;
     border-radius: 18px;
     height: 280px;
     transition: 0.4s;
     min-width: 340px;
 }
-/* BOUTONS */
 #buttons {
     display: flex;
     flex-direction: row;
     min-height: 70px;
 }
-
-.chMenu {
+#buttons input {
     font-size: 30px;
     margin: 0px;
     padding: 15px;
 }
 #btn_connexion {
     border-radius: 10px 0px 0px 0px;
-    border-style: inset;
 }
 #btn_inscription {
     border-radius:0px 10px 0px 0px;
@@ -43,41 +81,62 @@ html, body {
 .btn_validation {
     margin-top: 10px;
 }
-/* FORMULAIRES */
 #inscription {
     display: none;
 }
-
 .formulaire {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    text-align: center;
 }
-
 .formulaire input {
     width: 200px;
     align-content: center;
     transform: translateX(74.5px);
 }
-
 .formulaire input[type="submit"] {
-    width: 85px;
-    transform: translateX(132px);
+    border-radius: 4px;
+    border: 2px solid rgb(151, 160, 175);
+    background-color: white;
 }
-
+.formulaire input[type="submit"]:hover {
+    border-radius: 4px;
+    background-color: rgb(151, 160, 175);
+    color: white;
+}
 .champ {
     font-size: 20px;
     border:solid 1px;
     width: 200px;
     margin-bottom: 15px;
 }
-
 .labelForm {
+    color: black;
     padding-bottom: 0px;
     font-size: 20px;
 }
-
 #fade {
     transition: 0.3s;
+}
+
+#message {
+  color: white;
+  position: absolute;
+  top : 530px;
+  left: 580px;
+}
+
+/*
+**  FOOTER
+*/
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color : white;
+}
+article {
+    text-align: center;
 }
