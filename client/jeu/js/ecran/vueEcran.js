@@ -23,6 +23,8 @@ VueEcran.prototype.dessiner = function() {
     this.dessinerJoueur();
 
     this.dessinerEnnemy();
+
+    this.dessinerBarDeVie();
 }
 
 VueEcran.prototype.dessinerSalle = function() {
@@ -60,6 +62,16 @@ VueEcran.prototype.dessinerEnnemy = function() {
     
 }
 
+VueEcran.prototype.dessinerBarDeVie = function() {
+    let posXHealthBar = 60;
+    this._ctx.drawImage(this._images['HealthBarContent0'], posXHealthBar-32, 0);  
+    this._ctx.drawImage(this._images['HealthBar0'], posXHealthBar-32, 0);
+    this._ctx.drawImage(this._images['HealthBarContent1'], posXHealthBar, 0);  
+    this._ctx.drawImage(this._images['HealthBar1'], posXHealthBar, 0);
+    this._ctx.drawImage(this._images['Heart'], posXHealthBar-48, 0);
+    
+}
+
 let getImages = function() {
     let dataImage = JSON.parse(sessionStorage.getItem('ressources'));
     let images = {
@@ -72,7 +84,12 @@ let getImages = function() {
         MurBas : new Image(),
         MurGauche : new Image(),
         MurDroit : new Image(),
-        OrcFace : new Image()
+        OrcFace : new Image(),
+        HealthBar0 : new Image(),
+        HealthBarContent0 : new Image(),
+        HealthBar1 : new Image(),
+        HealthBarContent1 : new Image(),
+        Heart : new Image()
     }
     for (let nomImage in images) {
         images[nomImage].src = "data:image/png;base64," + dataImage[nomImage];
