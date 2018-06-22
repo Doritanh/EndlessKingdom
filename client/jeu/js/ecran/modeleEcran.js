@@ -12,6 +12,7 @@ export class ModeleEcran extends Modele {
             x: 10,
             y : 6
         }
+        this._ennemy = [];
     }
 
     setDonjon(donjon) {
@@ -44,46 +45,64 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     //console.log(this._playerPosition);
 }
 
-class Salle {
-     constructor(posX, posY){
-        this.posX = posX;
-        this.posY = posY;
-        let playerPresent = false;
-        let ennemyArray = [];
+ModeleEcran.prototype.creerEnnemy = function() {
+    this._ennemy = [];
+    nbEnnemy = this._salleAffiche._nbMonstre;
+    for (let i =0; i< nbEnnemy; i++)
+    {
+        let orc = new Orc(generationNombre(2,this._salleAffiche._taille.x-2),generationNombre(2,this._salleAffiche._taille.y-2));   
+        this._ennemy[i] = orc;
     }
+}
+
+ModeleEcran.prototype.bougerEnnemy = function() {
+    this._ennemy.forEach(e => {
+        e._pos.x += 1; 
+        e._pos.y += 1;
+    });
+}
+
+
+
+var generationNombre = function(min, max) {
+    return Math.floor(Math.random()*(max - min + 1) + min);
 }
 
 class Entity{
     //PV : Points de Vie, ATK : Points d'attack
-    constructor(PV,ATK)
+    constructor(PV,ATK,X,Y)
     {
         this.PV = PV;
         this.ATK = ATK;
+        this._pos = {
+            x = X,
+            y = Y
+        }
     }
 }
 
 class Orc extends Entity{
-    constructor()
+    constructor(X,Y)
     {
-        super(10,5);
+        super(10,5,X,Y);
     }
 }
 class Barbare extends Entity{
-    constructor()
+    constructor(X,Y)
     {
-        super(10,5);
+        super(10,5,X,Y);
     }
 }
 class Magicien extends Entity{
-    constructor()
+    constructor(X,Y)
     {
-        super(7,7); 
+        super(7,7,X,Y);
     }
 }
 class Archer extends Entity{
-    constructor()
+    constructor(X,Y)
     {
-        super(8,6);
+        super(8,6,X,Y);
     }
 
 }
