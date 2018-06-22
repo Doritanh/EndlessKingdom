@@ -62,10 +62,13 @@ html, body{
   justify-content: space-around;
 }
 
-#menu .picturePerso {
+#menu #picturePerso {
   height: 200px;
-  background-color: aliceblue;
   margin: 10px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 #menu #compte {

@@ -24,8 +24,12 @@ module.exports = function(socketServer) {
                 utilisateur.setSessionID(content.id);
             } else if (id === 'status') {
                 utilisateur.sendStatus();
+            } else if (id === 'demandePerso') {
+                utilisateur.lancerCreationPersonnage();
             } else if (id === 'creationPerso') {
-                utilisateur.creationPersonnage(content.nom, content.difficulte);
+                utilisateur.creationPersonnage(content.nom, content.difficulte, 'BARBARE');
+            } else if (id === 'selectionnerPerso') {
+                utilisateur.setPersonnage(content.selected) 
             } else if (id === 'creerDonjon') {
                 utilisateur.creationDonjon();
             } else if (id === 'lancerDonjon') {
