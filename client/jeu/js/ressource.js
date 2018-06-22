@@ -21,6 +21,22 @@ export class Ressource {
             BarbareFace : {
                 conteneur : new Image(),
                 source : 'BarbareFace.png'
+            },
+            MurHaut : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
+            },
+            MurBas : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
+            },
+            MurGauche : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
+            },
+            MurDroit : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
             }
         };
     }
