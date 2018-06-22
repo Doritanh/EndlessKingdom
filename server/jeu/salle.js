@@ -20,19 +20,21 @@ module.exports = Salle;
 let nbMonstre = function(max) {
     //Pourcentage change nombre de monstre
     let x = Math.floor(Math.random()*(max * 4));
+    let nbMonstre = 0
     if (x === 0) {
-        this._nbMonstre = 0;
+        nbMonstre = 0;
     } else if(x < 6) {
-        this._nbMonstre = 1;
+        nbMonstre = 1;
     } else if (x < 11) {
-        this._nbMonstre = 2;
+        nbMonstre = 2;
     } else if (x < 16) {
-        this._nbMonstre = 3;
+        nbMonstre = 3;
     } else if (x < 20) {
-        this._nbMonstre = 4;
+        nbMonstre = 4;
     } else {
-        this._nbMonstre = 5;
+        nbMonstre = 5;
     }
+    return nbMonstre;
 }
 
 let matrice = function(x, y, portes) {

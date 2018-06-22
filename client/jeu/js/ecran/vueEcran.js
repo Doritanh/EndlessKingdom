@@ -21,6 +21,8 @@ VueEcran.prototype.dessiner = function() {
 
     // Joueur
     this.dessinerJoueur();
+
+    this.dessinerEnnemy();
 }
 
 VueEcran.prototype.dessinerSalle = function() {
@@ -29,7 +31,6 @@ VueEcran.prototype.dessinerSalle = function() {
             this._ctx.drawImage(this._images[this._modele._salleAffiche._matrice[i][j]], i*32,j*32);
         }
     }
-
 }
 
 VueEcran.prototype.dessinerJoueur = function() {
@@ -51,6 +52,15 @@ VueEcran.prototype.dessinerJoueur = function() {
     this._ctx.drawImage(this._images[nomImage], this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
 }
 
+VueEcran.prototype.dessinerEnnemy = function() {
+    if (typeof this._modele._ennemy[0] !== 'undefined')
+    {
+        console.log("test2");
+        this._ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[0]._pos.x*32,this._modele._ennemy[0]._pos.y*32)
+    }
+    
+}
+
 let getImages = function() {
     let dataImage = JSON.parse(sessionStorage.getItem('ressources'));
     let images = {
@@ -62,7 +72,8 @@ let getImages = function() {
         MurHaut : new Image(),
         MurBas : new Image(),
         MurGauche : new Image(),
-        MurDroit : new Image()
+        MurDroit : new Image(),
+        OrcFace : new Image()
     }
     for (let nomImage in images) {
         images[nomImage].src = "data:image/png;base64," + dataImage[nomImage];

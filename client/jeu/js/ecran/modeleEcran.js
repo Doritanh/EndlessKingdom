@@ -62,7 +62,12 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if (this._salleAffiche._portes.north == true) {
             this._position.x--;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this.creerEnnemy(this._salleAffiche);
             this._playerPosition.y = this._salleAffiche._taille.y;
+            setInterval(function(){
+                this.bougerEnnemy();
+            }.bind(this),1000/2);
+
         }
     }
     if (this._playerPosition.x == 10 && this._playerPosition.y == this._salleAffiche._taille.y 
@@ -70,14 +75,22 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if (this._salleAffiche._portes.south == true) {
             this._position.x++;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this.creerEnnemy(this._salleAffiche);
             this._playerPosition.y = 0;
+            setInterval(function(){
+                this.bougerEnnemy();
+            }.bind(this),1000/2);
         }
     }
     if (this._playerPosition.x == 0 && this._playerPosition.y == 5 && this._etatMouvement == 'idleGauche') {
         if (this._salleAffiche._portes.west == true) {
             this._position.y--;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this.creerEnnemy(this._salleAffiche);
             this._playerPosition.x = this._salleAffiche._taille.x;
+            setInterval(function(){
+                this.bougerEnnemy();
+            }.bind(this),1000/2);
         }
     }
     if (this._playerPosition.x == this._salleAffiche._taille.x && this._playerPosition.y == 5
@@ -85,17 +98,24 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if (this._salleAffiche._portes.east == true) {
             this._position.y++;
             this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this.creerEnnemy(this._salleAffiche);
             this._playerPosition.x = 0;
+            setInterval(function(){
+                this.bougerEnnemy();
+            }.bind(this),1000/1);
         }
     }
     console.log(this._playerPosition);
 }
 
-ModeleEcran.prototype.creerEnnemy = function() {
+ModeleEcran.prototype.creerEnnemy = function(salle) {
     this._ennemy = [];
-    nbEnnemy = this._salleAffiche._nbMonstre;
-    for (let i =0; i< nbEnnemy; i++)
+    console.log(salle)
+    this._nbEnnemy = salle._nbMonstre;
+    console.log(salle._nbMonstre);
+    for (let i =0; i< this._nbEnnemy; i++)
     {
+        console.log("ORC");
         let orc = new Orc(generationNombre(2,this._salleAffiche._taille.x-2),generationNombre(2,this._salleAffiche._taille.y-2));   
         this._ennemy[i] = orc;
     }

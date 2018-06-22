@@ -37,6 +37,10 @@ export class Ressource {
             MurDroit : {
                 conteneur : new Image(),
                 source : 'MurPierre.png'
+            },
+            OrcFace : {
+                conteneur : new Image(),
+                source : 'OrcFace.png'
             }
         };
     }
