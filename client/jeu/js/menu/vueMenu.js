@@ -8,15 +8,24 @@ export class VueMenu extends Vue {
 
     rafraichir() {
         this.listeDonjons();
-        this.nomPersonnage();
+        this.listePersonnage();
     }
 }
 
-VueMenu.prototype.nomPersonnage = function() {
+VueMenu.prototype.listePersonnage = function() {
+    let champPersonnage = document.querySelector("#selectionPerso span");
+    let leftArrow = document.querySelector('#btnLeft');
+    let rightArrow = docuement.querySelector('#btnRight');
     if (typeof this._modele !== undefined) {
-        let champPersonnage = document.querySelector("#selectionPerso span");
-        champPersonnage.textContent = this._modele._personnages[0].nom;
+        champPersonnage.textContent = this._modele._personnages[this._modele._actuelPersonnage]._nom;
     }
+    leftArrow.addEventListener('click', function() {
+        
+    });
+    rightArrow.addEventListener('click', function() {
+
+    });
+
 }
 
 VueMenu.prototype.listeDonjons = function() {

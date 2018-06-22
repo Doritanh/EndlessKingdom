@@ -1,5 +1,6 @@
 const Jeu = require('./jeu/jeu');
 const Donjon = require('./jeu/donjon');
+const Personnage = require('./jeu/personnage');
 const identification = require('./identification/identification');
 const requetes = require('./data/requetes');
 
@@ -41,7 +42,7 @@ Utilisateur.prototype.inscription = async function(pseudo, mail, mdp, mdpConfirm
     this._socket.send('inscription', {'number': number});
 }
 
-Utilisateur.prototype.sendStatus = async function(erreur = false) {
+Utilisateur.prototype.sendStatus = async function(statusDonnee = "") {
     const id = await requetes.getIDFromPseudo(this._pseudo);
     const data = await requetes.getDataFromID(id);
     const STATUS_CODE = {
@@ -60,29 +61,32 @@ Utilisateur.prototype.sendStatus = async function(erreur = false) {
         if (data.actuelDonjon !== 'none') {
             status = STATUS_CODE.DONJON;
         }
+    } else {
+        if (typeof STATUS_CODE[statusDonnee] !== 'undefined') {
+            status = statusDonnee;
+        }
     }
 
     let contenu = [];
     if (status === STATUS_CODE.MENU) {
-        contenu = {'personnages' : data.personnages, 'donjons' : data.donjons};
+        contenu = {'personnages' : data.personnages, 'donjons' : data.donjons, 'actuelPersonnage' : data.actuelPersonnage};
     } else if (status === STATUS_CODE.DONJON) {
         contenu = {'donjon' : data.donjons[data.actuelDonjon], 'personnage' : data.personnages[data.actuelPersonnage]};
     }
     this._socket.send('status', {'status' : status, 'contenu' : contenu});
 }
 
-Utilisateur.prototype.creationPersonnage = async function(nom, difficulte) {
-    let id = await requetes.getIDFromPseudo(this._pseudo);
-    let data = await requetes.getDataFromID(id);
-    if (data.personnages.length === 0) {
-        requetes.ajouterPersonnage(id, nom, difficulte);
-    }
+Utilisateur.prototype.creationPersonnage = async function(nom, difficulte, classe) {
+    let data = await requetes.getDataFromID(await requetes.getIDFromPseudo(this._pseudo));
+    if (!data) this.sendStatus('ERROR');
+    let personnage = new Personnage(nom, difficulte, classe);
+    requetes.ajouterPersonnage(data._id, personnage);
     this.sendStatus();
 }
 
 Utilisateur.prototype.creationDonjon = async function() {
     let data = await requetes.getDataFromID(await requetes.getIDFromPseudo(this._pseudo));
-    if (!data) this.sendStatus(true);
+    if (!data) this.sendStatus('ERROR');
     let niveau = data.donjons.length;
     let donjon = new Donjon(niveau, 10, 10);
     requetes.ajouterDonjon(data._id, donjon);
@@ -93,7 +97,7 @@ Utilisateur.prototype.lancerDonjon = async function(niveau, personnage) {
     let id = await requetes.getIDFromPseudo(this._pseudo);
     let data = await requetes.getDataFromID(id);
     if (!data || data.donjons.length <= niveau || data.personnages.length <= personnage) {
-        this.sendStatus(true);
+        this.sendStatus('ERROR');
     }
     await requetes.setDonjonActuel(id, niveau);
     await requetes.setPersonnageActuel(id, personnage);

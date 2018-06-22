@@ -64,6 +64,7 @@ Controlleur.prototype.setStatus = function(content) {
         case 'DONJON':
             this._modeles.ecran.setDonjon(contenu.donjon);
             this._modeles.ecran.setPersonnage(contenu.personnage);
+            this._modeles.ecran.setActuelPersonnage(contenu.actuelPersonnage);
             this._vues.ecran.afficher('ecran');
             setInterval(function() {
                 this._vues.ecran.dessiner();

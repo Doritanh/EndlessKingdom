@@ -3,8 +3,9 @@ import {Modele} from '../modele.js';
 export class ModeleMenu extends Modele{
     constructor(socket) {
         super(socket);
-        this._personnages = [];
-        this._donjons = [];
+        this._personnages = {};
+        this._donjons = {};
+        this._actuelPersonnage = 0;
     }
 
     setPersonnages(personnages) {
@@ -13,6 +14,10 @@ export class ModeleMenu extends Modele{
 
     setDonjons(donjons) {
         this._donjons = donjons;
+    }
+
+    setActuelPersonnage(actuelPersonnage) {
+        this._actuelPersonnage = actuelPersonnage;
     }
 }
 
