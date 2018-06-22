@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Cinzel');s
+@import url('https://fonts.googleapis.com/css?family=Cinzel');
 
 html, body {
     margin: 0;
     padding: 0;
     font-family: 'Cinzel', sans-serif;
+    background-image: url(http://image.noelshack.com/fichiers/2018/25/5/1529660652-576.jpg);
     /*display: flex;
     flex-direction: row;
     justify-content: center;*/
@@ -11,14 +12,6 @@ html, body {
 
 a, a:hover {
   text-decoration: none;
-}
-
-.separation {
-  height: 3px;
-  width: 10%;
-  border : none;
-  box-shadow: none;
-  background-color: #1E5532;
 }
 
 #message {
@@ -30,15 +23,16 @@ a, a:hover {
 
 /* header */
 .header {
-  background-color: #1E5532;
+  /*background-color: #1E5532;*/
   height: 80px;
   line-height: 80px;
+  background-image: url(http://image.noelshack.com/fichiers/2018/25/5/1529660652-576.jpg);
 }
 
 .logo {
   color : white;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: bolder;
   letter-spacing: 2px;
   margin-left: 10px;
 }
@@ -48,6 +42,7 @@ a, a:hover {
 }
 
 .menu a {
+  font-weight: bolder;
   color: white;
   margin-right: 30px;
 }
@@ -162,4 +157,29 @@ a, a:hover {
 
 #fade {
     transition: 0.3s;
+}
+
+/* Le Jeu */
+
+.Fond2 {
+  width: 100%;
+  max-width: 100%;
+}
+
+.Fond2 img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.infos {
+  color: white;
+  position: absolute;
+  top : 110%;
+  left: 0;
+  text-align: center;
+}
+
+.info, a {
+  color: white;
+  text-decoration: underline;
 }
