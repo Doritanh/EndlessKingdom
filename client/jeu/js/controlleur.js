@@ -18,7 +18,8 @@ export class Controlleur {
             haut : false,
             bas : false,
             gauche : false,
-            droite : false
+            droite : false,
+            space : false
         };
         // Modeles & Vues
         this._modeles = {
@@ -73,7 +74,7 @@ Controlleur.prototype.setStatus = function(content) {
 
 let keyboardEvents = function(controlleur) {
     window.addEventListener('keydown', event => {
-        switch (event.key) {
+        switch (event.code) {
             case 'ArrowUp':
                 controlleur._clavier.haut = true;
                 break;
@@ -86,6 +87,10 @@ let keyboardEvents = function(controlleur) {
             case 'ArrowRight':
                 controlleur._clavier.droite = true;
                 break;
+            case 'Space':
+                console.log("espace");
+                controlleur._modeles.ecran.attaquer();
+                break;
         }
         controlleur._modeles.ecran.bougerPersonnage(
             controlleur._clavier.haut, 
@@ -93,6 +98,7 @@ let keyboardEvents = function(controlleur) {
             controlleur._clavier.gauche, 
             controlleur._clavier.droite);
     });
+        
     window.addEventListener('keyup', event => {
         switch (event.key) {
             case 'ArrowUp':
@@ -106,6 +112,9 @@ let keyboardEvents = function(controlleur) {
                 break;
             case 'ArrowRight':
                 controlleur._clavier.droite = false;
+                break;
+            case 'Space':
+                controlleur._clavier.space = false;
                 break;
         }
     });
