@@ -37,6 +37,8 @@ export class ModeleEcran extends Modele {
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (haut) {
         this._etatMouvement = "idleHaut";
+        this._numeroFrameMouvement++;
+        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareHaut" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.y > 0) {
             this._playerPosition.y--;
@@ -44,6 +46,8 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     }
     if (bas) {
         this._etatMouvement = "idleBas";
+        this._numeroFrameMouvement++;
+        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareFace" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.y < this._salleAffiche._taille.y) {
             this._playerPosition.y++;
@@ -52,7 +56,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (gauche) {
         this._etatMouvement = "idleGauche";
         this._numeroFrameMouvement++;
-        if(this._numeroFrameMouvement == 4) this._numeroFrameMouvement = 0;
+        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareGauche" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.x > 0) {
             this._playerPosition.x--;
@@ -60,6 +64,8 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     }
     if (droit) {
         this._etatMouvement = "idleDroit";
+        this._numeroFrameMouvement++;
+        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareDroite" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.x < this._salleAffiche._taille.x) {
             this._playerPosition.x++;

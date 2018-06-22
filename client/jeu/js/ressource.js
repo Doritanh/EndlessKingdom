@@ -10,9 +10,33 @@ export class Ressource {
                 conteneur : new Image(),
                 source : 'BarbareDroite(0).png'
             },
+            BarbareDroite1 : {
+                conteneur : new Image(),
+                source : 'BarbareDroite(1).png'
+            },
+            BarbareDroite2 : {
+                conteneur : new Image(),
+                source : 'BarbareDroite(2).png'
+            },
+            BarbareDroite3 : {
+                conteneur : new Image(),
+                source : 'BarbareDroite(3).png'
+            },
             BarbareHaut0 : {
                 conteneur : new Image(),
                 source : 'BarbareDos(0).png'
+            },
+            BarbareHaut1 : {
+                conteneur : new Image(),
+                source : 'BarbareDos(1).png'
+            },
+            BarbareHaut2 : {
+                conteneur : new Image(),
+                source : 'BarbareDos(2).png'
+            },
+            BarbareHaut3 : {
+                conteneur : new Image(),
+                source : 'BarbareDos(3).png'
             },
             BarbareGauche0 : {
                 conteneur : new Image(),
@@ -33,6 +57,18 @@ export class Ressource {
             BarbareFace0 : {
                 conteneur : new Image(),
                 source : 'BarbareFace(0).png'
+            },
+            BarbareFace1 : {
+                conteneur : new Image(),
+                source : 'BarbareFace(1).png'
+            },
+            BarbareFace2 : {
+                conteneur : new Image(),
+                source : 'BarbareFace(2).png'
+            },
+            BarbareFace3 : {
+                conteneur : new Image(),
+                source : 'BarbareFace(3).png'
             },
             MurHaut : {
                 conteneur : new Image(),
