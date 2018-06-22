@@ -46,7 +46,7 @@ VueEcran.prototype.dessinerJoueur = function() {
             nomImage = 'BarbareHaut';
             break;
         case "idleGauche" :
-            nomImage = 'BarbareGauche';
+            nomImage = 'BarbareGauche0';
             break;
     }
     this._ctx.drawImage(this._images[nomImage], this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
@@ -67,7 +67,7 @@ let getImages = function() {
         BarbareFace : new Image(),
         BarbareDroite : new Image(),
         BarbareHaut : new Image(),
-        BarbareGauche : new Image(),
+        BarbareGauche0 : new Image(),
         MurHaut : new Image(),
         MurBas : new Image(),
         MurGauche : new Image(),

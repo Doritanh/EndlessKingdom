@@ -14,9 +14,21 @@ export class Ressource {
                 conteneur : new Image(),
                 source : 'BarbareDos.png'
             },
-            BarbareGauche : {
+            BarbareGauche0 : {
                 conteneur : new Image(),
-                source : 'BarbareGauche.png'
+                source : 'BarbareGauche(0).png'
+            },
+            BarbareGauche1 : {
+                conteneur : new Image(),
+                source : 'BarbareGauche(1).png'
+            },
+            BarbareGauche2 : {
+                conteneur : new Image(),
+                source : 'BarbareGauche(2).png'
+            },
+            BarbareGauche3 : {
+                conteneur : new Image(),
+                source : 'BarbareGauche(3).png'
             },
             BarbareFace : {
                 conteneur : new Image(),
