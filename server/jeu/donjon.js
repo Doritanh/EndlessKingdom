@@ -1,3 +1,5 @@
+const Salle = require('./salle');
+
 class Donjon {
     constructor(niveau, maxTaille, maxSalles) {
         this._niveau = niveau;
@@ -272,37 +274,4 @@ let spawn = function(maxSalles, matrice) {
         'x' : x,
         'y' : y
     }
-}
-
-class Salle {
-    constructor(north, south, west, east) {
-        this._taille = {
-            x : 21,
-            y : 12
-        };
-        this._portes = {
-            'north' : north,
-            'south' : south,
-            'west' : west,
-            'east' : east
-        }
-        this._nbMonstre = 0;
-
-        //Pourcentage change nombre de monstre
-        let x = generationNombre(0,20);
-        if (x === 0) {
-            this._nbMonstre = 0;
-        } else if(x < 6) {
-            this._nbMonstre = 1;
-        } else if (x < 11) {
-            this._nbMonstre = 2;
-        } else if (x < 16) {
-            this._nbMonstre = 3;
-        } else if (x < 20) {
-            this._nbMonstre = 4;
-        } else {
-            this._nbMonstre = 5;
-        }
-    }
-
 }
