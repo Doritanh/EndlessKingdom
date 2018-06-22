@@ -24,9 +24,9 @@ VueEcran.prototype.dessiner = function() {
 }
 
 VueEcran.prototype.dessinerSalle = function() {
-    for(let i = 0; i < this._modele._salleAffiche._taille.x; i++) {
-        for (let j = 0; j < this._modele._salleAffiche._taille.y; j++) {
-            this._ctx.drawImage(this._images.SolPierre, i*32,j*32);
+    for(let i = 0; i <= this._modele._salleAffiche._taille.x; i++) {
+        for (let j = 0; j <= this._modele._salleAffiche._taille.y; j++) {
+            this._ctx.drawImage(this._images[this._modele._salleAffiche._matrice[i][j]], i*32,j*32);
         }
     }
 
@@ -58,7 +58,11 @@ let getImages = function() {
         BarbareFace : new Image(),
         BarbareDroite : new Image(),
         BarbareHaut : new Image(),
-        BarbareGauche : new Image()
+        BarbareGauche : new Image(),
+        MurHaut : new Image(),
+        MurBas : new Image(),
+        MurGauche : new Image(),
+        MurDroit : new Image()
     }
     for (let nomImage in images) {
         images[nomImage].src = "data:image/png;base64," + dataImage[nomImage];

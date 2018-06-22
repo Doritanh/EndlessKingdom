@@ -8,6 +8,10 @@ export class ModeleEcran extends Modele {
         this._salleAffiche = null;
         this._pixelTaille = 32;
         this._etatMouvement = "idleBas";
+        this._position = {
+            x : 0,
+            y : 0
+        }
         this._playerPosition = {
             x: 10,
             y : 6
@@ -17,7 +21,10 @@ export class ModeleEcran extends Modele {
 
     setDonjon(donjon) {
         this._donjon = donjon;
+        this._position.x = this._donjon._spawn.x;
+        this._position.y = this._donjon._spawn.y;
         this._salleAffiche = this._donjon._salles[this._donjon._spawn.x][this._donjon._spawn.y];
+        console.log(this._salleAffiche)
     }
 
     setPersonnage(personnage) {
@@ -28,21 +35,60 @@ export class ModeleEcran extends Modele {
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (haut) {
         this._etatMouvement = "idleHaut";
-        this._playerPosition.y--;
+        if (this._playerPosition.y > 0) {
+            this._playerPosition.y--;
+        }
     }
     if (bas) {
         this._etatMouvement = "idleBas";
-        this._playerPosition.y++;
+        if (this._playerPosition.y < this._salleAffiche._taille.y) {
+            this._playerPosition.y++;
+        }
     }
     if (gauche) {
         this._etatMouvement = "idleGauche";
-        this._playerPosition.x--;
+        if (this._playerPosition.x > 0) {
+            this._playerPosition.x--;
+        }
     }
     if (droit) {
         this._etatMouvement = "idleDroit";
-        this._playerPosition.x++;
+        if (this._playerPosition.x < this._salleAffiche._taille.x) {
+            this._playerPosition.x++;
+        }
     }
-    //console.log(this._playerPosition);
+    if (this._playerPosition.x == 10 && this._playerPosition.y == 0 
+        && this._etatMouvement == 'idleHaut') {
+        if (this._salleAffiche._portes.north == true) {
+            this._position.x--;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.y = this._salleAffiche._taille.y;
+        }
+    }
+    if (this._playerPosition.x == 10 && this._playerPosition.y == this._salleAffiche._taille.y 
+        && this._etatMouvement == 'idleBas') {
+        if (this._salleAffiche._portes.south == true) {
+            this._position.x++;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.y = 0;
+        }
+    }
+    if (this._playerPosition.x == 0 && this._playerPosition.y == 5 && this._etatMouvement == 'idleGauche') {
+        if (this._salleAffiche._portes.west == true) {
+            this._position.y--;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.x = this._salleAffiche._taille.x;
+        }
+    }
+    if (this._playerPosition.x == this._salleAffiche._taille.x && this._playerPosition.y == 5
+        && this._etatMouvement == 'idleDroit') {
+        if (this._salleAffiche._portes.east == true) {
+            this._position.y++;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.x = 0;
+        }
+    }
+    console.log(this._playerPosition);
 }
 
 ModeleEcran.prototype.creerEnnemy = function() {
@@ -104,5 +150,4 @@ class Archer extends Entity{
     {
         super(8,6,X,Y);
     }
-
-}
+} 
