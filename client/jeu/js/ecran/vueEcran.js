@@ -36,16 +36,16 @@ VueEcran.prototype.dessinerSalle = function() {
 VueEcran.prototype.dessinerJoueur = function() {
     let nomImage = 'BarbareFace';
     switch(this._modele._etatMouvement) {
-        case "idleBas" :
+        case "bas" :
             nomImage = 'BarbareFace';
             break;
-        case "idleDroit" :
+        case "droit" :
             nomImage = 'BarbareDroite';
             break;
-        case "idleHaut" :
+        case "haut" :
             nomImage = 'BarbareHaut';
             break;
-        case "idleGauche" :
+        case "gauche" :
             nomImage = 'BarbareGauche0';
             break;
     }
