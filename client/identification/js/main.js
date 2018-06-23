@@ -11,7 +11,7 @@ window.EndlessKingdom.identification.design = {};
 (function() {
     let clicked = "connexion";
     let tailleFenetreConnexion = "280px";
-    let tailleFenetreInscription = "410px";
+    let tailleFenetreInscription = "430px";
 
     var btnConnexion = function() {
         if(clicked == "inscription") {
@@ -60,10 +60,12 @@ window.EndlessKingdom.identification.verification = {};
 (function() {
     var verifEmail = function() {
         let reg = new RegExp('^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$', 'i');
-        if(!reg.test(document.querySelector("#adresse").value))
+        if(!reg.test(document.querySelector("#adresse").value)) {
             document.querySelector("#adresse").style.backgroundColor = "#FE5353";
-        else
+            document.querySelector("#message").textContent = 'Votre adresse mail n\'est pas valide.';
+        } else {
             document.querySelector("#adresse").style.backgroundColor = "white";
+        }
     };
     var verifMdp = function() {
         let reg = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])^.{6,15}$'); //Verifie si il y a au moins une majuscule, une minuscule, un chiffre et entre 6 et 15 caractères
@@ -74,6 +76,7 @@ window.EndlessKingdom.identification.verification = {};
 
         } else {
             document.querySelector("#mdp").style.backgroundColor = "white";
+            document.querySelector("#message").textContent = 'Les mots de passes ne correspondent pas.';
             document.querySelector("#message").textContent = '';
         }
         verifConfMdp();
@@ -159,7 +162,7 @@ window.EndlessKingdom.identification.verification = {};
                     message.textContent = 'Problème serveur';
                     break;
                 case 1:
-                    message.textContent = 'Inscription effectué !'
+                    message.textContent = 'Inscription effectuée ! Veuillez vous connecter.'
                     break;
                 case 2:
                     message.textContent = 'Les mots de passes ne correspondent pas.';
@@ -171,7 +174,7 @@ window.EndlessKingdom.identification.verification = {};
                     message.textContent = 'Ce mail est déjà utilisé.';
                     break;
                 case 5:
-                    message.textContent = 'Problème à l\'inscription';
+                    message.textContent = 'Votre inscription n\'a pas fonctionné. Veuillez réessayer ultérieurement.';
                     break;
                 default:
                     message.textContent = 'Message non géré.';
