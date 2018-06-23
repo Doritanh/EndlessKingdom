@@ -13,6 +13,7 @@ html, body{
 #ecran {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 #ecran .flex {
   display: flex;
@@ -25,6 +26,16 @@ html, body{
   image-rendering: -webkit-crisp-edges;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  position: absolute;
+}
+#ecran .background {
+  z-index: 1;
+}
+#ecran .foreground {
+  z-index: 2;
+}
+#ecran .effects {
+  z-index: 3;
 }
 
 #menu {

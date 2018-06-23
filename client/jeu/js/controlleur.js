@@ -65,10 +65,8 @@ Controlleur.prototype.setStatus = function(content) {
         case 'DONJON':
             this._modeles.ecran.setDonjon(contenu.donjon);
             this._modeles.ecran.setPersonnage(contenu.personnage);
+            this._vues.ecran.dessiner();
             this._vues.ecran.afficher('ecran');
-            setInterval(function() {
-                this._vues.ecran.dessiner();
-            }.bind(this), 1000/60);
             break;
     }
 }
@@ -89,7 +87,6 @@ let keyboardEvents = function(controlleur) {
                 controlleur._clavier.droite = true;
                 break;
             case 'Space':
-                console.log("espace");
                 controlleur._modeles.ecran.attaquer();
                 break;
         }

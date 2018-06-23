@@ -26,6 +26,7 @@ export class ModeleEcran extends Modele {
         this._position.x = this._donjon._spawn.x;
         this._position.y = this._donjon._spawn.y;
         this._salleAffiche = this._donjon._salles[this._donjon._spawn.x][this._donjon._spawn.y];
+        this.loadEvent('changementSalle');
     }
 
     setPersonnage(personnage) {
@@ -151,17 +152,12 @@ ModeleEcran.prototype.attaquer = function() {
     }
     
     this._ennemy.forEach(e => {
-        console.log(x + " " + y);
-        console.log(this._playerPosition.x + " " + this._playerPosition.y);
-        console.log(e._pos.x + " " + e._pos.y)
         if((e._pos.x == this._playerPosition.x && e._pos.y == this._playerPosition.y )){
             e.PV -= 5;
-            console.log(e.PV);
         }
         else if(e._pos.x == this._playerPosition.x + x && e._pos.y == this._playerPosition.y + y)
         {
             e.PV -= 5;
-            console.log(e.PV);
         }
         this.loadEvent("Attack");
 
@@ -182,12 +178,9 @@ ModeleEcran.prototype.attaquer = function() {
 
 ModeleEcran.prototype.creerEnnemy = function(salle) {
     this._ennemy = [];
-    console.log(salle)
     this._nbEnnemy = salle._nbMonstre;
-    console.log(salle._nbMonstre);
     for (let i =0; i< this._nbEnnemy; i++)
     {
-        console.log("ORC");
         let orc = new Orc(generationNombre(2,this._salleAffiche._taille.x-2),generationNombre(2,this._salleAffiche._taille.y-2));   
         this._ennemy[i] = orc;
     }
@@ -213,25 +206,21 @@ ModeleEcran.prototype.cheminEnnemy = function(ennemy)
     //If next to Joueur
     if((this._playerPosition.x - ennemy._pos.x == 1 || this._playerPosition.x - ennemy._pos.x == -1)&&(this._playerPosition.y - ennemy._pos.y == 0))
     {
-       console.log("nextTo");
         direction.x =0;
         direction.y =0;
     }
     else if((this._playerPosition.x - ennemy._pos.x == 0)&&(this._playerPosition.y - ennemy._pos.y == 1 || this._playerPosition.y - ennemy._pos.y == -1))
     {
-       console.log("nextTo");
         direction.x =0;
         direction.y =0;
     }
     else if((this._playerPosition.x - ennemy._pos.x == 1 || this._playerPosition.x - ennemy._pos.x == -1)&&(this._playerPosition.y - ennemy._pos.y == 1 || this._playerPosition.y - ennemy._pos.y == -1))
     {
-       console.log("nextTo");
         direction.x =0;
         direction.y =0;
     }
     else 
     {
-        console.log("notNext");
         if (this._playerPosition.x - ennemy._pos.x > 0)
         {
             direction.x = 1;
