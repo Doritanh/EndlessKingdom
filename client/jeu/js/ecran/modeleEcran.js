@@ -26,11 +26,42 @@ export class ModeleEcran extends Modele {
         this._position.x = this._donjon._spawn.x;
         this._position.y = this._donjon._spawn.y;
         this._salleAffiche = this._donjon._salles[this._donjon._spawn.x][this._donjon._spawn.y];
-        console.log(this._salleAffiche)
     }
 
     setPersonnage(personnage) {
         this._personnage = personnage;
+    }
+}
+
+ModeleEcran.prototype.changeSalle = function(direction) {
+    switch (direction) {
+        case 'north':
+            this._position.x--;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.y = this._salleAffiche._taille.y;
+            break;
+        case 'south':
+            this._position.x++;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.y = 0;
+            break;
+        case 'west':
+            this._position.y--;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.x = this._salleAffiche._taille.x;
+            break;
+        case 'east':
+            this._position.y++;
+            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
+            this._playerPosition.x = 0;
+            break;
+    }
+    this.creerEnnemy(this._salleAffiche);
+    if(this._salleAffiche._nbMonstre > 0)
+    {
+        setInterval(function(){
+            this.bougerEnnemy();
+        }.bind(this),1000/2);
     }
 }
 
@@ -74,65 +105,26 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (this._playerPosition.x == 10 && this._playerPosition.y == 0 
         && this._etatMouvement == 'idleHaut') {
         if (this._salleAffiche._portes.north == true) {
-            this._position.x--;
-            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
-            this.creerEnnemy(this._salleAffiche);
-            this._playerPosition.y = this._salleAffiche._taille.y;
-            if(this._salleAffiche._nbMonstre > 0)
-            {
-                setInterval(function(){
-                    this.bougerEnnemy();
-                }.bind(this),1000/2);
-            }
-            
-
+            this.changeSalle('north');
         }
     }
     if (this._playerPosition.x == 10 && this._playerPosition.y == this._salleAffiche._taille.y 
         && this._etatMouvement == 'idleBas') {
         if (this._salleAffiche._portes.south == true) {
-            this._position.x++;
-            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
-            this.creerEnnemy(this._salleAffiche);
-            this._playerPosition.y = 0;
-            if(this._salleAffiche._nbMonstre > 0)
-            {
-                setInterval(function(){
-                    this.bougerEnnemy();
-                }.bind(this),1000/2);
-            }
+            this.changeSalle('south');
         }
     }
     if (this._playerPosition.x == 0 && this._playerPosition.y == 5 && this._etatMouvement == 'idleGauche') {
         if (this._salleAffiche._portes.west == true) {
-            this._position.y--;
-            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
-            this.creerEnnemy(this._salleAffiche);
-            this._playerPosition.x = this._salleAffiche._taille.x;
-            if(this._salleAffiche._nbMonstre > 0)
-            {
-                setInterval(function(){
-                    this.bougerEnnemy();
-                }.bind(this),1000/2);
-            }
+            this.changeSalle('west');
         }
     }
     if (this._playerPosition.x == this._salleAffiche._taille.x && this._playerPosition.y == 5
         && this._etatMouvement == 'idleDroit') {
         if (this._salleAffiche._portes.east == true) {
-            this._position.y++;
-            this._salleAffiche = this._donjon._salles[this._position.x][this._position.y];
-            this.creerEnnemy(this._salleAffiche);
-            this._playerPosition.x = 0;
-            if(this._salleAffiche._nbMonstre >0)
-            {
-                setInterval(function(){
-                    this.bougerEnnemy();
-                }.bind(this),1000/2);
-            }
+            this.changeSalle('east');
         }
     }
-    console.log(this._playerPosition);
 }
 
 ModeleEcran.prototype.attaquer = function() {

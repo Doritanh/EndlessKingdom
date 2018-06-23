@@ -179,8 +179,8 @@ window.EndlessKingdom.identification.verification = {};
         }
     };
 
-    const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
     EndlessKingdom.identification.websocket = function() {
+        const socket = new WebSocket('ws://' + window.location.hostname + ':8080');
         // Quand une connexion est effectué
         socket.addEventListener('open', function (e) {
             submitEvents(socket);
@@ -189,6 +189,7 @@ window.EndlessKingdom.identification.verification = {};
         socket.addEventListener('message', function (e) {
             receiveSocket(e.data);
         });
+        console.log(socket)
     };
 })();
 
