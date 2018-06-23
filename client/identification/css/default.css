@@ -47,6 +47,8 @@ header .infosComplementaires {
 .identification {
     background-image: url(http://image.noelshack.com/fichiers/2018/25/4/1529590979-dungeon-wallpaper.jpg);
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -122,10 +124,9 @@ header .infosComplementaires {
 }
 
 #message {
-  color: white;
-  position: absolute;
-  top : 530px;
-  left: 580px;
+  color: red;
+  font-weight: bold;
+  margin-top: 1%;
 }
 
 /*
