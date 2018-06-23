@@ -62,6 +62,7 @@ ModeleEcran.prototype.changeSalle = function(direction) {
     {
         setInterval(function(){
             this.bougerEnnemy();
+            this.attaqueEnnemy();
         }.bind(this),1000/2);
     }
     this.loadEvent('changementSalle');
@@ -74,7 +75,11 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareHaut" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.y > 0) {
-            this._playerPosition.y--;
+            //Si la prochaine case est du sol
+            if(this._salleAffiche._matrice[this._playerPosition.x][this._playerPosition.y -1] == 1)
+            {
+                this._playerPosition.y--;
+            }
         }
     }
     if (bas) {
@@ -83,7 +88,12 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareFace" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.y < this._salleAffiche._taille.y) {
-            this._playerPosition.y++;
+            //Si la prochaine case est du sol
+            if(this._salleAffiche._matrice[this._playerPosition.x][this._playerPosition.y +1] == 1)
+            {
+                this._playerPosition.y++;
+            }
+            
         }
     }
     if (gauche) {
@@ -92,7 +102,11 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareGauche" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.x > 0) {
-            this._playerPosition.x--;
+            //Si la prochaine case est du sol
+            if(this._salleAffiche._matrice[this._playerPosition.x - 1][this._playerPosition.y] == 1)
+            {
+                this._playerPosition.x--;
+            }
         }
     }
     if (droit) {
@@ -101,7 +115,11 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
         this._nomFrameMouvement = "BarbareDroite" + this._numeroFrameMouvement.toString();
         if (this._playerPosition.x < this._salleAffiche._taille.x) {
-            this._playerPosition.x++;
+           //Si la prochaine case est du sol
+           if(this._salleAffiche._matrice[this._playerPosition.x + 1][this._playerPosition.y] == 1)
+           {
+               this._playerPosition.x++;
+           }
         }
     }
     if (this._playerPosition.x == 10 && this._playerPosition.y == 0 
@@ -153,15 +171,15 @@ ModeleEcran.prototype.attaquer = function() {
     
     this._ennemy.forEach(e => {
         if((e._pos.x == this._playerPosition.x && e._pos.y == this._playerPosition.y )){
-            e.PV -= 5;
+            e._PV -= 5;
         }
         else if(e._pos.x == this._playerPosition.x + x && e._pos.y == this._playerPosition.y + y)
         {
-            e.PV -= 5;
+            e._PV -= 5;
         }
         this.loadEvent("Attack");
 
-        if(e.PV <= 0)
+        if(e._PV <= 0)
         {
             for(let i =0; i< this._ennemy.length; i++)
             {
@@ -189,11 +207,15 @@ ModeleEcran.prototype.creerEnnemy = function(salle) {
 ModeleEcran.prototype.bougerEnnemy = function() {
     if (this._salleAffiche._nbMonstre != 0)
     {
-        let direction = this.cheminEnnemy(this._ennemy[0]);
-        this._ennemy.forEach(e => {
-             e._pos.x += direction.x; 
-            e._pos.y += direction.y;
-         });
+        for (let i = 0; i < this._ennemy.length; i++)
+        {
+            let direction = this.cheminEnnemy(this._ennemy[i]);
+            if (this.checkMur(this._ennemy[i]._pos.x + direction.x, this._ennemy[i]._pos.y + direction.y))
+             {
+                this._ennemy[i]._pos.x += direction.x; 
+                this._ennemy[i]._pos.y += direction.y;
+            }
+        }
     } 
 }
 
@@ -208,16 +230,61 @@ ModeleEcran.prototype.cheminEnnemy = function(ennemy)
     {
         direction.x =0;
         direction.y =0;
+        ennemy._nextToPlayer = true;
     }
     else if((this._playerPosition.x - ennemy._pos.x == 0)&&(this._playerPosition.y - ennemy._pos.y == 1 || this._playerPosition.y - ennemy._pos.y == -1))
     {
         direction.x =0;
         direction.y =0;
+        ennemy._nextToPlayer = true;
     }
-    else if((this._playerPosition.x - ennemy._pos.x == 1 || this._playerPosition.x - ennemy._pos.x == -1)&&(this._playerPosition.y - ennemy._pos.y == 1 || this._playerPosition.y - ennemy._pos.y == -1))
-    {
-        direction.x =0;
-        direction.y =0;
+    //Next to Joueur Diagonale Bas/Droite
+    else if((this._playerPosition.x - ennemy._pos.x == 1)&&(this._playerPosition.y - ennemy._pos.y == 1)){
+        if(generationNombre(0,1) == 1){
+            direction.x = 1;
+            direction.y = 0;
+        }
+        else{
+            direction.x = 0;
+            direction.y = 1;
+        } 
+        ennemy._nextToPlayer = false;
+    }
+    //Next to Joueur Diagonale Bas/Gauche
+    else if((this._playerPosition.x - ennemy._pos.x == -1)&&(this._playerPosition.y - ennemy._pos.y == 1)){
+        if(generationNombre(0,1) == 1){
+            direction.x = -1;
+            direction.y =0;
+        }
+        else{
+            direction.x = 0;
+            direction.y = 1;
+        } 
+        ennemy._nextToPlayer = false;
+    }
+    //Next to Joueur Diagonale Haut/Droite
+    else if((this._playerPosition.x - ennemy._pos.x == 1)&&(this._playerPosition.y - ennemy._pos.y == -1)){
+        if(generationNombre(0,1) == 1){
+            direction.x = 1;
+            direction.y = 0;
+        }
+        else {
+            direction.x = 0;
+            direction.y = -1;
+        } 
+        ennemy._nextToPlayer = false;
+    }
+    //Next to Joueur Diagonale Haut/Gauche
+    else if((this._playerPosition.x - ennemy._pos.x == -1)&&(this._playerPosition.y - ennemy._pos.y == -1)){
+        if(generationNombre(0,1) == 1){
+            direction.x = -1;
+            direction.y = 0;
+        }
+        else {
+            direction.x = 0;
+            direction.y = -1;
+        } 
+        ennemy._nextToPlayer = false;
     }
     else 
     {
@@ -237,9 +304,38 @@ ModeleEcran.prototype.cheminEnnemy = function(ennemy)
         {
             direction.y = -1;
         }
+        ennemy._nextToPlayer = false;
     }
     return direction;
 }
+
+
+ModeleEcran.prototype.checkMur = function(x,y)   //Et autres Orcs
+{
+    let possible = false;
+    if(this._salleAffiche._matrice[x][y] == 1)
+    {
+        possible = true;
+        this._ennemy.forEach(e => {
+            if(e._pos.x == x && e._pos.y == y)
+            {
+                possible = false;
+            }
+        });
+    }
+    return possible;
+}
+
+ModeleEcran.prototype.attaqueEnnemy = function()
+{
+    this._ennemy.forEach(e => {
+        if(e._nextToPlayer)
+        {
+            this._personnage._PV -= e._ATK
+        }
+    });
+}
+
 
 var generationNombre = function(min, max) {
     return Math.floor(Math.random()*(max - min + 1) + min);
@@ -249,8 +345,8 @@ class Entity{
     //PV : Points de Vie, ATK : Points d'attack
     constructor(PV,ATK,X,Y)
     {
-        this.PV = PV;
-        this.ATK = ATK;
+        this._PV = PV;
+        this._ATK = ATK;
         this._pos = {
             x : X,
             y : Y
@@ -261,7 +357,8 @@ class Entity{
 class Orc extends Entity{
     constructor(X,Y)
     {
-        super(10,5,X,Y);
+        super(10,1,X,Y);
+        this._nextToPlayer = false;
     }
 }
 class Barbare extends Entity{

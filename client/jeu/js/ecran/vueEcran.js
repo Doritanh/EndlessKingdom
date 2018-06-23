@@ -145,7 +145,10 @@ let getImages = function() {
         HealthBar1 : new Image(),
         HealthBarContent1 : new Image(),
         Heart : new Image(),
-        Attack : new Image(),
+        AttackBas : new Image(),
+        AttackDroite : new Image(),
+        AttackGauche : new Image(),
+        AttackHaut : new Image(),
         Crane : new Image()
     }
     for (let nomImage in images) {
