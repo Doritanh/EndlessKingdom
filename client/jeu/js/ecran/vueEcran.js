@@ -20,19 +20,20 @@ export class VueEcran extends Vue {
             this.dessinerMort(ennemy);
         }.bind(this));
     }
-}
 
-VueEcran.prototype.dessiner = function() {
-    // Avant plan
-    setInterval(function() {
-        this._foreground.clear();
-        this.dessinerJoueur();
-        this.dessinerEnnemy();
-    }.bind(this), 1000/60);
-    // Plan d'effets
-    setInterval(function() {
-        this.dessinerBarDeVie();
-    }.bind(this), 1000/60);
+    rafraichir() {
+        // Avant plan
+        setInterval(function() {
+            this._foreground.clear();
+            this.dessinerJoueur();
+            this.dessinerEnnemy();
+        }.bind(this), 1000/60);
+        // Plan d'effets
+        setInterval(function() {
+            this._effects.clear();
+            this.dessinerBarDeVie();
+        }.bind(this), 1000/10);
+    }
 }
 
 VueEcran.prototype.dessinerJoueur = function() {
@@ -85,7 +86,7 @@ VueEcran.prototype.dessinerAttack = function() {
 }
 
 VueEcran.prototype.dessinerMort = function(ennemy) {
-    this._foreground.ctx.drawImage(this._images['Crane'],(ennemy._pos.x)*32, (ennemy._pos.y)*32);
+    this._effects.ctx.drawImage(this._images['Crane'],(ennemy._pos.x)*32, (ennemy._pos.y)*32);
 }
 
 VueEcran.prototype.dessinerBarDeVie = function() {
