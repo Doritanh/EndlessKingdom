@@ -68,57 +68,120 @@ ModeleEcran.prototype.changeSalle = function(direction) {
     this.loadEvent('changementSalle');
 }
 
+ModeleEcran.prototype.animationMouvement = function(direction) {
+    let timer = 0;
+    switch(direction) {
+        case "haut":
+            if(this._salleAffiche._matrice[this._playerPosition.x][this._playerPosition.y -1] == 1) {
+                let animationHaut = setInterval(function() {
+                    this._playerPosition.y -= 0.03125;
+                    timer++;
+                    if(timer%8 === 0) {
+                        this._numeroFrameMouvement++;
+                        if(this._numeroFrameMouvement === 4) this._numeroFrameMouvement = 0;
+                        this._nomFrameMouvement = "BarbareHaut" + this._numeroFrameMouvement.toString();
+                    }
+                    if(timer === 32) {
+                        timer = 0;
+                        clearInterval(animationHaut);
+                    }
+                }.bind(this), 1);
+            }
+            break;
+        case "bas":
+            let animationBas = setInterval(function() {
+                this._playerPosition.y += 0.03125;
+                timer++;
+                if(timer%8 === 0) {
+                    this._numeroFrameMouvement++;
+                    if(this._numeroFrameMouvement === 4) this._numeroFrameMouvement = 0;
+                    this._nomFrameMouvement = "BarbareFace" + this._numeroFrameMouvement.toString();
+                }
+                if(timer === 32) {
+                    timer = 0;
+                    clearInterval(animationBas);
+                }
+            }.bind(this), 1);
+            break;
+        case "gauche":
+            let animationGauche = setInterval(function() {
+                this._playerPosition.x -= 0.03125;
+                timer++;
+                if(timer%8 === 0) {
+                    this._numeroFrameMouvement++;
+                    if(this._numeroFrameMouvement === 4) this._numeroFrameMouvement = 0;
+                    this._nomFrameMouvement = "BarbareGauche" + this._numeroFrameMouvement.toString();
+                }
+                if(timer === 32) {
+                    timer = 0;
+                    clearInterval(animationGauche);
+                }
+            }.bind(this), 1);
+            break;
+        case "droite":
+            let animationDroite = setInterval(function() {
+                this._playerPosition.x += 0.03125;
+                timer++;
+                if(timer%8 === 0) {
+                    this._numeroFrameMouvement++;
+                    if(this._numeroFrameMouvement === 4) this._numeroFrameMouvement = 0;
+                    this._nomFrameMouvement = "BarbareDroite" + this._numeroFrameMouvement.toString();
+                }
+                if(timer === 32) {
+                    timer = 0;
+                    clearInterval(animationDroite);
+                }
+            }.bind(this), 1);
+            break;
+    }
+    
+}
+
+
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if (haut) {
         this._etatMouvement = "idleHaut";
-        this._numeroFrameMouvement++;
-        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
-        this._nomFrameMouvement = "BarbareHaut" + this._numeroFrameMouvement.toString();
+        this._nomFrameMouvement = "BarbareHaut0";
         if (this._playerPosition.y > 0) {
             //Si la prochaine case est du sol
             if(this._salleAffiche._matrice[this._playerPosition.x][this._playerPosition.y -1] == 1)
             {
-                this._playerPosition.y--;
+                this.animationMouvement("haut");
             }
         }
+        
     }
     if (bas) {
         this._etatMouvement = "idleBas";
-        this._numeroFrameMouvement++;
-        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
-        this._nomFrameMouvement = "BarbareFace" + this._numeroFrameMouvement.toString();
+        this._nomFrameMouvement = "BarbareFace0";
         if (this._playerPosition.y < this._salleAffiche._taille.y) {
             //Si la prochaine case est du sol
             if(this._salleAffiche._matrice[this._playerPosition.x][this._playerPosition.y +1] == 1)
             {
-                this._playerPosition.y++;
+                this.animationMouvement("bas");
             }
             
         }
     }
     if (gauche) {
         this._etatMouvement = "idleGauche";
-        this._numeroFrameMouvement++;
-        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
-        this._nomFrameMouvement = "BarbareGauche" + this._numeroFrameMouvement.toString();
+        this._nomFrameMouvement = "BarbareGauche0";
         if (this._playerPosition.x > 0) {
             //Si la prochaine case est du sol
             if(this._salleAffiche._matrice[this._playerPosition.x - 1][this._playerPosition.y] == 1)
             {
-                this._playerPosition.x--;
+                this.animationMouvement("gauche");
             }
         }
     }
     if (droit) {
         this._etatMouvement = "idleDroit";
-        this._numeroFrameMouvement++;
-        if(this._numeroFrameMouvement >= 4) this._numeroFrameMouvement = 0;
-        this._nomFrameMouvement = "BarbareDroite" + this._numeroFrameMouvement.toString();
+        this._nomFrameMouvement = "BarbareDroite0";
         if (this._playerPosition.x < this._salleAffiche._taille.x) {
            //Si la prochaine case est du sol
            if(this._salleAffiche._matrice[this._playerPosition.x + 1][this._playerPosition.y] == 1)
            {
-               this._playerPosition.x++;
+               this.animationMouvement("droite");
            }
         }
     }
