@@ -11,7 +11,7 @@ html, body {
 }
 
 a {
-    color: white;
+    color: rgb(228, 241, 254);
     text-decoration : underline;
 }
 a:hover {
@@ -27,10 +27,11 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 4px solid rgb(34, 49, 63);
 }
 header .logo {
     font-size: xx-large;
-    color : white;
+    color : rgb(228, 241, 254);
     text-transform: uppercase;
     font-weight: bolder;
     letter-spacing: 2px;
@@ -101,12 +102,12 @@ header .infosComplementaires {
 .formulaire input[type="submit"] {
     border-radius: 4px;
     border: 2px solid rgb(151, 160, 175);
-    background-color: white;
+    background-color: rgb(228, 241, 254);
 }
 .formulaire input[type="submit"]:hover {
     border-radius: 4px;
     background-color: rgb(151, 160, 175);
-    color: white;
+    color: rgb(228, 241, 254);
 }
 .champ {
     font-size: 20px;
@@ -128,9 +129,10 @@ header .infosComplementaires {
     background-color: rgb(151, 160, 175);
     border-radius: 3px;
     border: 2px solid white;
-    color: red;
+    color: rgb(150, 40, 27);
     font-weight: bold;
     margin-top: 1%;
+    display: none;
 }
 
 /*
@@ -140,8 +142,16 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color : white;
+    color : rgb(228, 241, 254);
+    border-top: 4px solid rgb(34, 49, 63);
 }
-article {
+footer div {
+    margin: 20px;
+    border: 2px solid rgb(34, 49, 63);
+    background-color: rgb(228, 241, 254);
+    border-radius: 6px;
+}
+footer article {
+    color: rgb(108, 122, 137);
     text-align: center;
 }
