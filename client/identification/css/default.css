@@ -124,9 +124,13 @@ header .infosComplementaires {
 }
 
 #message {
-  color: red;
-  font-weight: bold;
-  margin-top: 1%;
+    padding: 5px 10px;
+    background-color: rgb(151, 160, 175);
+    border-radius: 3px;
+    border: 2px solid white;
+    color: red;
+    font-weight: bold;
+    margin-top: 1%;
 }
 
 /*
