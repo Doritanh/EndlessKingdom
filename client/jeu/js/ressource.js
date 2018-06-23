@@ -110,9 +110,21 @@ export class Ressource {
                 conteneur : new Image,
                 source : 'Heart.png'
             },
-            Attack : {
+            AttackBas : {
                 conteneur : new Image,
-                source : 'Attack.png'
+                source : 'AttackBas.png'
+            },
+            AttackDroite : {
+                conteneur : new Image,
+                source : 'AttackDroite.png'
+            },
+            AttackGauche : {
+                conteneur : new Image,
+                source : 'AttackGauche.png'
+            },
+            AttackHaut : {
+                conteneur : new Image,
+                source : 'AttackHaut.png'
             },
             Crane : {
                 conteneur : new Image,

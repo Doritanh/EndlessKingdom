@@ -27,19 +27,15 @@ VueEcran.prototype.dessiner = function() {
 VueEcran.prototype.dessinerSalle = function() {
     for(let i = 0; i <= this._modele._salleAffiche._taille.x; i++) {
         for (let j = 0; j <= this._modele._salleAffiche._taille.y; j++) {
-            console.log(this._modele._salleAffiche._matrice[i][j]);
             switch(this._modele._salleAffiche._matrice[i][j])
             {
                 case 0:
-                console.log("vide");
                     this._ctx.fillRect(i*32,j*32,i*32+32,i*32+32)
                     break;
                 case 1:
-                    console.log("sol");
                     this._ctx.drawImage(this._images['SolPierre'], i*32,j*32);
                     break;
                 case 2:
-                    console.log("mur");
                     this._ctx.drawImage(this._images['MurHaut'], i*32,j*32);
                     break;
             }
@@ -52,11 +48,13 @@ VueEcran.prototype.dessinerJoueur = function() {
 }
 
 VueEcran.prototype.dessinerEnnemy = function() {
-    if (typeof this._modele._ennemy[0] !== 'undefined')
+    for (let i =0; i<this._modele._ennemy.length ; i++)
     {
-        this._ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[0]._pos.x*32,this._modele._ennemy[0]._pos.y*32)
-    }
-    
+        if (typeof this._modele._ennemy[i] !== 'undefined')
+        {
+            this._ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[i]._pos.x*32,this._modele._ennemy[i]._pos.y*32)
+        }
+    }    
 }
 
 
@@ -64,16 +62,16 @@ VueEcran.prototype.dessinerAttack = function(){
     this._modele.addEventListener("Attack",function() {
         switch (this._modele._etatMouvement){
             case 'idleGauche':
-                this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x -1)*32, (this._modele._playerPosition.y)*32);
+                this._ctx.drawImage(this._images['AttackGauche'],(this._modele._playerPosition.x -1)*32, (this._modele._playerPosition.y)*32);
                 break;
             case 'idleDroit':
-                this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x +1)*32, (this._modele._playerPosition.y)*32);
+                this._ctx.drawImage(this._images['AttackDroite'],(this._modele._playerPosition.x +1)*32, (this._modele._playerPosition.y)*32);
                 break;
             case 'idleBas':
-                this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32, (this._modele._playerPosition.y +1)*32);
+                this._ctx.drawImage(this._images['AttackBas'],(this._modele._playerPosition.x)*32, (this._modele._playerPosition.y +1)*32);
                 break;
             case 'idleHaut':
-                 this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32 , (this._modele._playerPosition.y-1)*32);
+                 this._ctx.drawImage(this._images['AttackHaut'],(this._modele._playerPosition.x)*32 , (this._modele._playerPosition.y-1)*32);
                 break;
         }
     }.bind(this)); 
@@ -137,7 +135,10 @@ let getImages = function() {
         HealthBar1 : new Image(),
         HealthBarContent1 : new Image(),
         Heart : new Image(),
-        Attack : new Image(),
+        AttackBas : new Image(),
+        AttackDroite : new Image(),
+        AttackGauche : new Image(),
+        AttackHaut : new Image(),
         Crane : new Image()
     }
     for (let nomImage in images) {
