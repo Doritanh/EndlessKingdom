@@ -78,6 +78,32 @@ html, body{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  font-family: 'Cinzel', serif;
+}
+#menu #choixPerso #selectionPerso {
+  margin: auto;
+}
+#menu #choixPerso #btnLeft,
+#menu #choixPerso #btnRight {
+  background-color: rgb(236,236,236);
+  border: 2px solid rgb(34, 49, 63);
+  border-radius: 16px;
+  cursor: pointer;
+}
+#menu #choixPerso #nouveauPerso {
+  font-family: 'Cinzel', serif;
+  margin-top: 6%;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(236,236,236);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: medium;
+  transition-duration: 0.4s;
+}
+#menu #choixPerso #nouveauPerso:hover {
+  cursor: pointer;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(151, 160, 175);
 }
 
 #menu #picturePerso {
@@ -163,6 +189,7 @@ html, body{
   transition-duration: 0.4s;
 }
 #creationPerso input[type="submit"]:hover {
+  cursor: pointer;
   border: 2px solid rgb(34, 49, 63);
   background-color: rgb(151, 160, 175);
 }
