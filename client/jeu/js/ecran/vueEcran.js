@@ -70,16 +70,16 @@ VueEcran.prototype.dessinerAttack = function() {
     let ctx = this._foreground.ctx;
     switch (this._modele._etatMouvement){
         case 'idleGauche':
-            ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x -1)*32, (this._modele._playerPosition.y)*32);
+            ctx.drawImage(this._images['AttackGauche'],(this._modele._playerPosition.x -1)*32, (this._modele._playerPosition.y)*32);
             break;
         case 'idleDroit':
-            ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x +1)*32, (this._modele._playerPosition.y)*32);
+            ctx.drawImage(this._images['AttackDroite'],(this._modele._playerPosition.x +1)*32, (this._modele._playerPosition.y)*32);
             break;
         case 'idleBas':
-            ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32, (this._modele._playerPosition.y +1)*32);
+            ctx.drawImage(this._images['AttackBas'],(this._modele._playerPosition.x)*32, (this._modele._playerPosition.y +1)*32);
             break;
         case 'idleHaut':
-             ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32 , (this._modele._playerPosition.y-1)*32);
+             ctx.drawImage(this._images['AttackHaut'],(this._modele._playerPosition.x)*32 , (this._modele._playerPosition.y-1)*32);
             break;
     }
 }

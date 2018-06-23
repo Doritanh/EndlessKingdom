@@ -59,7 +59,6 @@ Controlleur.prototype.setStatus = function(content) {
             this._modeles.menu.setPersonnages(contenu.personnages);
             this._modeles.menu.setDonjons(contenu.donjons);
             this._modeles.menu.setActuelPersonnage(contenu.actuelPersonnage);
-            this._vues.menu.rafraichir();
             this._vues.menu.afficher('menu');
             break;
         case 'DONJON':
@@ -73,28 +72,30 @@ Controlleur.prototype.setStatus = function(content) {
 
 let keyboardEvents = function(controlleur) {
     window.addEventListener('keydown', event => {
-        switch (event.code) {
-            case 'ArrowUp':
-                controlleur._clavier.haut = true;
-                break;
-            case 'ArrowDown':
-                controlleur._clavier.bas = true;
-                break;
-            case 'ArrowLeft' :
-                controlleur._clavier.gauche = true;
-                break;
-            case 'ArrowRight':
-                controlleur._clavier.droite = true;
-                break;
-            case 'Space':
-                controlleur._modeles.ecran.attaquer();
-                break;
+        if (controlleur._vues.ecran._active == true) {
+            switch (event.code) {
+                case 'ArrowUp':
+                    controlleur._clavier.haut = true;
+                    break;
+                case 'ArrowDown':
+                    controlleur._clavier.bas = true;
+                    break;
+                case 'ArrowLeft' :
+                    controlleur._clavier.gauche = true;
+                    break;
+                case 'ArrowRight':
+                    controlleur._clavier.droite = true;
+                    break;
+                case 'Space':
+                    controlleur._modeles.ecran.attaquer();
+                    break;
+            }
+            controlleur._modeles.ecran.bougerPersonnage(
+                controlleur._clavier.haut, 
+                controlleur._clavier.bas, 
+                controlleur._clavier.gauche, 
+                controlleur._clavier.droite);
         }
-        controlleur._modeles.ecran.bougerPersonnage(
-            controlleur._clavier.haut, 
-            controlleur._clavier.bas, 
-            controlleur._clavier.gauche, 
-            controlleur._clavier.droite);
     });
         
     window.addEventListener('keyup', event => {
