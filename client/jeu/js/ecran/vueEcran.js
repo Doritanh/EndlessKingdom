@@ -44,16 +44,12 @@ VueEcran.prototype.dessinerEnnemy = function() {
 }
 
 VueEcran.prototype.dessinerBarDeVie = function() {
-    //A changer par les vrais PV des joueurs
-    let PVActuel = 0;
-    let PVMax = 10;
-    //-----
     let posXHealthBar = 60;
     let swHB0 = 32;
     let dwHB0 = 32;
     let swHB1 = 32;
     let dwHB1 = 32;
-    let pourcentVie = (PVActuel/PVMax).toPrecision(2);
+    let pourcentVie = (this._modele._personnage._PV/this._modele._personnage._maxPV).toPrecision(2);
     if(pourcentVie > 0.5) {
         pourcentVie = pourcentVie * 2 - 1;
         swHB1 *= pourcentVie;
