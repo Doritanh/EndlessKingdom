@@ -8,11 +8,14 @@ export class VueEcran extends Vue {
         this._element = document.querySelector("#ecran");
         this._canvas = new Canvas(this._element.querySelector('canvas'));
         this._ctx = this._element.querySelector('canvas').getContext('2d');
-        this._images = getImages()
+        this._images = getImages();
+        this._modele.addEventListener('changementSalle', function() {
+            console.log("changer salle !")
+        });
     }
 }
 
-VueEcran.prototype.dessiner = function() {
+VueEcran.prototype.dessiner = function() { 
     // Clear canvas
     this._canvas.clear();
 

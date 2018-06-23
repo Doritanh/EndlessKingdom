@@ -189,7 +189,6 @@ window.EndlessKingdom.identification.verification = {};
         socket.addEventListener('message', function (e) {
             receiveSocket(e.data);
         });
-        console.log(socket)
     };
 })();
 

@@ -63,6 +63,7 @@ ModeleEcran.prototype.changeSalle = function(direction) {
             this.bougerEnnemy();
         }.bind(this),1000/2);
     }
+    this.loadEvent('changementSalle');
 }
 
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {

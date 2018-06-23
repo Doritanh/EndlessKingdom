@@ -28,7 +28,7 @@ VueMenu.prototype.listePersonnage = function() {
         this._modele.creerPerso();
     }.bind(this), false);
     let img = document.querySelector('#picturePerso');
-    img.src = "data:image/png;base64," + JSON.parse(sessionStorage.getItem('ressources')).BarbareFace;
+    img.src = "data:image/png;base64," + JSON.parse(sessionStorage.getItem('ressources')).BarbareFace0;
 }
 
 VueMenu.prototype.listeDonjons = function() {

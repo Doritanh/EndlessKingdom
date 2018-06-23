@@ -11,7 +11,7 @@ export class Modele {
 
     loadEvent(type) {
         for (let callback in this._events[type]) {
-            this._events[type].callback();
+            this._events[type][callback]();
         }
     }
 }
