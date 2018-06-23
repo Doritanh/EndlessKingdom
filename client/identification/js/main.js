@@ -5,7 +5,7 @@ window.EndlessKingdom.identification = {};
 
 (function() {
     /*
-    **
+    ** Messages
     */
     let afficherMessage = function(message) {
         let balise = document.querySelector("#message");
@@ -13,45 +13,50 @@ window.EndlessKingdom.identification = {};
         balise.style.display = 'block';
     }
 
+    let supprimerMessage = function() {
+        document.querySelector("#message").style.display = 'none';
+    }
+
     /*
     **  Partie Design
     */
-    let clicked = "connexion";
-    let tailleFenetreConnexion = "280px";
-    let tailleFenetreInscription = "430px";
-    var btnConnexion = function() {
-        if(clicked == "inscription") {
-            document.querySelector("#btn_connexion").style.borderStyle = "inset";
-            document.querySelector("#btn_inscription").style.borderStyle = "outset";
+    let changerBoutton = function(bouton) {
+        if(bouton == "connexion") {
+            document.querySelector("#btn_connexion").style.backgroundColor = "rgb(151, 160, 175)";
+            document.querySelector("#btn_inscription").style.backgroundColor = "rgb(236,236,236)";
             document.querySelector("#fade").style.opacity = 0;
-            document.querySelector("#fenetre").style.height = tailleFenetreConnexion;
-            document.querySelector("#message").textContent = '';
+            supprimerMessage();
             setTimeout(function() {
                 document.querySelector("#inscription").style.display = "none";
-                document.querySelector("#connexion").style.display = "inline";
+                document.querySelector("#connexion").style.display = "block";
                 document.querySelector("#fade").style.opacity = 1;
             }, 400);
-            clicked = "connexion";
-        }
-    };
-    var btnInscription = function() {
-        if(clicked == "connexion") {
-            document.querySelector("#btn_inscription").style.borderStyle = "inset";
-            document.querySelector("#btn_connexion").style.borderStyle = "outset";
+        } else {
+            document.querySelector("#btn_inscription").style.backgroundColor = "rgb(151, 160, 175)";
+            document.querySelector("#btn_connexion").style.backgroundColor = "rgb(236,236,236)";
             document.querySelector("#fade").style.opacity = 0;
-            document.querySelector("#fenetre").style.height = tailleFenetreInscription;
+            supprimerMessage();
             setTimeout(function() {
                 document.querySelector("#connexion").style.display = "none";
-                document.querySelector("#inscription").style.display = "inline";
+                document.querySelector("#inscription").style.display = "block";
                 document.querySelector("#fade").style.opacity = 1;
             }, 400);
-            clicked = "inscription";
         }
-    };
+    }
 
     /*
     **  Partie verification
     */
+   var verifPseudo = function() {
+       let pseudo = document.querySelector('#pseudo');
+       if (pseudo.value === '') {
+           pseudo.style.backgroundColor = "#FE5353";
+           afficherMessage('Le pseudo est vide');
+       } else {
+            pseudo.style.backgroundColor = 'white';
+           supprimerMessage();
+       }
+   }
     var verifEmail = function() {
         let reg = new RegExp('^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$', 'i');
         if(!reg.test(document.querySelector("#adresse").value)) {
@@ -59,6 +64,7 @@ window.EndlessKingdom.identification = {};
             afficherMessage('Votre adresse mail n\'est pas valide.');
         } else {
             document.querySelector("#adresse").style.backgroundColor = "white";
+            supprimerMessage();
         }
     };
     var verifMdp = function() {
@@ -71,8 +77,8 @@ window.EndlessKingdom.identification = {};
 
         } else {
             document.querySelector("#mdp").style.backgroundColor = "white";
+            supprimerMessage();
         }
-        verifConfMdp();
     };
     var verifConfMdp = function() {
         if(document.querySelector("#confMdp").value != document.querySelector("#mdp").value) {
@@ -81,6 +87,7 @@ window.EndlessKingdom.identification = {};
         }
         else {
             document.querySelector("#confMdp").style.backgroundColor = "white";
+            supprimerMessage();
         }
     };
 
@@ -162,8 +169,12 @@ window.EndlessKingdom.identification = {};
 
     let init = function() {
         // Trigger des boutons
-        document.querySelector("#btn_connexion").addEventListener('click', btnConnexion);
-        document.querySelector("#btn_inscription").addEventListener('click', btnInscription);
+        document.querySelector("#btn_connexion").addEventListener('click', function() { changerBoutton('connexion'); });
+        document.querySelector("#btn_inscription").addEventListener('click', function() { changerBoutton('inscription'); });
+
+        //Verification pseudo
+        document.querySelector('#pseudo').addEventListener('keydown', verifPseudo);
+        document.querySelector('#pseudo').addEventListener('keyup', verifPseudo);
 
         //Verification email
         document.querySelector("#adresse").addEventListener('keydown', verifEmail);

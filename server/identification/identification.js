@@ -27,6 +27,7 @@ module.exports = {
      *  @return {number} - Codes de reussite ou d'erreurs
      */
     inscription : async function(pseudo, mail, mdp, mdpConfirm) {
+        if (pseudo === '') return 6;
         if (mdp !== mdpConfirm) return 2;
         if (await requetes.getIDFromPseudo(pseudo)) return 3;
         if (await requetes.getIDFromMail(mail)) return 4;

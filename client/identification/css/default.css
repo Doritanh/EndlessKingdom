@@ -11,7 +11,7 @@ html, body {
 }
 
 a {
-    color: rgb(228, 241, 254);
+    color: rgb(151, 160, 175);
     text-decoration : underline;
 }
 a:hover {
@@ -31,11 +31,11 @@ header {
 }
 header .logo {
     font-size: xx-large;
-    color : rgb(228, 241, 254);
+    color : rgb(236,236,236);
     text-transform: uppercase;
     font-weight: bolder;
     letter-spacing: 2px;
-    margin-left: 10px;
+    margin-left: 16px;
 }
 header .infosComplementaires {
     padding-right: 40px;
@@ -54,14 +54,14 @@ header .infosComplementaires {
 }
 
 #fenetre {
-    background-color: white;
+    background-color: rgb(151, 160, 175);
     margin-top: 2%;
     margin-bottom: 2%;
     display:flex;
     flex-direction: column;
-    border: outset 5px;
-    border-radius: 18px;
-    height: 280px;
+    border: 5px solid rgb(34, 49, 63);
+    border-radius: 14px;
+    height: 100%;
     transition: 0.4s;
     min-width: 340px;
 }
@@ -70,16 +70,20 @@ header .infosComplementaires {
     flex-direction: row;
     min-height: 70px;
 }
-#buttons input {
+#buttons button {
     font-size: 30px;
     margin: 0px;
     padding: 15px;
+    font-family: 'Cinzel', sans-serif;
+    background-color: rgb(236,236,236);
+    border: 0px;
 }
-#btn_connexion {
-    border-radius: 10px 0px 0px 0px;
+#buttons #btn_connexion {
+    background-color: rgb(151, 160, 175);
+    border-radius: 11px 0px 0px 0px;
 }
-#btn_inscription {
-    border-radius:0px 10px 0px 0px;
+#buttons #btn_inscription {
+    border-radius:0px 11px 0px 0px;
 }
 .btn_validation {
     margin-top: 10px;
@@ -91,32 +95,34 @@ header .infosComplementaires {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
     text-align: center;
+    align-items: center;
 }
 .formulaire input {
-    width: 200px;
-    align-content: center;
-    transform: translateX(74.5px);
+    font-size: 20px;
+    border: 2px solid rgb(228, 241, 254);
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.formulaire input:focus {
+    transition-duration: 0.4s;
+    border: 2px solid white;
+    background-color: rgb(151, 160, 175);
 }
 .formulaire input[type="submit"] {
+    font-family: 'Cinzel', sans-serif;
     border-radius: 4px;
-    border: 2px solid rgb(151, 160, 175);
-    background-color: rgb(228, 241, 254);
+    border: 2px solid rgb(228, 241, 254);
+    background-color: white;
 }
 .formulaire input[type="submit"]:hover {
+    transition-duration: 0.4s;
     border-radius: 4px;
     background-color: rgb(151, 160, 175);
     color: rgb(228, 241, 254);
 }
-.champ {
-    font-size: 20px;
-    border:solid 1px;
-    width: 200px;
-    margin-bottom: 15px;
-}
 .labelForm {
-    color: black;
+    color: rgb(228, 241, 254);
     padding-bottom: 0px;
     font-size: 20px;
 }
@@ -142,13 +148,12 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color : rgb(228, 241, 254);
     border-top: 4px solid rgb(34, 49, 63);
 }
 footer div {
     margin: 20px;
     border: 2px solid rgb(34, 49, 63);
-    background-color: rgb(228, 241, 254);
+    background-color: rgb(236,236,236);
     border-radius: 6px;
 }
 footer article {
