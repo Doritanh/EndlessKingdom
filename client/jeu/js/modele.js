@@ -9,9 +9,9 @@ export class Modele {
         this._events[type].push(callback);
     }
 
-    loadEvent(type) {
+    loadEvent(type, param = null) {
         for (let callback in this._events[type]) {
-            this._events[type][callback]();
+            this._events[type][callback](param);
         }
     }
 }

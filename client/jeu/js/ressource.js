@@ -109,6 +109,14 @@ export class Ressource {
             Heart : {
                 conteneur : new Image,
                 source : 'Heart.png'
+            },
+            Attack : {
+                conteneur : new Image,
+                source : 'Attack.png'
+            },
+            Crane : {
+                conteneur : new Image,
+                source : 'Crane.png'
             }
         };
     }
