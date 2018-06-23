@@ -27,7 +27,22 @@ VueEcran.prototype.dessiner = function() {
 VueEcran.prototype.dessinerSalle = function() {
     for(let i = 0; i <= this._modele._salleAffiche._taille.x; i++) {
         for (let j = 0; j <= this._modele._salleAffiche._taille.y; j++) {
-            this._ctx.drawImage(this._images[this._modele._salleAffiche._matrice[i][j]], i*32,j*32);
+            console.log(this._modele._salleAffiche._matrice[i][j]);
+            switch(this._modele._salleAffiche._matrice[i][j])
+            {
+                case 0:
+                console.log("vide");
+                    this._ctx.fillRect(i*32,j*32,i*32+32,i*32+32)
+                    break;
+                case 1:
+                    console.log("sol");
+                    this._ctx.drawImage(this._images['SolPierre'], i*32,j*32);
+                    break;
+                case 2:
+                    console.log("mur");
+                    this._ctx.drawImage(this._images['MurHaut'], i*32,j*32);
+                    break;
+            }
         }
     }
 }

@@ -37,34 +37,40 @@ let nbMonstre = function(max) {
     return nbMonstre;
 }
 
+/* Légende matrice de salle
+ * 0 : vide
+ * 1 : sol
+ * 2 : mur 
+ */
+
 let matrice = function(x, y, portes) {
     let matrice = [];
     for (let i = 0; i <= x; i++) {
         matrice[i] = [];
         for (let j = 0; j <= y; j++) {
-            matrice[i][j] = 'SolPierre';
+            matrice[i][j] = 1;
         }
     }
     // On active les bords
     for (let i = 0; i <= x; i++) {
-        matrice[i][0] = 'MurGauche';
-        matrice[i][y] = 'MurDroit';
+        matrice[i][0] = 2;
+        matrice[i][y] = 2;
     }
     for (let i = 0; i <= y; i++) {
-        matrice[0][i] = 'MurHaut';
-        matrice[x][i] = 'MurBas';
+        matrice[0][i] = 2;
+        matrice[x][i] = 2;
     }
     if (portes.north) {
-        matrice[Math.floor(x/2)][0] = 'SolPierre';
+        matrice[Math.floor(x/2)][0] = 1;
     }
     if (portes.south) {
-        matrice[Math.floor(x/2)][y] = 'SolPierre';
+        matrice[Math.floor(x/2)][y] = 1;
     }
     if (portes.west) {
-        matrice[0][Math.floor(y/2)] = 'SolPierre';
+        matrice[0][Math.floor(y/2)] = 1;
     }
     if (portes.east) {
-        matrice[x][Math.floor(y/2)] = 'SolPierre';
+        matrice[x][Math.floor(y/2)] = 1;
     }
     return matrice;
 }
