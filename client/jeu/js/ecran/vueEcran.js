@@ -16,17 +16,10 @@ export class VueEcran extends Vue {
 }
 
 VueEcran.prototype.dessiner = function() { 
-    // Clear canvas
     this._canvas.clear();
-
-    // Dessiner la salle
     this.dessinerSalle();
-
-    // Joueur
     this.dessinerJoueur();
-
     this.dessinerEnnemy();
-
     this.dessinerBarDeVie();
 }
 
