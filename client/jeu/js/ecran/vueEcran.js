@@ -1,85 +1,95 @@
 import { Vue } from '../vue.js';
-
 import { Canvas } from './canvas.js';
 
 export class VueEcran extends Vue {
     constructor(modele) {
         super(modele);
         this._element = document.querySelector("#ecran");
-        this._canvas = new Canvas(this._element.querySelector('canvas'));
-        this._ctx = this._element.querySelector('canvas').getContext('2d');
+        this._background = new Canvas(this._element.querySelector('.background'));
+        this._foreground = new Canvas(this._element.querySelector('.foreground'));
+        this._effects = new Canvas(this._element.querySelector('.effects'));
         this._images = getImages();
+
         this._modele.addEventListener('changementSalle', function() {
-            console.log("changer salle !")
-        });
+            this.dessinerSalle();
+        }.bind(this));
+        this._modele.addEventListener("Attack",function() {
+            this.dessinerAttack();
+        }.bind(this));
+        this._modele.addEventListener("Mort",function(ennemy) {
+            this.dessinerMort(ennemy);
+        }.bind(this));
     }
 }
 
-VueEcran.prototype.dessiner = function() { 
-    this._canvas.clear();
-    this.dessinerSalle();
-    this.dessinerJoueur();
-    this.dessinerEnnemy();
-    this.dessinerBarDeVie();
-    this.dessinerAttack();
+VueEcran.prototype.dessiner = function() {
+    // Avant plan
+    setInterval(function() {
+        this._foreground.clear();
+        this.dessinerJoueur();
+        this.dessinerEnnemy();
+    }.bind(this), 1000/60);
+    // Plan d'effets
+    setInterval(function() {
+        this.dessinerBarDeVie();
+    }.bind(this), 1000/60);
+}
+
+VueEcran.prototype.dessinerJoueur = function() {
+    this._foreground.ctx.drawImage(this._images[this._modele._nomFrameMouvement], this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
+}
+
+VueEcran.prototype.dessinerEnnemy = function() {
+    if (typeof this._modele._ennemy[0] !== 'undefined') {
+        this._foreground.ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[0]._pos.x*32,this._modele._ennemy[0]._pos.y*32)
+    }
 }
 
 VueEcran.prototype.dessinerSalle = function() {
+    this._background.clear();
+    let ctx = this._background.ctx;
+
     for(let i = 0; i <= this._modele._salleAffiche._taille.x; i++) {
         for (let j = 0; j <= this._modele._salleAffiche._taille.y; j++) {
-            switch(this._modele._salleAffiche._matrice[i][j])
-            {
-                case 0:
-                    this._ctx.fillRect(i*32,j*32,i*32+32,i*32+32)
-                    break;
+            switch(this._modele._salleAffiche._matrice[i][j]) {
                 case 1:
-                    this._ctx.drawImage(this._images['SolPierre'], i*32,j*32);
+                    ctx.drawImage(this._images['SolPierre'], i*32,j*32);
                     break;
                 case 2:
-                    this._ctx.drawImage(this._images['MurHaut'], i*32,j*32);
+                    ctx.drawImage(this._images['MurHaut'], i*32,j*32);
+                    break;
+                default:
+                    ctx.fillRect(i*32,j*32,i*32+32,i*32+32);
                     break;
             }
         }
     }
 }
 
-VueEcran.prototype.dessinerJoueur = function() {
-    this._ctx.drawImage(this._images[this._modele._nomFrameMouvement], this._modele._playerPosition.x*32, this._modele._playerPosition.y*32);
+VueEcran.prototype.dessinerAttack = function() {
+    let ctx = this._foreground.ctx;
+    switch (this._modele._etatMouvement){
+        case 'idleGauche':
+            ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x -1)*32, (this._modele._playerPosition.y)*32);
+            break;
+        case 'idleDroit':
+            ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x +1)*32, (this._modele._playerPosition.y)*32);
+            break;
+        case 'idleBas':
+            ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32, (this._modele._playerPosition.y +1)*32);
+            break;
+        case 'idleHaut':
+             ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32 , (this._modele._playerPosition.y-1)*32);
+            break;
+    }
 }
 
-VueEcran.prototype.dessinerEnnemy = function() {
-    for (let i =0; i<this._modele._ennemy.length ; i++)
-    {
-        if (typeof this._modele._ennemy[i] !== 'undefined')
-        {
-            this._ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[i]._pos.x*32,this._modele._ennemy[i]._pos.y*32)
-        }
-    }    
+VueEcran.prototype.dessinerMort = function(ennemy) {
+    this._foreground.ctx.drawImage(this._images['Crane'],(ennemy._pos.x)*32, (ennemy._pos.y)*32);
 }
 
-
-VueEcran.prototype.dessinerAttack = function(){
-    this._modele.addEventListener("Attack",function() {
-        switch (this._modele._etatMouvement){
-            case 'idleGauche':
-                this._ctx.drawImage(this._images['AttackGauche'],(this._modele._playerPosition.x -1)*32, (this._modele._playerPosition.y)*32);
-                break;
-            case 'idleDroit':
-                this._ctx.drawImage(this._images['AttackDroite'],(this._modele._playerPosition.x +1)*32, (this._modele._playerPosition.y)*32);
-                break;
-            case 'idleBas':
-                this._ctx.drawImage(this._images['AttackBas'],(this._modele._playerPosition.x)*32, (this._modele._playerPosition.y +1)*32);
-                break;
-            case 'idleHaut':
-                 this._ctx.drawImage(this._images['AttackHaut'],(this._modele._playerPosition.x)*32 , (this._modele._playerPosition.y-1)*32);
-                break;
-        }
-    }.bind(this)); 
-    this._modele.addEventListener("Mort",function(ennemy) {
-        this._ctx.drawImage(this._images['Crane'],(ennemy._pos.x)*32, (ennemy._pos.y)*32);
-    }.bind(this)); 
-}
 VueEcran.prototype.dessinerBarDeVie = function() {
+    let ctx = this._effects.ctx;
     let posXHealthBar = 60;
     let swHB0 = 32;
     let dwHB0 = 32;
@@ -98,11 +108,11 @@ VueEcran.prototype.dessinerBarDeVie = function() {
         dwHB1 = 0;
     }
     if(swHB0 == 0) swHB0 = 1;
-    this._ctx.drawImage(this._images['HealthBarContent0'], posXHealthBar-32, 0);
-    this._ctx.drawImage(this._images['HealthBar0'], 0, 0, swHB0, 32, posXHealthBar-32, 0, dwHB0, 32);
-    this._ctx.drawImage(this._images['HealthBarContent1'], posXHealthBar, 0);
-    this._ctx.drawImage(this._images['HealthBar1'], 0, 0, swHB1, 32, posXHealthBar, 0, dwHB1, 32);
-    this._ctx.drawImage(this._images['Heart'], posXHealthBar-48, 0);
+    ctx.drawImage(this._images['HealthBarContent0'], posXHealthBar-32, 0);
+    ctx.drawImage(this._images['HealthBar0'], 0, 0, swHB0, 32, posXHealthBar-32, 0, dwHB0, 32);
+    ctx.drawImage(this._images['HealthBarContent1'], posXHealthBar, 0);
+    ctx.drawImage(this._images['HealthBar1'], 0, 0, swHB1, 32, posXHealthBar, 0, dwHB1, 32);
+    ctx.drawImage(this._images['Heart'], posXHealthBar-48, 0);
 }
 
 let getImages = function() {

@@ -26,6 +26,7 @@ export class ModeleEcran extends Modele {
         this._position.x = this._donjon._spawn.x;
         this._position.y = this._donjon._spawn.y;
         this._salleAffiche = this._donjon._salles[this._donjon._spawn.x][this._donjon._spawn.y];
+        this.loadEvent('changementSalle');
     }
 
     setPersonnage(personnage) {
@@ -195,9 +196,7 @@ ModeleEcran.prototype.attaquer = function() {
 
 ModeleEcran.prototype.creerEnnemy = function(salle) {
     this._ennemy = [];
-    console.log(salle)
     this._nbEnnemy = salle._nbMonstre;
-    console.log(salle._nbMonstre);
     for (let i =0; i< this._nbEnnemy; i++)
     {
         let orc = new Orc(generationNombre(2,this._salleAffiche._taille.x-2),generationNombre(2,this._salleAffiche._taille.y-2));   
