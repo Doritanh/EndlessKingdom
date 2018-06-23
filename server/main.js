@@ -27,7 +27,7 @@ module.exports = function(socketServer) {
             } else if (id === 'demandePerso') {
                 utilisateur.lancerCreationPersonnage();
             } else if (id === 'creationPerso') {
-                utilisateur.creationPersonnage(content.nom, content.difficulte, 'BARBARE');
+                utilisateur.creationPersonnage(content.nom, content.difficulte, content.classe);
             } else if (id === 'selectionnerPerso') {
                 utilisateur.setPersonnage(content.selected) 
             } else if (id === 'creerDonjon') {

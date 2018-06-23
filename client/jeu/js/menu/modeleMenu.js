@@ -6,6 +6,7 @@ export class ModeleMenu extends Modele{
         this._personnages = {};
         this._donjons = {};
         this._actuelPersonnage = 0;
+        this._nomCompte = '';
     }
 
     setPersonnages(personnages) {
@@ -18,6 +19,10 @@ export class ModeleMenu extends Modele{
 
     setActuelPersonnage(actuelPersonnage) {
         this._actuelPersonnage = actuelPersonnage;
+    }
+
+    setCompte(nom) {
+        this._nomCompte = nom;
     }
 }
 

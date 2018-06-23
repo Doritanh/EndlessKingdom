@@ -64,7 +64,7 @@ Utilisateur.prototype.sendStatus = async function(status = STATUS_CODE.MENU) {
         status = STATUS_CODE.ERROR;
     }
 
-    if (data.personnages.length === 0) {
+    if (typeof data == 'undefined' || data.personnages.length === 0) {
         status = STATUS_CODE.NO_PERSONNAGE;
     } else if (typeof data.actuelDonjon !== 'undefined') {
         if (data.actuelDonjon !== 'none') {
@@ -74,7 +74,7 @@ Utilisateur.prototype.sendStatus = async function(status = STATUS_CODE.MENU) {
 
     let contenu = [];
     if (status === STATUS_CODE.MENU) {
-        contenu = {'personnages' : data.personnages, 'donjons' : data.donjons, 'actuelPersonnage' : data.actuelPersonnage};
+        contenu = {'personnages' : data.personnages, 'donjons' : data.donjons, 'actuelPersonnage' : data.actuelPersonnage, 'compte' : data.pseudo};
     } else if (status === STATUS_CODE.DONJON) {
         contenu = {'donjon' : data.donjons[data.actuelDonjon], 'personnage' : data.personnages[data.actuelPersonnage]};
     }

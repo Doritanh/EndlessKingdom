@@ -21,38 +21,35 @@ export class Canvas {
             this.resize();
         }.bind(this), false);
     }
+}
 
-    /*
-    **  Ajuster le canvas à l'écran.
-    **  Petit problème noté :
-    **  Quand on F12 le canvas Height style
-    **  prends tout l'écran.
-    */
-    resize() {
-        this.size.style.width = window.innerWidth;
-        this.size.style.height = window.innerHeight;
+/**
+ * Ajuste le canvas à l'écran
+ */
+Canvas.prototype.resize = function() {
+    this.size.style.width = window.innerWidth;
+    this.size.style.height = window.innerHeight;
 
-        //Le style qui sera toujours en version 16/9 pour chaque users
-        if (this.size.style.height < this.size.style.width / this.RATIO) {
-            this.size.style.width = (this.size.style.height * this.RATIO);
-        } else {
-            this.size.style.height = (this.size.style.width / this.RATIO);
-        }
-        this.canvas.style.width = Math.floor(this.size.style.width) + "px";
-        this.canvas.style.height = Math.floor(this.size.style.height) + "px";
-
-        // La dimension qu'affiche le Canvas.
-        this.canvas.width = this.size.jeu.width;
-        this.canvas.height = this.size.jeu.height;
-
-        this.width = this.canvas.width;
-        this.height = this.canvas.height;
+    //Le style qui sera toujours en version 16/9 pour chaque users
+    if (this.size.style.height < this.size.style.width / this.RATIO) {
+        this.size.style.width = (this.size.style.height * this.RATIO);
+    } else {
+        this.size.style.height = (this.size.style.width / this.RATIO);
     }
+    this.canvas.style.width = Math.floor(this.size.style.width) + "px";
+    this.canvas.style.height = Math.floor(this.size.style.height) + "px";
 
-    /*
-    **  Clear le canvas actuel.
-    */
-    clear() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
+    // La dimension qu'affiche le Canvas.
+    this.canvas.width = this.size.jeu.width;
+    this.canvas.height = this.size.jeu.height;
+
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
+}
+
+/**
+ * Clear le canvas.
+ */
+Canvas.prototype.clear = function() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 }

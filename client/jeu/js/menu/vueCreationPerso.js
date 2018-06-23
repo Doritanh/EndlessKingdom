@@ -8,7 +8,6 @@ export class VueCreationPerso extends Vue{
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             let nom = form.querySelector('input[name="nom"]');
-            console.log(nom)
             if (nom.value == '') {
                 this._element.querySelector('.message').textContent = 'Le nom ne doit pas être vide.';
                 this._element.querySelector('.message').style.display = 'block';

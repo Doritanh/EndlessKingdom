@@ -120,6 +120,13 @@ html, body{
   grid-row: 3;
   margin: auto;
   padding-top: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#menu #compte #nomCompte {
+  font-family: 'Cinzel', serif;
+  font-size: large;
 }
 
 #menu .titreChoixPerso,
@@ -139,6 +146,21 @@ html, body{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+#menu #creerDonjonButton {
+  font-family: 'Cinzel', serif;
+  margin-top: 4%;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(236,236,236);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: medium;
+  transition-duration: 0.4s;
+}
+#menu #creerDonjonButton:hover {
+  cursor: pointer;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(151, 160, 175);
 }
 
 /*

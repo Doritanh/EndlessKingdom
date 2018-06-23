@@ -77,6 +77,7 @@ header .infosComplementaires {
     font-family: 'Cinzel', sans-serif;
     background-color: rgb(236,236,236);
     border: 0px;
+    cursor: pointer;
 }
 #buttons #btn_connexion {
     background-color: rgb(151, 160, 175);
@@ -114,6 +115,7 @@ header .infosComplementaires {
     border-radius: 4px;
     border: 2px solid rgb(228, 241, 254);
     background-color: white;
+    cursor: pointer;
 }
 .formulaire input[type="submit"]:hover {
     transition-duration: 0.4s;

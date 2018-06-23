@@ -59,6 +59,7 @@ Controlleur.prototype.setStatus = function(content) {
             this._modeles.menu.setPersonnages(contenu.personnages);
             this._modeles.menu.setDonjons(contenu.donjons);
             this._modeles.menu.setActuelPersonnage(contenu.actuelPersonnage);
+            this._modeles.menu.setCompte(contenu.compte);
             this._vues.menu.afficher('menu');
             break;
         case 'DONJON':
