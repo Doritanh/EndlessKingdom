@@ -7,14 +7,16 @@ window.EndlessKingdom.identification = {};
     /*
     ** Messages
     */
-    let afficherMessage = function(message) {
+    let afficherMessage = function(message, erreur=true) {
         let balise = document.querySelector("#message");
         balise.textContent = message;
+        if (!erreur) balise.style.color = 'green';
         balise.style.display = 'block';
     }
 
     let supprimerMessage = function() {
         document.querySelector("#message").style.display = 'none';
+        document.querySelector('#message').style.color = 'rgb(150, 40, 27)';
     }
 
     /*
@@ -147,7 +149,7 @@ window.EndlessKingdom.identification = {};
                     afficherMessage('Problème serveur');
                     break;
                 case 1:
-                    afficherMessage('Inscription effectuée ! Veuillez vous connecter.');
+                    afficherMessage('Inscription effectuée ! Veuillez vous connecter.', false);
                     break;
                 case 2:
                     afficherMessage('Les mots de passes ne correspondent pas.');
