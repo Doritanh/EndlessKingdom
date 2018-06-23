@@ -21,12 +21,28 @@ VueEcran.prototype.dessiner = function() {
     this.dessinerJoueur();
     this.dessinerEnnemy();
     this.dessinerBarDeVie();
+    this.dessinerAttack();
 }
 
 VueEcran.prototype.dessinerSalle = function() {
     for(let i = 0; i <= this._modele._salleAffiche._taille.x; i++) {
         for (let j = 0; j <= this._modele._salleAffiche._taille.y; j++) {
-            this._ctx.drawImage(this._images[this._modele._salleAffiche._matrice[i][j]], i*32,j*32);
+            console.log(this._modele._salleAffiche._matrice[i][j]);
+            switch(this._modele._salleAffiche._matrice[i][j])
+            {
+                case 0:
+                console.log("vide");
+                    this._ctx.fillRect(i*32,j*32,i*32+32,i*32+32)
+                    break;
+                case 1:
+                    console.log("sol");
+                    this._ctx.drawImage(this._images['SolPierre'], i*32,j*32);
+                    break;
+                case 2:
+                    console.log("mur");
+                    this._ctx.drawImage(this._images['MurHaut'], i*32,j*32);
+                    break;
+            }
         }
     }
 }
@@ -43,6 +59,28 @@ VueEcran.prototype.dessinerEnnemy = function() {
     
 }
 
+
+VueEcran.prototype.dessinerAttack = function(){
+    this._modele.addEventListener("Attack",function() {
+        switch (this._modele._etatMouvement){
+            case 'idleGauche':
+                this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x -1)*32, (this._modele._playerPosition.y)*32);
+                break;
+            case 'idleDroit':
+                this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x +1)*32, (this._modele._playerPosition.y)*32);
+                break;
+            case 'idleBas':
+                this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32, (this._modele._playerPosition.y +1)*32);
+                break;
+            case 'idleHaut':
+                 this._ctx.drawImage(this._images['Attack'],(this._modele._playerPosition.x)*32 , (this._modele._playerPosition.y-1)*32);
+                break;
+        }
+    }.bind(this)); 
+    this._modele.addEventListener("Mort",function(ennemy) {
+        this._ctx.drawImage(this._images['Crane'],(ennemy._pos.x)*32, (ennemy._pos.y)*32);
+    }.bind(this)); 
+}
 VueEcran.prototype.dessinerBarDeVie = function() {
     //A changer par les vrais PV des joueurs
     let PVActuel = 0;
@@ -102,7 +140,9 @@ let getImages = function() {
         HealthBarContent0 : new Image(),
         HealthBar1 : new Image(),
         HealthBarContent1 : new Image(),
-        Heart : new Image()
+        Heart : new Image(),
+        Attack : new Image(),
+        Crane : new Image()
     }
     for (let nomImage in images) {
         images[nomImage].src = "data:image/png;base64," + dataImage[nomImage];

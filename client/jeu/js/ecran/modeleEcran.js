@@ -131,7 +131,6 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
 ModeleEcran.prototype.attaquer = function() {
     let x;
     let y;
-    console.log(this._etatMouvement);
     switch (this._etatMouvement){
         case 'idleGauche':
             x = -1;
@@ -164,6 +163,7 @@ ModeleEcran.prototype.attaquer = function() {
             e.PV -= 5;
             console.log(e.PV);
         }
+        this.loadEvent("Attack");
 
         if(e.PV <= 0)
         {
@@ -175,6 +175,7 @@ ModeleEcran.prototype.attaquer = function() {
                     this._salleAffiche._nbMonstre -= 1;
                 }
             }
+            this.loadEvent("Mort", e);
         }
     });
 }
