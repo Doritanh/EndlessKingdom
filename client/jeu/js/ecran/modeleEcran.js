@@ -144,7 +144,7 @@ ModeleEcran.prototype.animationMouvement = function(direction) {
 
 ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
     if(this._timerAnimationPerso === 0) {
-        if (haut) {
+        if (haut && !bas && !gauche && !droit) {
             this._etatMouvement = "idleHaut";
             this._nomFrameMouvement = "BarbareHaut0";
             if (this._playerPosition.y > 0) {
@@ -156,7 +156,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
             }
             
         }
-        if (bas) {
+        if (bas && !haut && !gauche && !droit) {
             this._etatMouvement = "idleBas";
             this._nomFrameMouvement = "BarbareFace0";
             if (this._playerPosition.y < this._salleAffiche._taille.y) {
@@ -168,7 +168,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
                 
             }
         }
-        if (gauche) {
+        if (gauche && !haut && !bas && !droit) {
             this._etatMouvement = "idleGauche";
             this._nomFrameMouvement = "BarbareGauche0";
             if (this._playerPosition.x > 0) {
@@ -179,7 +179,7 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
                 }
             }
         }
-        if (droit) {
+        if (droit && !haut && !bas && !gauche) {
             this._etatMouvement = "idleDroit";
             this._nomFrameMouvement = "BarbareDroite0";
             if (this._playerPosition.x < this._salleAffiche._taille.x) {
