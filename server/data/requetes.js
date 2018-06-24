@@ -79,14 +79,11 @@ module.exports = {
         });
         return promise;
     },
-    ajouterPersonnage : async function(id, nom, difficulte) {
+    ajouterPersonnage : async function(id, personnage) {
         const client = await database.connect();
         const collection =  client.db(database.nom()).collection('utilisateurs');
         let promise = new Promise(function(resolve, reject) {
-            collection.update({'_id' : id}, {$push : {'personnages' : {
-                'nom' : nom,
-                'difficulte' : difficulte
-            }}}, function(err, result) {
+            collection.update({'_id' : id}, {$push : {'personnages' : personnage}}, function(err, result) {
                 client.close();
                 if (err) return reject();
                 if (result) {
@@ -102,8 +99,7 @@ module.exports = {
         const client = await database.connect();
         const collection =  client.db(database.nom()).collection('utilisateurs');
         let promise = new Promise(function(resolve, reject) {
-            collection.update({'_id' : id}, {$push : {'donjons' : donjon}
-        }, function(err, result) {
+            collection.update({'_id' : id}, {$push : {'donjons' : donjon}}, function(err, result) {
                 client.close();
                 if (err) return reject();
                 if (result) {

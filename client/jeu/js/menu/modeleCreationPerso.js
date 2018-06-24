@@ -5,12 +5,13 @@ export class ModeleCreationPerso extends Modele {
         super(socket);
     }
 
-    nouveauPersonnage(nom, difficulte) {
+    nouveauPersonnage(nom, difficulte, classe) {
         this._socket.send(JSON.stringify({
             'id' : 'creationPerso',
             'values' : {
                 'nom' : nom,
-                'difficulte' : difficulte
+                'difficulte' : difficulte,
+                'classe' : classe
             }
         }));
     }

@@ -6,21 +6,133 @@ export class Ressource {
                 conteneur : new Image(),
                 source : 'SolPierre.png'
             },
-            BarbareDroite : {
+            BarbareDroite0 : {
                 conteneur : new Image(),
-                source : 'BarbareDroite.png'
+                source : 'BarbareDroite(0).png'
             },
-            BarbareHaut : {
+            BarbareDroite1 : {
                 conteneur : new Image(),
-                source : 'BarbareDos.png'
+                source : 'BarbareDroite(1).png'
             },
-            BarbareGauche : {
+            BarbareDroite2 : {
                 conteneur : new Image(),
-                source : 'BarbareGauche.png'
+                source : 'BarbareDroite(2).png'
             },
-            BarbareFace : {
+            BarbareDroite3 : {
                 conteneur : new Image(),
-                source : 'BarbareFace.png'
+                source : 'BarbareDroite(3).png'
+            },
+            BarbareHaut0 : {
+                conteneur : new Image(),
+                source : 'BarbareDos(0).png'
+            },
+            BarbareHaut1 : {
+                conteneur : new Image(),
+                source : 'BarbareDos(1).png'
+            },
+            BarbareHaut2 : {
+                conteneur : new Image(),
+                source : 'BarbareDos(2).png'
+            },
+            BarbareHaut3 : {
+                conteneur : new Image(),
+                source : 'BarbareDos(3).png'
+            },
+            BarbareGauche0 : {
+                conteneur : new Image(),
+                source : 'BarbareGauche(0).png'
+            },
+            BarbareGauche1 : {
+                conteneur : new Image(),
+                source : 'BarbareGauche(1).png'
+            },
+            BarbareGauche2 : {
+                conteneur : new Image(),
+                source : 'BarbareGauche(2).png'
+            },
+            BarbareGauche3 : {
+                conteneur : new Image(),
+                source : 'BarbareGauche(3).png'
+            },
+            BarbareFace0 : {
+                conteneur : new Image(),
+                source : 'BarbareFace(0).png'
+            },
+            BarbareFace1 : {
+                conteneur : new Image(),
+                source : 'BarbareFace(1).png'
+            },
+            BarbareFace2 : {
+                conteneur : new Image(),
+                source : 'BarbareFace(2).png'
+            },
+            BarbareFace3 : {
+                conteneur : new Image(),
+                source : 'BarbareFace(3).png'
+            },
+            MurHaut : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
+            },
+            MurBas : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
+            },
+            MurGauche : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
+            },
+            MurDroit : {
+                conteneur : new Image(),
+                source : 'MurPierre.png'
+            },
+            OrcFace : {
+                conteneur : new Image(),
+                source : 'OrcFace.png'
+            },
+            HealthBar0 : {
+                conteneur : new Image(),
+                source : 'HealthBar0.png'
+            },
+            HealthBarContent0 : {
+                conteneur : new Image(),
+                source : 'HealthBarContent0.png'
+            },
+            HealthBar1 : {
+                conteneur : new Image(),
+                source : 'HealthBar1.png'
+            },
+            HealthBarContent1 : {
+                conteneur : new Image(),
+                source : 'HealthBarContent1.png'
+            },
+            Heart : {
+                conteneur : new Image,
+                source : 'Heart.png'
+            },
+            AttackBas : {
+                conteneur : new Image,
+                source : 'AttackBas.png'
+            },
+            AttackDroite : {
+                conteneur : new Image,
+                source : 'AttackDroite.png'
+            },
+            AttackGauche : {
+                conteneur : new Image,
+                source : 'AttackGauche.png'
+            },
+            AttackHaut : {
+                conteneur : new Image,
+                source : 'AttackHaut.png'
+            },
+            Crane : {
+                conteneur : new Image,
+                source : 'Crane.png'
+            },
+            Coffre : {
+                conteneur : new Image,
+                source : 'Coffre.png'
             }
         };
     }

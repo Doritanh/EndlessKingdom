@@ -14,9 +14,9 @@
     <!-- Fenetre d'affichage du jeu -->
     <div id="ecran">
         <div class="flex">
-            <canvas class="avant" width=800 height=600>
-                Arreter d'utiliser des naviguateurs du tier monde SVP.
-            </canvas>
+            <canvas class="background" width=800 height=600></canvas>
+            <canvas class="foreground" width=800 height=600></canvas>
+            <canvas class="effects" width=800 height=600></canvas>
         </div>
     </div>
 
@@ -29,16 +29,17 @@
             </div>
             <div id="choixPerso">
                 <span class="titreChoixPerso">Choix de votre héros</span>
-                <div class="picturePerso"></div>
+                <img id="picturePerso"></img>
                 <div id="selectionPerso">
                     <button id="btnLeft"><</button>
                     <span class="selectedPerso">Personnage 1</span>
                     <button id="btnRight">></button>
                 </div>
-                <button class="nouveauPerso">Nouveau héros</button>
+                <button id="nouveauPerso" disabled>Nouveau héros (désactivé)</button>
             </div>
             <div id="compte">
                 <span class="titreChoixCompte">Titulaire du compte</span>
+                <span id="nomCompte"></span>
             </div>
             <div id="choixDonjon">
                 <span class="titreChoixDonjon">Liste de vos donjons</span>
@@ -49,15 +50,28 @@
 
     <!-- Fenetre de création du personnage -->
     <div id="creationPerso">
-        <form>
-            <p>Nom de votre personnage</p>
-            <input type="text" name="nom" value="Foo">
-            <p>Difficulté choisis</p>
-            <input type="radio" name="difficulte" value="0">Héritage Total<br>
-            <input type="radio" name="difficulte" value="1" checked>Héritage de compétences<br>
-            <input type="radio" name="difficulte" value="2">Pas d'héritage<br>
-            <input type="submit" value="Créer !" >
-        </form>
+        <div class="flex">
+            <h1>Création de personnage</h1>
+            <span class="message"></span>
+            <form>
+                <h2>Nom de votre personnage</h2>
+                <input type="text" name="nom" value="Gandalf">
+                <h3>Mode d'héritage du personnage</h3>
+                <p>
+                    Le mode d'héritage représente la difficulté du jeu. Votre personnage possède des items et des compétences, mais ce dernier peut mourir.
+                    Si vous choisissez l'héritage total, à la mort de votre personnage, vous garderez vos compétence et items. En mode héritage de compétences,
+                    vous ne garderez que les compétences de votre personnage et en mode pas d'héritage, vous perdez tout lors de votre mort.
+                </p>
+                <input type="radio" name="difficulte" value="0">Héritage Total<br>
+                <input type="radio" name="difficulte" value="1" checked>Héritage de compétences<br>
+                <input type="radio" name="difficulte" value="2">Pas d'héritage<br>
+                <h3>Classe</h3>
+                <input type="radio" name="classe" value="0" checked>Barbare<br>
+                <input type="radio" name="classe" value="0" disabled>Magicien (Pas disponible)<br>
+                <input type="radio" name="classe" value="0" disabled>Archer (Pas disponible)<br>
+                <input type="submit" value="Créer !" >
+            </form>
+        </div>
     </div>
     <!-- Fichier du jeu -->
     <script src="/client/jeu/js/main.js" type="module"></script>

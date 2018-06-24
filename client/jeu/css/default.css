@@ -6,13 +6,18 @@ html, body{
   margin: 0px;
   padding: 0px;
   background-color: rgb(151, 160, 175);
-  overflow: hidden;
   display: flex;
   justify-content: center;
 }
+
+/*
+**  ECRAN
+*/
 #ecran {
   width: 100%;
   height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 #ecran .flex {
   display: flex;
@@ -25,8 +30,21 @@ html, body{
   image-rendering: -webkit-crisp-edges;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+  position: absolute;
+}
+#ecran .background {
+  z-index: 1;
+}
+#ecran .foreground {
+  z-index: 2;
+}
+#ecran .effects {
+  z-index: 3;
 }
 
+/*
+**  MENU
+*/
 #menu {
   width: 100%;
   height: 100%;
@@ -60,12 +78,41 @@ html, body{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  font-family: 'Cinzel', serif;
+}
+#menu #choixPerso #selectionPerso {
+  margin: auto;
+}
+#menu #choixPerso #btnLeft,
+#menu #choixPerso #btnRight {
+  background-color: rgb(236,236,236);
+  border: 2px solid rgb(34, 49, 63);
+  border-radius: 16px;
+  cursor: pointer;
+}
+#menu #choixPerso #nouveauPerso {
+  font-family: 'Cinzel', serif;
+  margin-top: 6%;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(236,236,236);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: medium;
+  transition-duration: 0.4s;
+}
+#menu #choixPerso #nouveauPerso:hover {
+  cursor: pointer;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(151, 160, 175);
 }
 
-#menu .picturePerso {
+#menu #picturePerso {
   height: 200px;
-  background-color: aliceblue;
   margin: 10px;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 #menu #compte {
@@ -73,6 +120,13 @@ html, body{
   grid-row: 3;
   margin: auto;
   padding-top: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#menu #compte #nomCompte {
+  font-family: 'Cinzel', serif;
+  font-size: large;
 }
 
 #menu .titreChoixPerso,
@@ -92,4 +146,73 @@ html, body{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+#menu #creerDonjonButton {
+  font-family: 'Cinzel', serif;
+  margin-top: 4%;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(236,236,236);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: medium;
+  transition-duration: 0.4s;
+}
+#menu #creerDonjonButton:hover {
+  cursor: pointer;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(151, 160, 175);
+}
+
+/*
+**  CREATION PERSO
+*/
+#creationPerso {
+  font-family: 'Cinzel', serif;
+  overflow: visible;
+}
+#creationPerso .flex {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: auto;
+  background-color: rgb(236,236,236);
+  border: 4px solid rgb(34, 49, 63);
+  border-radius: 4px;
+  margin-top: 2%;
+  text-align: center;
+}
+#creationPerso .message {
+  display: none;
+  color: rgb(150, 40, 27);
+}
+#creationPerso input[type="text"] {
+  transition-duration: 0.5s;
+  text-align: center;
+  border: 2px solid rgb(34, 49, 63);
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: large;
+}
+#creationPerso h3 {
+  margin-top: 6%;
+}
+#creationPerso p {
+  text-align: justify;
+  text-justify: inter-word;
+  padding: 2px 20px;
+}
+#creationPerso input[type="submit"] {
+  margin-top: 4%;
+  margin-bottom: 2%;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(236,236,236);
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: large;
+  transition-duration: 0.4s;
+}
+#creationPerso input[type="submit"]:hover {
+  cursor: pointer;
+  border: 2px solid rgb(34, 49, 63);
+  background-color: rgb(151, 160, 175);
 }

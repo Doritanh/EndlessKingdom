@@ -1,3 +1,5 @@
+const Salle = require('./salle');
+
 class Donjon {
     constructor(niveau, maxTaille, maxSalles) {
         this._niveau = niveau;
@@ -6,6 +8,8 @@ class Donjon {
         this._matrice = matrice(this._maxSalles, this._maxTaille);
         this._salles = salles(this._matrice);
         this._spawn = spawn(this._maxSalles, this._matrice);
+        this._fin = fin(this._maxSalles, this._matrice, this._spawn);
+        this._salles[this._fin.x][this._fin.y]._fin = true;
         this._mode = 0;
         this._nom = nom();
     }
@@ -273,36 +277,26 @@ let spawn = function(maxSalles, matrice) {
         'y' : y
     }
 }
-
-class Salle {
-    constructor(north, south, west, east) {
-        this._taille = {
-            x : 21,
-            y : 12
-        };
-        this._portes = {
-            'north' : north,
-            'south' : south,
-            'west' : west,
-            'east' : east
-        }
-        this._nbMonstre = 0;
-
-        //Pourcentage change nombre de monstre
-        let x = generationNombre(0,20);
-        if (x === 0) {
-            this._nbMonstre = 0;
-        } else if(x < 6) {
-            this._nbMonstre = 1;
-        } else if (x < 11) {
-            this._nbMonstre = 2;
-        } else if (x < 16) {
-            this._nbMonstre = 3;
-        } else if (x < 20) {
-            this._nbMonstre = 4;
-        } else {
-            this._nbMonstre = 5;
+let fin = function(maxSalles, matrice, spawn) {
+    let fin = generationNombre(0, maxSalles-1);
+    let compteur = 0;
+    let x = 0, y = 0;
+    for (let i = 0; i < matrice.length; i++) {
+        for (let j = 0; j < matrice[i].length; j++) {
+            if (i != spawn.x || j != spawn.y) {
+                if (matrice[i][j] === 1) {
+                    if (compteur === fin) {
+                        x = i;
+                        y = j;
+                        break;
+                    }
+                    compteur++;
+                }
+            }
         }
     }
-
+    return {
+        'x' : x,
+        'y' : y
+    }
 }

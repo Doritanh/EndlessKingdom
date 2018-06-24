@@ -24,12 +24,18 @@ module.exports = function(socketServer) {
                 utilisateur.setSessionID(content.id);
             } else if (id === 'status') {
                 utilisateur.sendStatus();
+            } else if (id === 'demandePerso') {
+                utilisateur.lancerCreationPersonnage();
             } else if (id === 'creationPerso') {
-                utilisateur.creationPersonnage(content.nom, content.difficulte);
+                utilisateur.creationPersonnage(content.nom, content.difficulte, content.classe);
+            } else if (id === 'selectionnerPerso') {
+                utilisateur.setPersonnage(content.selected) 
             } else if (id === 'creerDonjon') {
                 utilisateur.creationDonjon();
             } else if (id === 'lancerDonjon') {
                 utilisateur.lancerDonjon(content.niveau, content.personnage);
+            } else if (id === 'finDonjon') {
+                utilisateur.finDonjon(content.gagne);
             }
         });
         /*

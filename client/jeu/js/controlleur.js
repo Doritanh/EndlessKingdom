@@ -18,7 +18,8 @@ export class Controlleur {
             haut : false,
             bas : false,
             gauche : false,
-            droite : false
+            droite : false,
+            space : false
         };
         // Modeles & Vues
         this._modeles = {
@@ -57,42 +58,46 @@ Controlleur.prototype.setStatus = function(content) {
         case 'MENU':
             this._modeles.menu.setPersonnages(contenu.personnages);
             this._modeles.menu.setDonjons(contenu.donjons);
-            this._vues.menu.rafraichir();
+            this._modeles.menu.setActuelPersonnage(contenu.actuelPersonnage);
+            this._modeles.menu.setCompte(contenu.compte);
             this._vues.menu.afficher('menu');
             break;
         case 'DONJON':
             this._modeles.ecran.setDonjon(contenu.donjon);
             this._modeles.ecran.setPersonnage(contenu.personnage);
             this._vues.ecran.afficher('ecran');
-            setInterval(function() {
-                this._vues.ecran.dessiner();
-            }.bind(this), 1000/60);
             break;
     }
 }
 
 let keyboardEvents = function(controlleur) {
     window.addEventListener('keydown', event => {
-        switch (event.key) {
-            case 'ArrowUp':
-                controlleur._clavier.haut = true;
-                break;
-            case 'ArrowDown':
-                controlleur._clavier.bas = true;
-                break;
-            case 'ArrowLeft' :
-                controlleur._clavier.gauche = true;
-                break;
-            case 'ArrowRight':
-                controlleur._clavier.droite = true;
-                break;
+        if (controlleur._vues.ecran._active == true) {
+            switch (event.code) {
+                case 'ArrowUp':
+                    controlleur._clavier.haut = true;
+                    break;
+                case 'ArrowDown':
+                    controlleur._clavier.bas = true;
+                    break;
+                case 'ArrowLeft' :
+                    controlleur._clavier.gauche = true;
+                    break;
+                case 'ArrowRight':
+                    controlleur._clavier.droite = true;
+                    break;
+                case 'Space':
+                    controlleur._modeles.ecran.attaquer();
+                    break;
+            }
+            controlleur._modeles.ecran.bougerPersonnage(
+                controlleur._clavier.haut, 
+                controlleur._clavier.bas, 
+                controlleur._clavier.gauche, 
+                controlleur._clavier.droite);
         }
-        controlleur._modeles.ecran.bougerPersonnage(
-            controlleur._clavier.haut, 
-            controlleur._clavier.bas, 
-            controlleur._clavier.gauche, 
-            controlleur._clavier.droite);
     });
+        
     window.addEventListener('keyup', event => {
         switch (event.key) {
             case 'ArrowUp':
@@ -106,6 +111,9 @@ let keyboardEvents = function(controlleur) {
                 break;
             case 'ArrowRight':
                 controlleur._clavier.droite = false;
+                break;
+            case 'Space':
+                controlleur._clavier.space = false;
                 break;
         }
     });

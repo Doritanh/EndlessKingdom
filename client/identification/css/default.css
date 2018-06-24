@@ -1,83 +1,164 @@
+@import url('https://fonts.googleapis.com/css?family=Cinzel');
+
 html, body {
     margin: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-#centre {
-    text-align: center;
+    padding: 0;
+    font-family: 'Cinzel', sans-serif;
+    /*background-image: url(http://image.noelshack.com/fichiers/2018/25/5/1529660652-576.jpg);*/
+    background-color:  rgb(151, 160, 175);
     display: flex;
     flex-direction: column;
+}
+
+a {
+    color: rgb(151, 160, 175);
+    text-decoration : underline;
+}
+a:hover {
+    text-decoration: none;
+}
+
+/*
+**  SECTION HEADER
+*/
+header {
+    /*background-color: #1E5532;*/
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 4px solid rgb(34, 49, 63);
+}
+header .logo {
+    font-size: xx-large;
+    color : rgb(236,236,236);
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    margin-left: 16px;
+}
+header .infosComplementaires {
+    padding-right: 40px;
+}
+
+/*
+**  SECTION IDENTIFICATION
+*/
+
+.identification {
+    background-image: url(http://image.noelshack.com/fichiers/2018/25/4/1529590979-dungeon-wallpaper.jpg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
+
 #fenetre {
-    display: flex;
+    background-color: rgb(151, 160, 175);
+    margin-top: 2%;
+    margin-bottom: 2%;
+    display:flex;
     flex-direction: column;
-    border: solid 1px black;
-    margin-top: 150px;
-    border: outset 5px;
-    border-radius: 18px;
-    height: 280px;
+    border: 5px solid rgb(34, 49, 63);
+    border-radius: 14px;
+    height: 100%;
     transition: 0.4s;
     min-width: 340px;
 }
-/* BOUTONS */
 #buttons {
     display: flex;
     flex-direction: row;
     min-height: 70px;
 }
-
-.chMenu {
+#buttons button {
     font-size: 30px;
     margin: 0px;
     padding: 15px;
+    font-family: 'Cinzel', sans-serif;
+    background-color: rgb(236,236,236);
+    border: 0px;
+    cursor: pointer;
 }
-#btn_connexion {
-    border-radius: 10px 0px 0px 0px;
-    border-style: inset;
+#buttons #btn_connexion {
+    background-color: rgb(151, 160, 175);
+    border-radius: 11px 0px 0px 0px;
 }
-#btn_inscription {
-    border-radius:0px 10px 0px 0px;
+#buttons #btn_inscription {
+    border-radius:0px 11px 0px 0px;
 }
 .btn_validation {
     margin-top: 10px;
 }
-/* FORMULAIRES */
 #inscription {
     display: none;
 }
-
 .formulaire {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    text-align: center;
+    align-items: center;
 }
-
 .formulaire input {
-    width: 200px;
-    align-content: center;
-    transform: translateX(74.5px);
-}
-
-.formulaire input[type="submit"] {
-    width: 85px;
-    transform: translateX(132px);
-}
-
-.champ {
     font-size: 20px;
-    border:solid 1px;
-    width: 200px;
+    border: 2px solid rgb(228, 241, 254);
+    border-radius: 4px;
     margin-bottom: 15px;
 }
-
+.formulaire input:focus {
+    transition-duration: 0.4s;
+    border: 2px solid white;
+    background-color: rgb(151, 160, 175);
+}
+.formulaire input[type="submit"] {
+    font-family: 'Cinzel', sans-serif;
+    border-radius: 4px;
+    border: 2px solid rgb(228, 241, 254);
+    background-color: white;
+    cursor: pointer;
+}
+.formulaire input[type="submit"]:hover {
+    transition-duration: 0.4s;
+    border-radius: 4px;
+    background-color: rgb(151, 160, 175);
+    color: rgb(228, 241, 254);
+}
 .labelForm {
+    color: rgb(228, 241, 254);
     padding-bottom: 0px;
     font-size: 20px;
 }
-
 #fade {
     transition: 0.3s;
+}
+
+#message {
+    padding: 5px 10px;
+    background-color: rgb(151, 160, 175);
+    border-radius: 3px;
+    border: 2px solid white;
+    color: rgb(150, 40, 27);
+    font-weight: bold;
+    margin-top: 1%;
+    display: none;
+}
+
+/*
+**  FOOTER
+*/
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: 4px solid rgb(34, 49, 63);
+}
+footer div {
+    margin: 20px;
+    border: 2px solid rgb(34, 49, 63);
+    background-color: rgb(236,236,236);
+    border-radius: 6px;
+}
+footer article {
+    color: rgb(108, 122, 137);
+    text-align: center;
 }

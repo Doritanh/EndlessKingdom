@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Identification</title>
+    <title>EndlessKingdom</title>
     <link rel="stylesheet" type="text/css" href="client/identification/css/default.css"/>
     <meta charset="utf-8" />
 </head>
 <body>
-    <noscript>S'il vous plaît, télecharger un vrais naviguateur supportant Javascript...</noscript>
-    
-    <div id="centre">
-        <h1>Endless Kingdom</h1>
+    <noscript>S'il vous plaît, télécharger un vrai navigateur supportant Javascript...</noscript>
 
+    <!-- Banniere haute -->
+    <header>
+        <span class="logo">Endless Kingdom</span>
+        <!--<a href="#Info" class="infosComplementaires">Informations complémentaires</a>--> 
+    </header>
+
+    <section class="identification">
         <div id="message"></div>
-
         <div id="fenetre">
             <div id="buttons">
-                <input type="button" value="Connexion" id="btn_connexion" class="chMenu">
-                <input type="button" value="Inscription" id="btn_inscription"class="chMenu">
+                <button id="btn_connexion">Connexion</button>
+                <button id="btn_inscription">Inscription</button>
             </div>
-
+  
             <div id="fade">
                 <div id="connexion">
                     <form id="frm_connexion" class="formulaire">
@@ -31,7 +34,7 @@
                         <input type="submit" value="Connexion" class="btn_validation" id="btn_valideConnexion"/>
                     </form>
                 </div>
-
+  
                 <div id="inscription">
                     <form id="frm_inscription" method="POST" onsubmit="return false;" class="formulaire">
                         <label class="labelForm">Pseudo</label>
@@ -49,9 +52,35 @@
                         <input type="submit" value="S'inscrire" class="btn_validation" id="btn_valideInscription"/>
                     </form>
                 </div>
+
             </div>
         </div>
-    </div>
+    </section>
+
+    <footer>
+        <div class="border">
+            <article>
+                <h2> Le Jeu Endless Kingdom </h2>
+                <p>
+                Endless Kingdom est un jeu Rogue-Like 2D. Dans ce jeu, vous pouvez être un barbare, un archer ou bien un magicien. Vous évoluerez dans monde médiéval-fantastique. Pour gagner en compétence et en force, vous devrez parcourir des donjons peuplés de monstres, votre but : ne pas mourir afin de faire évoluer vos personnages.
+                </p>
+            </article>
+            <article>
+                <h2>Aide</h2>
+                <p>Pour télécharger le manuel d'utilisation, cliquer sur le lien : 
+                    <a href="client/identification/manuelUtilisateur.pdf" download>ici</a>
+                </p>
+            </article>
+            <article>
+                <h2>À propos</h2>
+                <p>
+                    Ce site et ce jeu ont été réalisés dans le cadre d'un projet Universitaire de l'IUT d'Orsay.
+                    Jeu créé par Anthony CHARRIER, Lucas PAYET, Charly PRINTANNIER, Marion RIVIERE
+                </p>
+            </article>
+        </div>
+    </footer>
+
 </body>
 <script src="client/identification/js/main.js"></script>
 </html>
