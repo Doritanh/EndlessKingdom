@@ -19,6 +19,7 @@ export class ModeleEcran extends Modele {
             y : 6
         }
         this._ennemy = [];
+        this._intervalles = [];
     }
 
     setDonjon(donjon) {
@@ -58,12 +59,15 @@ ModeleEcran.prototype.changeSalle = function(direction) {
             break;
     }
     this.creerEnnemy(this._salleAffiche);
-    if(this._salleAffiche._nbMonstre > 0)
-    {
-        setInterval(function(){
+    for (let interval in this._intervalles) {
+        clearInterval(this._intervalles[interval]);
+    }
+    if(this._salleAffiche._nbMonstre > 0) {
+        let interval = setInterval(function(){
             this.bougerEnnemy();
             this.attaqueEnnemy();
         }.bind(this),1000/2);
+        this._intervalles.push(interval);
     }
     this.loadEvent('changementSalle');
 }
