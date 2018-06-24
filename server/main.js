@@ -9,7 +9,7 @@ module.exports = function(socketServer) {
 
     socketServer.on('connection', function(ws) {
         let utilisateur = new Utilisateur(new Socket(ws), sessions);
-        console.log("connexion")
+        
         // Reception d'un socket
         ws.on('message', async function(data) {
             let id = JSON.parse(data).id;
