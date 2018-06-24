@@ -12,6 +12,7 @@ class Salle {
         };
         this._nbMonstre = nbMonstre(5);
         this._matrice = matrice(20, 11, this._portes);
+        this._fin = false;
     }
 }
 
