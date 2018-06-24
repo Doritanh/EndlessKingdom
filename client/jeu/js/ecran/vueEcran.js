@@ -41,9 +41,12 @@ VueEcran.prototype.dessinerJoueur = function() {
 }
 
 VueEcran.prototype.dessinerEnnemy = function() {
-    if (typeof this._modele._ennemy[0] !== 'undefined') {
-        this._foreground.ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[0]._pos.x*32,this._modele._ennemy[0]._pos.y*32)
-    }
+    for (let i = 0; i < this._modele._ennemy.length;i++)
+    {
+        if (typeof this._modele._ennemy[i] !== 'undefined') {
+            this._foreground.ctx.drawImage(this._images['OrcFace'], this._modele._ennemy[i]._pos.x*32,this._modele._ennemy[i]._pos.y*32)
+        }
+    }   
 }
 
 VueEcran.prototype.dessinerSalle = function() {
@@ -64,6 +67,10 @@ VueEcran.prototype.dessinerSalle = function() {
                     break;
             }
         }
+    }
+    if (this._modele._salleAffiche._fin)
+    {
+        ctx.drawImage(this._images['Coffre'], (this._modele._salleAffiche._taille.x/2)*32, (this._modele._salleAffiche._taille.y/2)*32);
     }
 }
 
@@ -150,7 +157,8 @@ let getImages = function() {
         AttackDroite : new Image(),
         AttackGauche : new Image(),
         AttackHaut : new Image(),
-        Crane : new Image()
+        Crane : new Image(),
+        Coffre : new Image()
     }
     for (let nomImage in images) {
         images[nomImage].src = "data:image/png;base64," + dataImage[nomImage];

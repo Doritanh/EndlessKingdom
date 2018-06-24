@@ -129,6 +129,10 @@ export class Ressource {
             Crane : {
                 conteneur : new Image,
                 source : 'Crane.png'
+            },
+            Coffre : {
+                conteneur : new Image,
+                source : 'Coffre.png'
             }
         };
     }
