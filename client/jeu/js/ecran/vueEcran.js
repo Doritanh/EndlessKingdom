@@ -19,6 +19,20 @@ export class VueEcran extends Vue {
         this._modele.addEventListener("Mort",function(ennemy) {
             this.dessinerMort(ennemy);
         }.bind(this));
+        this._modele.addEventListener("Win" , function() {
+            this.endGame();
+        }.bind(this));
+        this._modele.addEventListener("Loose" , function() {
+            this.endGame(false);
+        }.bind(this));
+        
+        window.addEventListener('resize', function(){
+            this._background.resize();
+            this._foreground.resize();
+            this._effects.resize();
+
+            this.dessinerSalle();
+        }.bind(this), false);
     }
 
     rafraichir() {
@@ -121,6 +135,16 @@ VueEcran.prototype.dessinerBarDeVie = function() {
     ctx.drawImage(this._images['HealthBarContent1'], posXHealthBar, 0);
     ctx.drawImage(this._images['HealthBar1'], 0, 0, swHB1, 32, posXHealthBar, 0, dwHB1, 32);
     ctx.drawImage(this._images['Heart'], posXHealthBar-48, 0);
+}
+
+VueEcran.prototype.endGame = function(win = true) {
+    let ctx = this._background.ctx;
+    ctx.font = "30px Sans-Serif";
+    if (win) {
+        ctx.fillText("Vous avez gagné !",200, 200); 
+    } else {
+        ctx.fillText("Vous avez perdu :(",200,200); 
+    }
 }
 
 let getImages = function() {

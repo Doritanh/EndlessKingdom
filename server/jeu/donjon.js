@@ -8,7 +8,7 @@ class Donjon {
         this._matrice = matrice(this._maxSalles, this._maxTaille);
         this._salles = salles(this._matrice);
         this._spawn = spawn(this._maxSalles, this._matrice);
-        this._fin = fin(this._maxSalles, this._matrice);
+        this._fin = fin(this._maxSalles, this._matrice, this._spawn);
         this._salles[this._fin.x][this._fin.y]._fin = true;
         this._mode = 0;
         this._nom = nom();
@@ -277,19 +277,21 @@ let spawn = function(maxSalles, matrice) {
         'y' : y
     }
 }
-let fin = function(maxSalles, matrice) {
+let fin = function(maxSalles, matrice, spawn) {
     let fin = generationNombre(0, maxSalles-1);
     let compteur = 0;
     let x = 0, y = 0;
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
-            if (matrice[i][j] === 1) {
-                if (compteur === fin) {
-                    x = i;
-                    y = j;
-                    break;
+            if (i != spawn.x || j != spawn.y) {
+                if (matrice[i][j] === 1) {
+                    if (compteur === fin) {
+                        x = i;
+                        y = j;
+                        break;
+                    }
+                    compteur++;
                 }
-                compteur++;
             }
         }
     }

@@ -214,6 +214,22 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
             this.changeSalle('east');
         }
     }
+
+    if (this._donjon._fin.x == this._position.x && this._donjon._fin.y == this._position.y) {
+        if (this._playerPosition.x == Math.floor(this._salleAffiche._taille.x/2) 
+            && this._playerPosition.y == Math.floor(this._salleAffiche._taille.y/2)) {
+                this.loadEvent('Win');
+                setTimeout(function() {
+                    this._socket.send(JSON.stringify({
+                        'id' : 'finDonjon',
+                        'values' : {
+                            'gagne' : true
+                        }
+                    }));
+                    window.location.reload();
+                }.bind(this), 1000);
+        }
+    }
 }
 
 ModeleEcran.prototype.attaquer = function() {
@@ -403,6 +419,19 @@ ModeleEcran.prototype.attaqueEnnemy = function()
             this._personnage._PV -= e._ATK
         }
     });
+    if (this._personnage._PV <= 0) {
+        this.loadEvent('Loose');
+        setTimeout(function() {
+            console.log("lol")
+            this._socket.send(JSON.stringify({
+                'id' : 'finDonjon',
+                'values' : {
+                    'gagne' : false
+                }
+            }));
+            window.location.reload();
+        }.bind(this), 1000);
+    }
 }
 
 

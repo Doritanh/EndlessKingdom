@@ -17,9 +17,6 @@ export class Canvas {
         };
         this.resize();
         var canvas = this;
-        window.addEventListener('resize', function(){
-            this.resize();
-        }.bind(this), false);
     }
 }
 
