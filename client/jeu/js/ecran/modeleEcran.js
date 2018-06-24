@@ -219,13 +219,13 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
         if (this._playerPosition.x == Math.floor(this._salleAffiche._taille.x/2) 
             && this._playerPosition.y == Math.floor(this._salleAffiche._taille.y/2)) {
                 this.loadEvent('Win');
+                this._socket.send(JSON.stringify({
+                    'id' : 'finDonjon',
+                    'values' : {
+                        'gagne' : true
+                    }
+                }));
                 setTimeout(function() {
-                    this._socket.send(JSON.stringify({
-                        'id' : 'finDonjon',
-                        'values' : {
-                            'gagne' : true
-                        }
-                    }));
                     window.location.reload();
                 }.bind(this), 1000);
         }
@@ -421,14 +421,13 @@ ModeleEcran.prototype.attaqueEnnemy = function()
     });
     if (this._personnage._PV <= 0) {
         this.loadEvent('Loose');
+        this._socket.send(JSON.stringify({
+            'id' : 'finDonjon',
+            'values' : {
+                'gagne' : false
+            }
+        }));
         setTimeout(function() {
-            console.log("lol")
-            this._socket.send(JSON.stringify({
-                'id' : 'finDonjon',
-                'values' : {
-                    'gagne' : false
-                }
-            }));
             window.location.reload();
         }.bind(this), 1000);
     }
