@@ -283,15 +283,13 @@ let fin = function(maxSalles, matrice, spawn) {
     let x = 0, y = 0;
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
-            if (i != spawn.x || j != spawn.y) {
-                if (matrice[i][j] === 1) {
-                    if (compteur === fin) {
-                        x = i;
-                        y = j;
-                        break;
-                    }
-                    compteur++;
+            if (matrice[i][j] === 1) {
+                if (compteur === fin) {
+                    x = i;
+                    y = j;
+                    break;
                 }
+                compteur++;
             }
         }
     }
