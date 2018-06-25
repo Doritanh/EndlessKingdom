@@ -102,6 +102,16 @@ VueMenu.prototype.listeDonjons = function() {
             trDonjon.appendChild(tdMode);
         
             listeDonjons.appendChild(trDonjon);
+            if (i+1 === this._modele._donjons.length && mode == 'Exploration') {
+                let creerButton = document.createElement('button');
+                creerButton.id = 'creerDonjonButton';
+                let boutonNode = document.createTextNode('Création d\'un nouveau donjon');
+                creerButton.appendChild(boutonNode);
+                choixDonjon.appendChild(creerButton);
+                creerButton.addEventListener('click', e => {
+                    this._modele.creerDonjon();
+                }, false);
+            }
         }
     } else {
         let creerButton = document.createElement('button');
