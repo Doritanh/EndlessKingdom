@@ -257,17 +257,18 @@ let salles = function(matrice) {
 }
 
 let spawn = function(maxSalles, matrice) {
-    let spawn = 0;
+    let spawn = generationNombre(0, maxSalles-1);
+    let compteur = 0;
     let x = 0, y = 0;
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
             if (matrice[i][j] === 1) {
-                if (spawn == 0) {
+                if (compteur === spawn) {
                     x = i;
                     y = j;
                     break;
-                    spawn++;
                 }
+                compteur++;
             }
         }
     }
@@ -282,12 +283,16 @@ let fin = function(maxSalles, matrice, spawn) {
     let x = 0, y = 0;
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
-            if (compteur === fin) {
-                x = i;
-                y = j;
-                break;
+            if (i != spawn.x || j != spawn.y) {
+                if (matrice[i][j] === 1) {
+                    if (compteur === fin) {
+                        x = i;
+                        y = j;
+                        break;
+                    }
+                    compteur++;
+                }
             }
-            compteur++;
         }
     }
     return {
