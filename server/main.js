@@ -35,7 +35,7 @@ module.exports = function(socketServer) {
             } else if (id === 'lancerDonjon') {
                 utilisateur.lancerDonjon(content.niveau, content.personnage);
             } else if (id === 'finDonjon') {
-                utilisateur.finDonjon(content.gagne);
+                utilisateur.finDonjon(content.gagne, content.niveau);
             }
         });
         /*

@@ -119,7 +119,8 @@ Utilisateur.prototype.lancerDonjon = async function(niveau, personnage) {
     this.sendStatus();
 }
 
-Utilisateur.prototype.finDonjon = async function(gagne) {
+Utilisateur.prototype.finDonjon = async function(gagne, niveau) {
     const data = await this.getData();
+    if (gagne) requetes.setModeDonjon(data._id, niveau, 1);
     requetes.setDonjonActuel(data._id, 'none');
 }

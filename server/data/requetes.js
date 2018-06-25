@@ -144,5 +144,23 @@ module.exports = {
             });
         });
         return promise;
+    },
+    setModeDonjon : async function(id, niveauDonjon, mode) {
+        let field = 'donjons.' + niveauDonjon + '_mode';
+        const client = await database.connect();
+        const collection =  client.db(database.nom()).collection('utilisateurs');
+        let promise = new Promise(function(resolve, reject) {
+            collection.update({'_id' : id, 'donjons._niveau' : niveauDonjon}, {$set : {'donjons.$._mode' : mode}
+        }, function(err, result) {
+                client.close();
+                if (err) return reject();
+                if (result) {
+                    return resolve(true);
+                } else {
+                    return resolve(false);
+                }
+            });
+        });
+        return promise;
     }
 }
