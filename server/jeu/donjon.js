@@ -2,6 +2,8 @@ const Salle = require('./salle');
 
 class Donjon {
     constructor(niveau, maxTaille, maxSalles) {
+        this._nom = nom();
+        this._mode = 0;
         this._niveau = niveau;
         this._maxTaille = maxTaille;
         this._maxSalles = maxSalles;
@@ -9,9 +11,13 @@ class Donjon {
         this._salles = salles(this._matrice);
         this._spawn = genererSpawn(this._matrice);
         this._fin = genererFin(this._matrice, this._spawn);
+
+        // Mettre spawn dans la salle
+        this._salles[this._spawn.x][this._spawn.y]._spawn = true;
+        this._salles[this._spawn.x][this._spawn.y]._nbMonstre = 0;
+
+        // Mettre fin dans la salle
         this._salles[this._fin.x][this._fin.y]._fin = true;
-        this._mode = 0;
-        this._nom = nom();
     }
 }
 
@@ -216,6 +222,10 @@ let nom = function() {
     return mot1 + " " + mot2 + " " + mot3;
 };
 
+/**
+ * Pour chaque 1 de la matrice, instancie une salle dans un nouveau tableau
+ * @param {*} matrice 
+ */
 let salles = function(matrice) {
     let tabSalles = [];
     for (let i = 0; i < matrice.length; i++) {
