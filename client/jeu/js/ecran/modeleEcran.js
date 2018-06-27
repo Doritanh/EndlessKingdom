@@ -222,7 +222,8 @@ ModeleEcran.prototype.bougerPersonnage = function(haut, bas, gauche, droit) {
                 this._socket.send(JSON.stringify({
                     'id' : 'finDonjon',
                     'values' : {
-                        'gagne' : true
+                        'gagne' : true,
+                        'niveau' : this._donjon._niveau
                     }
                 }));
                 setTimeout(function() {
@@ -424,7 +425,8 @@ ModeleEcran.prototype.attaqueEnnemy = function()
         this._socket.send(JSON.stringify({
             'id' : 'finDonjon',
             'values' : {
-                'gagne' : false
+                'gagne' : false,
+                'niveau' : this._donjon._niveau
             }
         }));
         setTimeout(function() {
