@@ -241,25 +241,17 @@ let salles = function(matrice) {
     for (let i = 0; i < matrice.length; i++) {
         for (let j = 0; j < matrice[i].length; j++) {
             if (matrice[i][j] == 1) {
-                if (j-1 > 0) {
-                    if (matrice[i][j-1] == 1) {
-                        west = true;
-                    }
+                if (j-1 >= 0 && matrice[i][j-1] == 1) {
+                    west = true;
                 }
-                if (j+1 < matrice[i].length) {
-                    if (matrice[i][j+1] == 1) {
-                        east = true;
-                    }
+                if (j+1 < matrice[i].length && matrice[i][j+1] == 1) {
+                    east = true;
                 }
-                if (i-1 > 0) {
-                    if (matrice[i-1][j] == 1) {
-                        north = true;
-                    } 
+                if (i-1 >= 0 && matrice[i-1][j] == 1) {
+                    north = true;
                 }
-                if (i+1 < matrice.length) {
-                    if (matrice[i+1][j] == 1) {
-                        south = true;
-                    }
+                if (i+1 < matrice.length && matrice[i+1][j] == 1) {
+                    south = true;
                 }
                 tabSalles[i][j] = new Salle(north, south, west, east);
                 west = false;
@@ -341,7 +333,7 @@ let genererFin = function(matrice, spawn) {
         for (let i = 0; i < sallesDebut.length; i++) {
             x = sallesDebut[i].x;
             y = sallesDebut[i].y;
-            if (x-1 > 0 && valuations[x-1][y] === 1) {
+            if (x-1 >= 0 && valuations[x-1][y] === 1) {
                 valuations[x-1][y] = distance;
                 sallesFin.push({x : x-1, y : y});
             }
@@ -349,7 +341,7 @@ let genererFin = function(matrice, spawn) {
                 valuations[x+1][y] = distance;
                 sallesFin.push({x : x+1, y : y});
             }
-            if (y-1 > 0 && valuations[x][y-1] === 1) {
+            if (y-1 >= 0 && valuations[x][y-1] === 1) {
                 valuations[x][y-1] = distance;
                 sallesFin.push({x : x, y : y-1});
             }
