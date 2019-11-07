@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+      mongo:
+            image: mongo:4
+      endlesskingdom:
+            build: .
+            ports:
+                  - "8000:3000"
+                  - "8080:8080"
+            links:
+                  - mongo

@@ -10,7 +10,7 @@ module.exports = {
 }
 
 var mongo = function(mongo) {
-    const url = 'mongodb://127.0.0.1:27017';
+    const url = 'mongodb://mongo:27017';
     let promise = new Promise(function(resolve, reject) {
         mongo.connect(url, function(err, client) {
             if (err) return reject();
