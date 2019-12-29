@@ -9,7 +9,22 @@ Bievenue sur le git d'EndlessKingdom !
 
 ## Lancer le serveur en local
 
-Pour lancer le serveur en local, il vous faut plusieurs logiciels :
+Pour lancer le serveur en local, il y a plusieurs moyens.
+
+### Docker
+
+La première solution (et la plus simple) est d'utiliser ```docker```, ainsi que le script ```docker-compose```.
+Il suffit alors de lancer la commande :
+```bash
+docker-compose up
+```
+En rajoutant l'option ```-d``` pour lancer le service en arrière plan.
+
+Pour y accéder, ouvrez votre naviguateur et taper l'adresse [0.0.0.0:3000](http://0.0.0.0:3000)
+
+### Node
+
+Pour lancer sans docker et juste avec node, il vous faut plusieurs logiciels :
 
 * node.js
 * mongoDB
