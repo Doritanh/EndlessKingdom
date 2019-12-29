@@ -132,7 +132,9 @@ window.EndlessKingdom.identification = {};
                     break;
                 case 1:
                     sessionStorage.setItem('sessionID', content.sessionID);
-                    window.location.replace('http://' + window.location.hostname + '/jeu/');
+                    window.location.replace(window.location.protocol + '//' 
+                        + window.location.hostname + (window.location.port ? ':' + window.location.port : '') 
+                        + '/jeu/');
                     break;
                 case 2:
                     afficherMessage('Votre compte n\' as pas été trouvé');
