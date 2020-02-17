@@ -1,6 +1,6 @@
 {
   "name": "endlesskingdom",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Le code de endless kingdom",
   "main": "app.js",
   "scripts": {
